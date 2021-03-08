@@ -1,3 +1,5 @@
+![](https://avatars.githubusercontent.com/u/79720158?s=200&v=4)
+
 # Leap Vue.js Webapp
 
 ## Install
