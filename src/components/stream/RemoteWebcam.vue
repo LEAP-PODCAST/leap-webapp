@@ -1,12 +1,14 @@
 <template>
-  <video
-    @contextmenu.prevent="showRemoteWebcamMenu($event)"
-    autoplay
-    muted
-    playsinline
-    ref="video"
-    class="w-full h-full bg-black rounded-lg"
-  />
+  <div class="w-full h-full bg-red-700 rounded-lg">
+    <video
+      @contextmenu.prevent="showRemoteWebcamMenu($event)"
+      autoplay
+      muted
+      playsinline
+      ref="video"
+      class="bg-black object-cover w-full h-full rounded-lg"
+    />
+  </div>
 </template>
 
 <script>

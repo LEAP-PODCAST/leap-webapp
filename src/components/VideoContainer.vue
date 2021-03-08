@@ -1,7 +1,7 @@
 <template>
   <div
     ref="videos"
-    class="videos relative flex flex-wrap items-center justify-center overflow-hidden"
+    class="videos relative flex flex-wrap w-full h-full items-center justify-center overflow-hidden"
   >
     <slot></slot>
   </div>
@@ -72,10 +72,10 @@ export default {
         const r = ratio(video.offsetWidth, video.offsetHeight);
         video.style.position = "";
 
-        if ((maxWidth * 9) / 16 < maxHeight) {
-          maxHeight = (maxWidth * 9) / 16;
+        if ((maxWidth * 4) / 5 < maxHeight) {
+          maxHeight = (maxWidth * 5) / 4;
         } else {
-          maxWidth = (maxHeight * 16) / 9;
+          maxWidth = (maxHeight * 4) / 5;
         }
 
         if (maxWidth > bestWidth) {
