@@ -473,10 +473,8 @@ export default ({ socket }) => {
 
       // TODO unsubscribe from corresponding socket events
       commit("SET_STREAMS", {
-        video: null,
         webcam: null,
-        mic: null,
-        external: null
+        mic: null
       });
 
       // Close all consumers
@@ -499,10 +497,8 @@ export default ({ socket }) => {
         commit("CLOSE_LOCAL_STREAM", type);
       }
 
-      socket.off("stream/video");
       socket.off("stream/webcam");
       socket.off("stream/mic");
-      socket.off("stream/external");
     }
   };
 
