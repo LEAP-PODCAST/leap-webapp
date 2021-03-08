@@ -41,30 +41,6 @@
         >
           <span class="material-icons">videocam_off</span>
         </button>
-
-        <!-- Screen Share -->
-        <button
-          v-if="!room.localStreams.video"
-          @click="$store.dispatch('room/produceDesktop')"
-          :disabled="!!room.activeProduceHandshakeType"
-        >
-          <span class="material-icons">screen_share</span>
-        </button>
-        <button
-          v-else
-          @click="$store.dispatch('room/stopProduceDesktop')"
-          class="text-red-700"
-        >
-          <span class="material-icons">stop_screen_share</span>
-        </button>
-
-        <!-- Add Video Player -->
-        <button
-          @click="$store.dispatch('nav/showModal', { id: 'add-video-player' })"
-          :disabled="room.streams.external.length > 0"
-        >
-          <span class="material-icons">movie</span>
-        </button>
       </div>
     </div>
 

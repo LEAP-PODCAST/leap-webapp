@@ -96,10 +96,6 @@ export default {
   },
 
   stream: {
-    video(body) {
-      return http.post("/stream/video", { body });
-    },
-
     webcam(body) {
       return http.post("/stream/webcam", { body });
     },
@@ -112,42 +108,6 @@ export default {
   mic: {
     mute(body) {
       return http.post("/mic/mute", { body });
-    }
-  },
-
-  external: {
-    create(body) {
-      return http.post("/external/create", { body });
-    },
-
-    close(body) {
-      return http.post("/external/close", { body });
-    }
-  },
-
-  video: {
-    time(body) {
-      return http.post("/video/time", { body });
-    },
-
-    play(body) {
-      return http.post("/video/play", { body });
-    },
-
-    pause(body) {
-      return http.post("/video/pause", { body });
-    },
-
-    add(body) {
-      return http.post("/video/add", { body });
-    },
-
-    skip(body) {
-      return http.post("/video/skip", { body });
-    },
-
-    buffer(body) {
-      return http.post("/video/buffer", { body });
     }
   },
 

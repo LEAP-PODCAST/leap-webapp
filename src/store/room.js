@@ -17,39 +17,22 @@ export default ({ socket }) => {
 
     consumers: {},
     streams: {
-      video: [],
       webcam: [],
-      mic: [],
-      external: []
+      mic: []
     },
 
     producers: {
-      video: null,
       webcam: null,
-      mic: null,
-      audio: null
+      mic: null
     },
 
     localStreams: {
-      video: null,
       webcam: null,
       mic: null
     }
   };
 
-  const getters = {
-    enabledStreams: state => {
-      const filter = s => {
-        const c = state.consumers[s.producerId];
-        return !!c;
-      };
-      return {
-        video: state.streams.video.filter(filter),
-        webcam: state.streams.webcam.filter(filter),
-        mic: state.streams.mic.filter(filter)
-      };
-    }
-  };
+  const getters = {};
 
   const mutations = {
     SET_ROOM_ID(state, roomId) {
@@ -74,10 +57,8 @@ export default ({ socket }) => {
     },
 
     SET_STREAMS(state, streams) {
-      state.streams.video = streams.video;
       state.streams.webcam = streams.webcam;
       state.streams.mic = streams.mic;
-      state.streams.external = streams.external;
     },
 
     ADD_STREAM(state, { type, stream }) {
@@ -144,26 +125,6 @@ export default ({ socket }) => {
       if (!state.localStreams[type]) return;
       state.localStreams[type].getTracks(t => t.stop());
       state.localStreams[type] = null;
-    },
-
-    SET_VIDEO_STREAM_TIME(state, { stream, time }) {
-      stream.time = time;
-    },
-
-    SET_VIDEO_STREAM_STATE(state, { stream, newState }) {
-      stream.state = newState;
-    },
-
-    ADD_VIDEO_TO_VIDEO_STREAM_QUEUE(state, { stream, queueId, video }) {
-      Vue.set(stream.queue, queueId, video);
-    },
-
-    REMOVE_VIDEO_FROM_VIDEO_STREAM_QUEUE(state, { stream, queueId }) {
-      Vue.delete(stream.queue, queueId);
-    },
-
-    SET_VIDEO_STREAM_IS_BUFFERING(state, { stream, isBuffering }) {
-      stream.isBuffering = isBuffering;
     }
   };
 
@@ -176,12 +137,6 @@ export default ({ socket }) => {
         return;
       }
 
-      // Subscribe to events
-      socket.on("stream/video", async stream => {
-        await dispatch("consumeVideo", stream);
-        commit("ADD_STREAM", { type: "video", stream });
-      });
-
       socket.on("stream/webcam", async stream => {
         await dispatch("consumeWebcam", stream);
         commit("ADD_STREAM", { type: "webcam", stream });
@@ -190,11 +145,6 @@ export default ({ socket }) => {
       socket.on("stream/mic", async stream => {
         await dispatch("consumeMic", stream);
         commit("ADD_STREAM", { type: "mic", stream });
-      });
-
-      socket.on("external/create", async stream => {
-        dispatch("onNewExternalStream", stream);
-        await commit("ADD_STREAM", { type: "external", stream });
       });
 
       const { routerRtpCapabilities, streams, room, key } = res.data;
@@ -322,20 +272,12 @@ export default ({ socket }) => {
 
       commit("SET_SEND_TRANSPORT", sendTransport);
 
-      for (let i = 0; i < streams.video.length; i++) {
-        await dispatch("consumeVideo", streams.video[i]);
-      }
-
       for (let i = 0; i < streams.webcam.length; i++) {
         await dispatch("consumeWebcam", streams.webcam[i]);
       }
 
       for (let i = 0; i < streams.mic.length; i++) {
         await dispatch("consumeMic", streams.mic[i]);
-      }
-
-      for (let i = 0; i < streams.external.length; i++) {
-        dispatch("onNewExternalStream", streams.external[i]);
       }
 
       commit("SET_STREAMS", streams);
@@ -386,25 +328,7 @@ export default ({ socket }) => {
       commit("CLOSE_CONSUMER", producerId);
     },
 
-    async consumeVideo({ commit, dispatch }, stream) {
-      const { producerId } = stream;
-
-      // Consume the stream
-      await dispatch("consume", producerId);
-
-      if (stream.audio) {
-        await dispatch("consume", stream.audio.producerId);
-      }
-
-      // Subscribe to stream close event
-      socket.on(`producer/close/${producerId}`, () => {
-        dispatch("stopConsume", producerId);
-        commit("REMOVE_STREAM", { type: "video", stream });
-        socket.off(`producer/close/${producerId}`);
-      });
-    },
-
-    async toggleConsume({ state, commit, dispatch }, producerId) {
+    async toggleConsume({ state, dispatch }, producerId) {
       const isConsumer = !!state.consumers[producerId];
       if (isConsumer) {
         await dispatch("stopConsume", producerId);
@@ -488,66 +412,6 @@ export default ({ socket }) => {
       commit("CLOSE_LOCAL_STREAM", "webcam");
     },
 
-    async produceDesktop({ commit, dispatch }) {
-      const { ok, error, stream } = await WebRTC.getDisplayMedia({
-        video: { maxWidth: "1280", maxHeight: "720" },
-        audio: true
-      });
-
-      if (!ok) {
-        console.error(error);
-        return;
-      }
-
-      const videoTrack = stream.getVideoTracks()[0];
-      const audioTrack = stream.getAudioTracks()[0];
-
-      // If desktop audio track, produce audio track
-      if (audioTrack) {
-        audioTrack.onended = () => dispatch("stopProduceDesktop");
-        commit("SET_ACTIVE_PRODUCE_HANDSHAKE_TYPE", "audio");
-        const audioProducer = await dispatch("produce", audioTrack);
-
-        commit("SET_PRODUCER", { type: "audio", producer: audioProducer });
-      }
-
-      // If client clicks Stop Sharing button or ends stream via browser APIs
-      videoTrack.onended = () => dispatch("stopProduceDesktop");
-      commit("SET_ACTIVE_PRODUCE_HANDSHAKE_TYPE", "video");
-      const producer = await dispatch("produce", videoTrack);
-
-      commit("SET_PRODUCER", { type: "video", producer });
-      commit("SET_LOCAL_STREAM", { type: "video", stream });
-
-      commit("SET_ACTIVE_PRODUCE_HANDSHAKE_TYPE", "");
-    },
-
-    async stopProduceDesktop({ state, commit }) {
-      const { ok, error } = await API.producer.close({
-        producerId: state.producers.video.id
-      });
-
-      if (!ok) {
-        console.error(error);
-        return;
-      }
-
-      if (state.producers.audio) {
-        const res = await API.producer.close({
-          producerId: state.producers.audio.id
-        });
-
-        if (!res.ok) {
-          console.error(res.error);
-          return;
-        }
-      }
-
-      commit("CLOSE_PRODUCER", "video");
-      commit("CLOSE_PRODUCER", "audio");
-      commit("CLOSE_LOCAL_STREAM", "video");
-    },
-
     async produceMic({ commit, dispatch }) {
       const { ok, error, stream } = await WebRTC.getUserMedia({
         // TODO add settings for choosing mic to use (this uses default)
@@ -583,119 +447,6 @@ export default ({ socket }) => {
 
       commit("CLOSE_PRODUCER", "mic");
       commit("CLOSE_LOCAL_STREAM", "mic");
-    },
-
-    async addVideoPlayer({ state, commit }, videoUrl) {
-      const { ok, error } = await API.external.create({
-        videoUrl,
-        roomId: state.roomId
-      });
-
-      if (!ok) {
-        console.error(error);
-        return;
-      }
-    },
-
-    onNewExternalStream({ commit }, stream) {
-      const { id } = stream;
-
-      socket.on(`video/time/${id}`, ({ time }) => {
-        commit("SET_VIDEO_STREAM_TIME", { stream, time });
-      });
-
-      socket.on(`video/play/${id}`, () => {
-        commit("SET_VIDEO_STREAM_STATE", { stream, newState: 1 });
-      });
-
-      socket.on(`video/pause/${id}`, () => {
-        commit("SET_VIDEO_STREAM_STATE", { stream, newState: 2 });
-      });
-
-      socket.on(`video/add/${id}`, ({ queueId, video }) => {
-        commit("ADD_VIDEO_TO_VIDEO_STREAM_QUEUE", { stream, queueId, video });
-      });
-
-      socket.on(`video/skip/${id}`, ({ queueId }) => {
-        commit("REMOVE_VIDEO_FROM_VIDEO_STREAM_QUEUE", { stream, queueId });
-      });
-
-      socket.on(`video/buffer/${id}`, ({ isBuffering }) => {
-        commit("SET_VIDEO_STREAM_IS_BUFFERING", { stream, isBuffering });
-      });
-
-      socket.on(`external/close/${id}`, () => {
-        socket.off(`video/time/${id}`);
-        socket.off(`video/play/${id}`);
-        socket.off(`video/pause/${id}`);
-        socket.off(`video/add/${id}`);
-        socket.off(`video/skip/${id}`);
-        socket.off(`video/buffer/${id}`);
-        commit("REMOVE_STREAM", { type: "external", stream });
-      });
-    },
-
-    async setVideoPlayerTime({ state }, { id, time }) {
-      const { ok, error } = await API.video.time({
-        id,
-        time,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
-    },
-
-    async pauseVideoPlayer({ state }, { id }) {
-      const { ok, error } = await API.video.pause({
-        id,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
-    },
-
-    async playVideoPlayer({ state }, { id }) {
-      const { ok, error } = await API.video.play({
-        id,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
-    },
-
-    async addVideoToVideoPlayerQueue({ state }, { id, videoUrl }) {
-      const { ok, error } = await API.video.add({
-        id,
-        videoUrl,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
-    },
-
-    async removeVideoPlayerFromVideoPlayerQueue({ state }, { id, queueId }) {
-      const { ok, error } = await API.video.skip({
-        id,
-        queueId,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
-    },
-
-    async removeVideoPlayer({ state }, { id }) {
-      const { ok, error } = await API.external.close({
-        id,
-        roomId: state.roomId
-      });
-      if (!ok) {
-        console.error(error);
-      }
     },
 
     async changeUsername({ state, commit }, { username }) {

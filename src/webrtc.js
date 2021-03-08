@@ -12,6 +12,7 @@ export default {
       if (stream) {
         return { ok: true, stream };
       } else {
+        // TODO better error handeling come on Tryston :/
         alert("Could not get your requested media");
         return { ok: false };
       }
@@ -35,6 +36,7 @@ export default {
       if (stream) {
         return { ok: true, stream };
       } else {
+        // TODO better error handeling come on Tryston :/
         alert("Could not get your requested media");
         return { ok: false };
       }
