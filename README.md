@@ -1,30 +1,21 @@
-# doice-client
+# Leap Vue.js Webapp
 
-## Project setup
+## Install
 
+Make sure you have Node.js Installed
+
+Install Vue globally
+```
+npm i -g @vue/cli
+```
+
+Install dependencies and copy .env file
 ```
 npm install
 cp .env.template .env
 ```
 
-### Compiles and hot-reloads for development
-
+Run live server
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
