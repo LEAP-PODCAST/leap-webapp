@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-full h-full">
-    <div class="flex-grow overflow-hidden">
-      <div
-        class="relative flex justify-center flex-grow bg-gray-900 p-2"
-        style="height: calc(100% - 56px)"
-      >
+  <div class="flex w-full h-full bg-black-800 rounded-tl-lg rounded-tr-lg p-5">
+    <div class="flex flex-col overflow-hidden w-full">
+      <h2 class="text-2xl text-white">
+        #23 - Yussef Guf
+      </h2>
+      <div class="flex-grow p-2" id="room-container">
         <div
           class="flex flex-wrap md:flex-row items-center justify-center w-full h-full"
         >
@@ -29,7 +29,9 @@
         />
       </div>
 
-      <Controls class="w-full" />
+      <div class="flex justify-center w-full">
+        <Controls />
+      </div>
     </div>
     <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" />
   </div>
@@ -67,9 +69,9 @@ export default {
 
   async mounted() {
     if (this.$store.state.room.roomId) return;
-    this.$store.dispatch("nav/showModal", {
-      id: "join-room",
-      data: { noclose: true }
+    this.$store.dispatch("room/join", {
+      roomId: this.$route.params.roomId,
+      username: "Anonymous"
     });
   },
 

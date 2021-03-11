@@ -1,33 +1,31 @@
 <template>
-  <div class="flex flex-col h-full w-64 bg-gray-800">
-    <div class="flex">
-      <button
-        @click="mode = 'chat'"
-        class="inline-block text-gray-100 font-bold py-1 w-6/12 text-center"
-        :class="mode === 'chat' ? 'bg-gray-800' : 'bg-gray-900'"
-        norounded
+  <div
+    class="flex flex-col h-full bg-gray-700 rounded-lg text-gray-400 text-center"
+    style="width:25rem"
+  >
+    <h2>Paticipants</h2>
+    <ul class="p-3">
+      <li
+        v-for="socketId in Object.keys($store.state.chat.users)"
+        :key="socketId"
       >
-        Chat
-      </button>
-      <button
-        @click="mode = 'participants'"
-        class="inline-block text-gray-100 font-bold py-1 w-6/12 text-center"
-        :class="mode === 'participants' ? 'bg-gray-800' : 'bg-gray-900'"
-        norounded
-      >
-        Participants
-      </button>
-    </div>
-    <div v-if="mode === 'chat'" class="flex flex-col flex-grow">
+        <img
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs.abcnews.com%2Fimages%2FUS%2FHT_paul_dewolf_dm_130726_16x9_992.jpg&f=1&nofb=1"
+          class="rounded-full"
+          style="width:52px;height:52px;object-fit:cover"
+          alt=""
+        />
+      </li>
+    </ul>
+
+    <h2>Live Chats</h2>
+    <div class="flex flex-col text-left flex-grow">
       <div
         class="flex-grow overflow-y-auto scrollbar relative"
         style="height:1px"
         ref="chat"
       >
         <ul class="list-style-none flex flex-col py-2">
-          <li class="opacity-50 text-xs text-gray-300 px-2">
-            Welcome to the chat, say hi and start a conversation!
-          </li>
           <ChatMessage
             v-for="(message, i) in $store.state.chat.messages"
             :key="i"
@@ -36,26 +34,12 @@
         </ul>
       </div>
     </div>
-    <div
-      v-if="mode === 'participants'"
-      class="flex flex-col flex-grow p-2 overflow-y-hidden"
-    >
-      <ul
-        class="relative flex-grow scrollbar overflow-y-auto overflow-x-hidden list-style-none text-gray-300"
-      >
-        <ChatParticipant
-          v-for="socketId in Object.keys($store.state.chat.users)"
-          :key="socketId"
-          :socketId="socketId"
-        />
-      </ul>
-    </div>
-    <div class="relative bg-gray-700" style="height:3.5rem">
-      <div v-if="mode === 'chat'" class="w-full h-full">
+    <div class="relative bg-gray-600" style="height:3.5rem">
+      <div class="w-full h-full">
         <textarea
           v-model="text"
           @keydown.prevent.enter="sendMessage"
-          class="w-full h-full bg-gray-700 text-gray-300 text-xs p-1"
+          class="w-full h-full bg-gray-600 text-gray-300 text-xs p-1"
           placeholder="Enter a message..."
         ></textarea>
         <div class="absolute flex bottom-0 right-0 py-2 px-1 items-center">
@@ -84,16 +68,13 @@ export default {
   },
 
   data: () => ({
-    text: "",
-    mode: "chat"
+    text: ""
   }),
 
   methods: {
     async doScroll() {
       await this.$nextTick();
       const chat = this.$refs.chat;
-      // If not chat mode, chat element is undefined
-      if (this.mode !== "chat") return;
       if (!chat.scrollTo) {
         chat.scrollTop = chat.scrollHeight;
       } else {

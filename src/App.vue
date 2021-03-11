@@ -1,17 +1,21 @@
 <template>
-  <div id="app" class="w-screen h-screen bg-gray-900">
+  <div id="app" class="w-screen h-screen">
     <d-context-menu />
-    <router-view></router-view>
+    <MainWrapper>
+      <router-view></router-view>
+    </MainWrapper>
     <DModal />
   </div>
 </template>
 
 <script>
+import MainWrapper from "@/components/layout/MainWrapper";
 import DModal from "@/components/DModal";
 
 export default {
   components: {
-    DModal
+    DModal,
+    MainWrapper
   }
 };
 </script>

@@ -1,12 +1,15 @@
 <template>
-  <label class="block text-lg">
-    <div class="flex" :class="{ 'flex-wrap items-center': type !== 'checkbox' }">
+  <label class="block text-lg rounded-lg">
+    <div
+      class="flex"
+      :class="{ 'flex-wrap items-center': type !== 'checkbox' }"
+    >
       <input
         v-if="type === 'checkbox'"
         type="checkbox"
         v-bind="$attrs"
         @input="$emit('input', !value)"
-        class="w-6 h-6 mr-2 flex-shrink-0 bg-gray-200 text-gray-800 rounded border"
+        class="w-6 h-6 mr-2 flex-shrink-0 bg-gray-200 text-gray-800 border rounded-lg"
       />
       <span v-if="label" :class="{ 'visually-hidden': screenReaderOnly }">
         {{ label }}
@@ -15,7 +18,8 @@
           title="Required"
           aria-hidden
           class="text-red-500"
-        >*</span>
+          >*</span
+        >
       </span>
       <input
         v-if="['text', 'email', 'password'].indexOf(type) > -1"
@@ -24,7 +28,7 @@
         :value="value"
         @input="$emit('input', $event.target.value)"
         @blur="$emit('blur')"
-        class="rounded text-xl border text-gray-800 h-10 py-2 px-3 w-full"
+        class="rounded-lg text-xl text-gray-900 h-10 py-2 px-3 w-full bg-gray-300"
         :class="invalid ? 'border-red-500' : ''"
       />
     </div>
