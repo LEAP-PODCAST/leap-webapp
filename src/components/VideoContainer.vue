@@ -1,7 +1,7 @@
 <template>
   <div
     ref="videos"
-    class="videos relative flex flex-wrap w-full h-full items-center justify-center overflow-hidden"
+    class="videos relative flex flex-wrap items-center justify-center overflow-hidden"
   >
     <slot></slot>
   </div>
@@ -33,7 +33,6 @@ export default {
   mounted() {
     this.setProperSize();
     window.addEventListener("resize", this.setProperSize);
-
     this.unsubscribeFromActions = this.$store.subscribe(async () => {
       await this.$nextTick();
       this.setProperSize();
@@ -50,12 +49,12 @@ export default {
       if (!this.$refs.videos) return;
 
       this.$refs.videos.style.height = "100%";
+
       const height = this.$refs.videos.offsetHeight;
       const width = this.$refs.videos.offsetWidth;
-
       const videos = this.$refs.videos.querySelectorAll(".video");
-      const n = videos.length;
 
+      const n = videos.length;
       let bestHeight = 0;
       let bestWidth = 0;
       let rowsCount = 0;
@@ -66,16 +65,18 @@ export default {
         let maxHeight = Math.floor(height / numRows);
 
         const video = videos[perRow - 1];
+
         video.style.position = "absolute";
         video.style.height = "auto";
         video.style.width = "auto";
+
         const r = ratio(video.offsetWidth, video.offsetHeight);
         video.style.position = "";
 
-        if ((maxWidth * 4) / 5 < maxHeight) {
-          maxHeight = (maxWidth * 5) / 4;
+        if ((maxWidth * 9) / 16 < maxHeight) {
+          maxHeight = (maxWidth * 9) / 16;
         } else {
-          maxWidth = (maxHeight * 4) / 5;
+          maxWidth = (maxHeight * 16) / 9;
         }
 
         if (maxWidth > bestWidth) {
