@@ -4,8 +4,8 @@
       <Profile></Profile>
       <Analytics></Analytics>
     </div>
-    <CreateRoom></CreateRoom>
-    <Schedule></Schedule>
+    <CreateRoom v-if='schedule' @toggle-schedule='toggleSchedule'></CreateRoom>
+    <Schedule v-else></Schedule>
   </div>
 </template>
 
@@ -22,6 +22,14 @@ export default {
     Analytics,
     Schedule
   },
+
+  data: () => ({
+    schedule: true
+  }),
+
+  methods:{
+    toggleSchedule() {this.schedule = !this.schedule}
+  }
 };
 </script>
 
