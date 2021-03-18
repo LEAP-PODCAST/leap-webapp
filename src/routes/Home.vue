@@ -17,11 +17,18 @@
         >
       </form>
     </div>
+    <UserProfile></UserProfile>
   </div>
 </template>
 
 <script>
+import UserProfile from "@/components/home/UserProfile";
+
 export default {
+  components: {
+    UserProfile
+  },
+
   data: () => ({
     name: ""
   }),
