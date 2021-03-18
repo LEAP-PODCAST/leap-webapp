@@ -18,14 +18,17 @@
       </form>
     </div>
     <UserProfile></UserProfile>
+    <StartMenu></StartMenu>
   </div>
 </template>
 
 <script>
 import UserProfile from "@/components/home/UserProfile";
+import StartMenu from "@/components/home/StartMenu";
 
 export default {
   components: {
+    StartMenu,
     UserProfile
   },
 
