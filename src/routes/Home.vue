@@ -17,11 +17,18 @@
         >
       </form>
     </div>
+    <StartMenu></StartMenu>
   </div>
 </template>
 
 <script>
+import StartMenu from "@/components/home/StartMenu";
+
 export default {
+  components: {
+    StartMenu,
+  },
+
   data: () => ({
     name: ""
   }),
