@@ -130,6 +130,7 @@ export default ({ socket }) => {
 
   const actions = {
     async join({ state, commit, dispatch }, { roomId, username }) {
+
       let res = await API.room.join({ roomId, username });
 
       if (!res.ok) {
