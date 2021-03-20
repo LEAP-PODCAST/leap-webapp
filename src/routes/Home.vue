@@ -2,24 +2,22 @@
   <div class="flex">
     <div class="flex flex-col">
       <Profile></Profile>
-      <Analytics></Analytics>
     </div>
     <CreateRoom v-if='schedule' @toggle-schedule='toggleSchedule'></CreateRoom>
-    <Schedule v-else></Schedule>
+    <Schedule v-else @create-room='createRoom'></Schedule>
+
   </div>
 </template>
 
 <script>
 import Profile from "@/components/home/Profile";
 import CreateRoom from "@/components/home/CreateRoom";
-import Analytics from "@/components/home/Analytics";
 import Schedule from "@/components/home/Schedule";
 
 export default {
   components: {
     CreateRoom,
     Profile,
-    Analytics,
     Schedule
   },
 
@@ -31,6 +29,7 @@ export default {
     toggleSchedule() {this.schedule = !this.schedule},
     
     async createRoom() {
+      console.log("createRoom")
       if (!this.name) return;
       // TODO this will be set on the server side
       const roomId = Math.random()

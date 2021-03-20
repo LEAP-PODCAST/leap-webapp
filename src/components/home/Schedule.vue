@@ -37,7 +37,7 @@
                         <option value="">30 minutes before</option>
                         <option value="">1 Hour before</option>
                     </select>
-                    <button>Start Now</button>
+                    <button @click.prevent="$emit('create-room')">Start Now</button>
                 </form>
             </div>
         </div>
