@@ -49,8 +49,6 @@ const http = {
 export default {
   room: {
     join(body) {
-      console.log('JOIN')
-      console.log(body)
       return http.post("/room/join", { body });
     }
   },
