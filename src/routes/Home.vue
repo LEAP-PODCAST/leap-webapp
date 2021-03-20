@@ -2,11 +2,9 @@
   <div class="flex">
     <div class="flex flex-col">
       <Profile></Profile>
-      <button @click.prevent='createRoom'>Create room</button>
     </div>
     <CreateRoom v-if='schedule' @toggle-schedule='toggleSchedule'></CreateRoom>
     <Schedule v-else @create-room='createRoom'></Schedule>
-
   </div>
 </template>
 
