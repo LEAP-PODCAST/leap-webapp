@@ -28,7 +28,21 @@ export default {
   }),
 
   methods:{
-    toggleSchedule() {this.schedule = !this.schedule}
+    toggleSchedule() {this.schedule = !this.schedule},
+    
+    async createRoom() {
+      if (!this.name) return;
+      // TODO this will be set on the server side
+      const roomId = Math.random()
+        .toString(36)
+        .substr(2, 9);
+      const res = await this.$store.dispatch("room/join", {
+        roomId,
+        username: this.name
+      });
+      if (!res) return;
+      this.$router.push(`/${roomId}`);
+    }
   }
 };
 </script>

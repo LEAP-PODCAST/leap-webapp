@@ -1,12 +1,21 @@
 
 <template>
-  <div class="flex flex-col justify-center align-center border">
-      <div>
-        Good morning, Brene!
-        Let's Schedule it!
+    <div class="flex flex-col justify-center text-center border">
+        <h2>Good morning, Brene!</h2>
+        <h2>Let's Schedule it!</h2>
         <div class="flex">
-            <div class="flex flex-col">
-
+            <div class="flex flex-col border">
+                <form action="" class="flex flex-col">
+                    <select name="" id="">
+                        <option value="">FaceTime HD Camera (Built-in)</option>
+                    </select>
+                    <select name="" id="">
+                        <option value="">Default - MacBook Pro Microphone (Built-in)</option>
+                    </select>
+                    <select name="" id="">
+                        <option value="">Default - MacBook Pro Speakers (Built-in)</option>
+                    </select>                                                
+                </form>
             </div>
             <div>
                 <form action="" class="flex flex-col">
@@ -28,16 +37,17 @@
                         <option value="">30 minutes before</option>
                         <option value="">1 Hour before</option>
                     </select>
+                    <button>Start Now</button>
                 </form>
             </div>
         </div>
-      </div>
   </div>
 </template>
 
 <script>
 
-export default{
+export default {
+
 }
 </script>
 
