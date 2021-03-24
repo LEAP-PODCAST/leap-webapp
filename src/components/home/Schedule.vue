@@ -1,7 +1,7 @@
 
 <template>
     <div class="flex flex-col justify-center text-center border">
-        <h2>Good morning, Brene!</h2>
+        <h2>Good morning, {{user}}!</h2>
         <h2>Let's Schedule it!</h2>
         <div class="flex">
             <div class="flex flex-col border">
@@ -23,9 +23,7 @@
                     <input type="text" placeholder="Episode Name">
                     <select name="" id="">
                         <option disabled selected>Choose Podcast</option>
-                        <option>The Quest Podcast</option>
-                        <option>Jocko Podcast</option>
-                        <option>The Gabor Mate Podcast</option>
+                        <option v-for='(podcast, i) in podcasts' :key="i" value="">{{podcast}}</option>
                     </select>
                     <input type="text" placeholder="Add guests, @username if leap users or simply add email">
                     <input type="text" placeholder="Add description">
@@ -52,9 +50,11 @@ export default {
         return{
             //enumerate devices
             //gotten locally
+            user: "Brene",
             cameras: ["FaceTime HD Camera (Builtin)", "Logitech 4K Camera"],
             microphones: ["Default - MacBook Pro Microphone (Built-in)", "Bose XD Microphone"],
             speakers: ["Default - MacBook Pro Speakers (Built-in)", "Beats Beta Headphones"],
+            podcasts: ["The Jocko Podcast", "The Quest Podcast", "The Gabor Mate Podcast"]
         }
     }
 }
