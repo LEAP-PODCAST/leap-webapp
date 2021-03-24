@@ -2,7 +2,7 @@
   <div class="flex w-full h-full bg-black-800 rounded-tl-lg rounded-tr-lg p-5">
     <div class="flex flex-col overflow-hidden w-full">
       <h2 class="text-2xl text-white">
-        #23 - Yussef Guf
+        {{podcastTitle}}
       </h2>
       <div class="flex-grow p-2" id="room-container">
         <div
@@ -52,7 +52,9 @@ export default {
     Controls,
     ChatRoom
   },
-
+  data: () => ({
+    podcastTitle: '#23 - Yussef Guf'
+  }),
   computed: {
     room() {
       return this.$store.state.room;

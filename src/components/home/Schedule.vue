@@ -51,7 +51,7 @@ export default {
             //enumerate devices
             //gotten locally
             user: "Brene",
-            cameras: ["FaceTime HD Camera (Builtin)", "Logitech 4K Camera"],
+            cameras: ["FaceTime HD Camera (Built-in)", "Logitech 4K Camera"],
             microphones: ["Default - MacBook Pro Microphone (Built-in)", "Bose XD Microphone"],
             speakers: ["Default - MacBook Pro Speakers (Built-in)", "Beats Beta Headphones"],
             podcasts: ["The Jocko Podcast", "The Quest Podcast", "The Gabor Mate Podcast"]
