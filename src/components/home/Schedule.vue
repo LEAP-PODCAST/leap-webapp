@@ -7,15 +7,16 @@
             <div class="flex flex-col border">
                 <form action="" class="flex flex-col">
                     <select name="" id="">
-                        <option value="">FaceTime HD Camera (Built-in)</option>
+                        <option v-for='(camera, i) in cameras' :key="i" value="">{{camera}}</option>
                     </select>
                     <select name="" id="">
-                        <option value="">Default - MacBook Pro Microphone (Built-in)</option>
+                        <option v-for='(microphone, i) in microphones' :key="i"  value="">{{microphone}}</option>
                     </select>
                     <select name="" id="">
-                        <option value="">Default - MacBook Pro Speakers (Built-in)</option>
+                        <option v-for='(speaker, i) in speakers' :key="i" value="">{{speaker}}</option>
                     </select>                                                
                 </form>
+                <button class='text-xs'>Need Help? Contact Support</button>
             </div>
             <div>
                 <form action="" class="flex flex-col">
@@ -47,7 +48,15 @@
 <script>
 
 export default {
-
+    data(){
+        return{
+            //enumerate devices
+            //gotten locally
+            cameras: ["FaceTime HD Camera (Builtin)", "Logitech 4K Camera"],
+            microphones: ["Default - MacBook Pro Microphone (Built-in)", "Bose XD Microphone"],
+            speakers: ["Default - MacBook Pro Speakers (Built-in)", "Beats Beta Headphones"],
+        }
+    }
 }
 </script>
 
