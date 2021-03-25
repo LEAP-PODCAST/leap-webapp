@@ -59,3 +59,11 @@ button:disabled {
   background: #42864a;
   border-left-color: rgb(31, 100, 39);
 }
+
+.avatar-image {
+  border: 2px solid white;
+  background-color: #ffffff;
+  height: 100px;
+  border-radius: 50%;
+  width: 100px;
+}

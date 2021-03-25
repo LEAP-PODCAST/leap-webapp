@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col bg-black-800 rounded-tl-lg rounded-tr-lg p-5 text-white">
-    <img class='w-20' :src=user.image alt="">
+  <div class="flex flex-col justify-center items-center bg-black-800 rounded-tl-lg rounded-tr-lg p-5 text-white">
+    <img class='avatar-image' :src=user.image alt="">
     <h2>{{user.name}}</h2>
-    <p>{{user.handle}}</p>
+    <p class='text-gray'>{{user.handle}}</p>
     <p>{{user.description}}</p>
     <p>{{user.following}} following</p>
     <p>{{user.followers}} followers</p>
