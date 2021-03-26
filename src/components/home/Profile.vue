@@ -11,7 +11,7 @@
       <h2 class="font-bold text-lg mt-4 leading-tight">
         {{ `${profile.firstName} ${profile.lastName}` }}
       </h2>
-      <p class="opacity-50 font-thin">{{ "@" + profile.username }}</p>
+      <p class="opacity-50 font-thin">{{ "@" + profile.fullUsername }}</p>
       <p class="my-3 text-center">{{ profile.bio || "No bio" }}</p>
     </div>
     <!-- <p> following</p> -->
