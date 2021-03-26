@@ -7,6 +7,7 @@ const http = {
       body: JSON.stringify(options.body),
       headers: {
         "Content-type": "application/json",
+        authorization: localStorage.getItem("token"),
         "socket-id": window.socket.id,
         "user-key": window.userKey,
         ...(options.headers || {})
@@ -123,11 +124,15 @@ export default {
 
   user: {
     signUp(body) {
-      return http.post("/user/signUp", { body })
+      return http.post("/user/signUp", { body });
     },
 
     logIn(body) {
-      return http.post("/user/logIn", { body })
+      return http.post("/user/logIn", { body });
+    },
+
+    verifyUserToken() {
+      return http.post("/user/verifyUserToken");
     }
   }
 };

@@ -1,11 +1,13 @@
 <template>
   <div id="app" class="w-screen h-screen">
-    <d-context-menu />
-    <Landing v-if="$route.path === '/' && !isLoggedIn" />
-    <MainWrapper v-else class="w-full h-full">
-      <router-view></router-view>
-    </MainWrapper>
-    <DModal />
+    <div v-if="!$store.state.user.isVerifyingToken" class="w-screen h-screen">
+      <d-context-menu />
+      <Landing v-if="$route.path === '/' && !isLoggedIn" />
+      <MainWrapper v-else class="w-full h-full">
+        <router-view></router-view>
+      </MainWrapper>
+      <DModal />
+    </div>
   </div>
 </template>
 
@@ -25,6 +27,10 @@ export default {
 
   computed: {
     ...mapGetters("user", ["isLoggedIn"])
+  },
+
+  mounted() {
+    this.$store.dispatch("user/verifyToken");
   }
 };
 </script>
