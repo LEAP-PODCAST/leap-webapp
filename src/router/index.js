@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import Home from "@/routes/Home";
 import Room from "@/routes/Room";
+import SignUp from "@/routes/SignUp";
 
 export default new VueRouter({
   mode: "history",
@@ -13,6 +14,11 @@ export default new VueRouter({
       path: "/",
       name: "Home",
       component: Home
+    },
+    {
+      path: "/signup",
+      name: "Sign Up",
+      component: SignUp
     },
     {
       path: "/:roomId",
