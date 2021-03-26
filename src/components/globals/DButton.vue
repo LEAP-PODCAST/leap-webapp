@@ -2,7 +2,7 @@
   <button
     v-bind="$attrs"
     v-on="$listeners"
-    class="p-btn flex justify-center inline-block font-bold"
+    class="p-btn flex justify-center inline-block font-bold px-5"
     :class="`btn-${variant} ${computedSize} ${norounded ? '' : 'rounded-full'}`"
   >
     <slot></slot>

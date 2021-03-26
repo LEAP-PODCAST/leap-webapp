@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="w-screen h-screen">
     <d-context-menu />
-    <MainWrapper v-if="$route.path !== '/' && isLoggedIn" class="w-full h-full">
+    <Landing v-if="$route.path === '/' && isLoggedIn" />
+    <MainWrapper v-else class="w-full h-full">
       <router-view></router-view>
     </MainWrapper>
-    <Landing v-else />
     <DModal />
   </div>
 </template>
