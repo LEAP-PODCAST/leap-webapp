@@ -15,7 +15,7 @@
         New episode
       </d-btn>
       <small class="italic text-xs opacity-50 my-2">or</small>
-      <d-btn variant="primary-outline">
+      <d-btn @click="createRoom" variant="primary-outline">
         Create room
       </d-btn>
     </div>
@@ -26,18 +26,15 @@
 export default {
   methods: {
     async createRoom() {
-      console.log("createRoom");
-      if (!this.name) return;
       // TODO this will be set on the server side
       const roomId = Math.random()
         .toString(36)
         .substr(2, 9);
       const res = await this.$store.dispatch("room/join", {
-        roomId,
-        username: this.name
+        roomId
       });
       if (!res) return;
-      this.$router.push(`/${roomId}`);
+      this.$router.push(`/room/${roomId}`);
     }
   }
 };

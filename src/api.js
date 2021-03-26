@@ -10,6 +10,7 @@ const http = {
         authorization: localStorage.getItem("token"),
         "socket-id": window.socket.id,
         "user-key": window.userKey,
+        "device-id": localStorage.getItem("device-id"),
         ...(options.headers || {})
       }
     })

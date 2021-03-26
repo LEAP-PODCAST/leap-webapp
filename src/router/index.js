@@ -27,9 +27,13 @@ export default new VueRouter({
       component: LogIn
     },
     {
-      path: "/:roomId",
+      path: "/room/:roomId",
       name: "Room",
       component: Room
     }
   ]
 });
+
+// user: /user/username
+// podcast /:podcastName or /podcast/:podcastName
+// Episode /:podcastName/:episodeName

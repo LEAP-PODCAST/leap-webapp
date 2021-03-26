@@ -8,7 +8,7 @@
     </div>
     <div class="p-2 w-full h-full md:w-7/12">
       <div class="display-card">
-        <CreateRoom @toggle-schedule="toggleSchedule"></CreateRoom>
+        <CreateRoom></CreateRoom>
       </div>
     </div>
   </div>
