@@ -1,5 +1,5 @@
 <template>
-  <label class="block text-lg rounded-lg">
+  <label class="block text-lg rounded">
     <div
       class="flex"
       :class="{ 'flex-wrap items-center': type !== 'checkbox' }"
@@ -8,8 +8,9 @@
         v-if="type === 'checkbox'"
         type="checkbox"
         v-bind="$attrs"
+        :checked="value"
         @input="$emit('input', !value)"
-        class="w-6 h-6 mr-2 flex-shrink-0 bg-gray-200 text-gray-800 border rounded-lg"
+        class="w-6 h-6 mr-2 flex-shrink-0 bg-gray-200 text-gray-800 border rounded"
       />
       <span v-if="label" :class="{ 'visually-hidden': screenReaderOnly }">
         {{ label }}
@@ -28,7 +29,7 @@
         :value="value"
         @input="$emit('input', $event.target.value)"
         @blur="$emit('blur')"
-        class="rounded-lg text-xl text-gray-900 h-10 py-2 px-3 w-full bg-gray-300"
+        class="rounded text-xl text-gray-900 h-10 py-2 px-3 w-full bg-gray-300 focus:border-"
         :class="invalid ? 'border-red-500' : ''"
       />
     </div>
