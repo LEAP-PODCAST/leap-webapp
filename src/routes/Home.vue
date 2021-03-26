@@ -3,8 +3,8 @@
     <div class="flex flex-col">
       <Profile></Profile>
     </div>
-    <CreateRoom v-if='schedule' @toggle-schedule='toggleSchedule'></CreateRoom>
-    <Schedule v-else @create-room='createRoom'></Schedule>
+    <CreateRoom v-if="schedule" @toggle-schedule="toggleSchedule"></CreateRoom>
+    <Schedule v-else @create-room="createRoom"></Schedule>
   </div>
 </template>
 
@@ -22,14 +22,16 @@ export default {
 
   data: () => ({
     schedule: true,
-    name: 'Akif'
+    name: "Akif"
   }),
 
-  methods:{
-    toggleSchedule() {this.schedule = !this.schedule},
-    
+  methods: {
+    toggleSchedule() {
+      this.schedule = !this.schedule;
+    },
+
     async createRoom() {
-      console.log("createRoom")
+      console.log("createRoom");
       if (!this.name) return;
       // TODO this will be set on the server side
       const roomId = Math.random()

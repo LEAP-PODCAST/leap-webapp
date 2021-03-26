@@ -2,8 +2,8 @@
   <button
     v-bind="$attrs"
     v-on="$listeners"
-    class="p-btn flex items-center inline-block font-bold"
-    :class="`btn-${variant} ${computedSize} ${norounded ? '': 'rounded'}`"
+    class="p-btn flex justify-center inline-block font-bold"
+    :class="`btn-${variant} ${computedSize} ${norounded ? '' : 'rounded-full'}`"
   >
     <slot></slot>
   </button>
@@ -13,6 +13,7 @@
 const variants = [
   "none",
   "primary",
+  "primary-outline",
   "primary-hover",
   "white",
   "white-outline",
@@ -71,16 +72,17 @@ export default {
 }
 
 .btn-primary {
-  background: #009dee;
+  background: #ea455a;
 }
 
 .btn-primary-outline {
-  color: #009dee;
-  background: #e2e8f0;
+  color: #ea455a;
+  background: transparent;
+  border: 1px solid #ea455a;
 
   &:hover {
-    background: #009dee;
-    color: #e2e8f0;
+    background: #ea455a;
+    color: white;
   }
 }
 

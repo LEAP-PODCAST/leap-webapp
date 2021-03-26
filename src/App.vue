@@ -1,9 +1,10 @@
 <template>
   <div id="app" class="w-screen h-screen">
     <d-context-menu />
-    <MainWrapper>
+    <MainWrapper v-if="$route.path !== '/' && isLoggedIn" class="w-full h-full">
       <router-view></router-view>
     </MainWrapper>
+    <Landing v-else />
     <DModal />
   </div>
 </template>
@@ -11,11 +12,19 @@
 <script>
 import MainWrapper from "@/components/layout/MainWrapper";
 import DModal from "@/components/DModal";
+import Landing from "@/components/Landing";
 
 export default {
   components: {
     DModal,
-    MainWrapper
+    MainWrapper,
+    Landing
+  },
+
+  computed: {
+    isLoggedIn() {
+      return false;
+    }
   }
 };
 </script>
