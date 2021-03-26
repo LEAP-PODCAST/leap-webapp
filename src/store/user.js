@@ -62,9 +62,12 @@ export default ({ socket }) => {
     async verifyToken({ commit }) {
       const res = await API.user.verifyUserToken();
 
-      if (!res.ok) return;
+      if (res.ok) {
+        commit("LOG_IN", res.data);
+      } else {
+        localStorage.removeItem("token");
+      }
 
-      commit("LOG_IN", res.data);
       commit("SET_IS_VERIFYING_TOKEN", false);
     }
   };

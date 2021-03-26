@@ -7,10 +7,10 @@ const http = {
       body: JSON.stringify(options.body),
       headers: {
         "Content-type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: localStorage.getItem("token") || "",
         "socket-id": window.socket.id,
         "user-key": window.userKey,
-        "device-id": localStorage.getItem("device-id"),
+        "device-id": localStorage.getItem("device-id") || "",
         ...(options.headers || {})
       }
     })
