@@ -370,7 +370,10 @@ export default {
       if (res.error) {
         // TODO better notification system
         alert(res.error);
+        return;
       }
+
+      this.$router.push("/");
     }
   }
 };
