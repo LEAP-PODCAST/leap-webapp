@@ -7,6 +7,7 @@ import Chat from "./chat.js";
 import Nav from "./nav.js";
 import Room from "./room.js";
 import Tracks from "./tracks.js";
+import User from "./user.js";
 
 export default ({ socket }) => {
   return new Vuex.Store({
@@ -14,7 +15,8 @@ export default ({ socket }) => {
       chat: Chat({ socket }),
       room: Room({ socket }),
       nav: Nav(),
-      tracks: Tracks({ socket })
+      tracks: Tracks({ socket }),
+      user: User({ socket })
     }
   });
 };

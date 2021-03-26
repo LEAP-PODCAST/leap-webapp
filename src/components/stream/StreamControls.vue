@@ -22,7 +22,11 @@
           <p>Add videos to the queue to continue watching!</p>
         </div>
         <div class="flex">
-          <d-btn @click="showAddVideoModal" variant="none" class="bg-green-700 mr-2">
+          <d-btn
+            @click="showAddVideoModal"
+            variant="none"
+            class="bg-green-700 mr-2"
+          >
             <i class="material-icons">add</i> Add Video
           </d-btn>
           <d-btn
@@ -99,10 +103,16 @@
             <i class="material-icons">play_arrow</i>
           </d-btn>
         </div>
-        <div @mouseenter="showVolume" @mouseleave="hideVolume" class="flex items-center">
+        <div
+          @mouseenter="showVolume"
+          @mouseleave="hideVolume"
+          class="flex items-center"
+        >
           <d-btn @click="toggleMute" variant="none" class="w-12">
             <i v-if="playerData.isMuted" class="material-icons">volume_off</i>
-            <i v-else-if="playerData.volume < 50" class="material-icons">volume_down</i>
+            <i v-else-if="playerData.volume < 50" class="material-icons"
+              >volume_down</i
+            >
             <i v-else class="material-icons">volume_up</i>
           </d-btn>
           <input
@@ -115,10 +125,10 @@
             max="100"
           />
         </div>
-        <span
-          v-if="pc.downBar.time"
-          class="ml-2 text-xs text-gray-300"
-        >{{ playerData.time | formatTime }} / {{ playerData.duration | formatTime }}</span>
+        <span v-if="pc.downBar.time" class="ml-2 text-xs text-gray-300"
+          >{{ playerData.time | formatTime }} /
+          {{ playerData.duration | formatTime }}</span
+        >
         <div class="flex-grow"></div>
         <d-btn @click="$emit('toggleFullscreen')" variant="none">
           <i class="material-icons">fullscreen</i>
@@ -129,8 +139,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import playerControls from "@/data/playerControls";
 
 const regex = {

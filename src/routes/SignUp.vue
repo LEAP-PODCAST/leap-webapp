@@ -60,7 +60,7 @@
       </small>
       <d-input
         type="checkbox"
-        v-model="recieveNotifications"
+        v-model="receiveNotifications"
         label="Recieve emails about upcoming your upcoming podcasts."
         class="mb-8 mt-3"
         required
@@ -186,7 +186,7 @@ export default {
     firstName: "",
     lastName: "",
     email: "",
-    recieveNotifications: true,
+    receiveNotifications: true,
     dob: {
       month: 0,
       day: 0,
@@ -358,7 +358,19 @@ export default {
         return;
       }
 
-      console.log("Sign Up");
+      const res = await this.$store.dispatch("user/signUp", {
+        username: this.username,
+        email: this.email,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        password: this.password,
+        receiveNotifications: this.receiveNotifications
+      });
+
+      if (res.error) {
+        // TODO better notification system
+        alert(res.error);
+      }
     }
   }
 };

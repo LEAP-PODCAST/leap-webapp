@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="w-screen h-screen">
     <d-context-menu />
-    <Landing v-if="$route.path === '/' && isLoggedIn" />
+    <Landing v-if="$route.path === '/' && !isLoggedIn" />
     <MainWrapper v-else class="w-full h-full">
       <router-view></router-view>
     </MainWrapper>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import MainWrapper from "@/components/layout/MainWrapper";
 import DModal from "@/components/DModal";
 import Landing from "@/components/Landing";
@@ -22,9 +24,7 @@ export default {
   },
 
   computed: {
-    isLoggedIn() {
-      return false;
-    }
+    ...mapGetters("user", ["isLoggedIn"])
   }
 };
 </script>
