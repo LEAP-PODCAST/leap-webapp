@@ -21,32 +21,48 @@
       </div>
     </div>
 
-    <div v-if="step === 0">
+    <form @submit.prevent="toStep1" v-if="step === 0">
       <div class="md:flex mb-3">
         <div class="md:w-6/12 mr-6">
           <d-input
             type="text"
             v-model="firstName"
             label="First name"
+            @blur="verfiyFirstName"
             required
           />
+          <small v-if="errors.firstName" class="text-red-500">
+            {{ errors.firstName }}
+          </small>
         </div>
         <div class="md:w-6/12">
-          <d-input type="text" v-model="lastName" label="Last name" required />
+          <d-input
+            type="text"
+            v-model="lastName"
+            label="Last name"
+            @blur="verifyLastName"
+            required
+          />
+          <small v-if="errors.lastName" class="text-red-500">
+            {{ errors.lastName }}
+          </small>
         </div>
       </div>
       <d-input
         type="text"
         v-model="email"
         label="Email"
-        class="mb-3"
+        @blur="verifyEmail"
         required
       />
+      <small v-if="errors.email" class="text-red-500">
+        {{ errors.email }}
+      </small>
       <d-input
         type="checkbox"
         v-model="recieveNotifications"
         label="Recieve emails about upcoming your upcoming podcasts."
-        class="mb-8"
+        class="mb-8 mt-3"
         required
       />
       <div>
@@ -92,34 +108,56 @@
         </div>
       </div>
 
-      <d-btn @click="toStep1" variant="primary" class="mt-6 w-full">
+      <d-btn type="submit" variant="primary" class="mt-6 w-full">
         Next step
       </d-btn>
-    </div>
+    </form>
 
-    <div v-if="step === 1">
-      <d-input type="text" v-model="username" label="Username" required />
+    <form @submit.prevent="toStep2" v-if="step === 1">
+      <d-input
+        type="text"
+        v-model="username"
+        label="Username"
+        @blur="verifyUsername"
+        required
+      />
+      <small v-if="errors.username" class="text-red-500">
+        {{ errors.username }}
+      </small>
 
-      <d-btn @click="toStep2" variant="primary" class="mt-6 w-full">
+      <d-btn type="submit" variant="primary" class="mt-6 w-full">
         Continue
       </d-btn>
-    </div>
+    </form>
 
-    <div v-if="step === 2">
-      <d-input
-        type="password"
-        v-model="password"
-        label="Password"
-        class="mb-3"
-        required
-      />
-      <d-input
-        type="password"
-        v-model="password2"
-        label="Repeat password"
-        class="mb-6"
-        required
-      />
+    <form @submit.prevent="signUp" v-if="step === 2">
+      <div class="mb-3">
+        <d-input
+          type="password"
+          v-model="password"
+          label="Password"
+          @blur="verifyPassword"
+          required
+        />
+        <small v-if="errors.password" class="text-red-500">
+          {{ errors.password }}
+        </small>
+      </div>
+      <div class="mb-8">
+        <d-input
+          type="password"
+          v-model="password2"
+          label="Repeat password"
+          @blur="verifyPassword2"
+          required
+        />
+        <small v-if="errors.password2" class="text-red-500">
+          {{ errors.password2 }}
+        </small>
+        <small v-if="errors.passwordsMatch" class="text-red-500">
+          {{ errors.passwordsMatch }}
+        </small>
+      </div>
       <p class="text-gray-500 text-sm">
         By signing up, you agree to the <a href="">Terms of Service</a> and
         <a href="Privacy Policy"></a>, including <a href="">Cookie Use</a>.
@@ -127,19 +165,26 @@
         <a href="">Privacy Options</a>.
       </p>
 
-      <d-btn @click="signUp" variant="primary" class="w-full mt-6">
+      <d-btn type="submit" variant="primary" class="w-full mt-6">
         Let's go
       </d-btn>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
+const regex = {
+  email: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+  username: /^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/,
+  name: /^[A-Za-z]+$/,
+  nameWithSpaces: /^([A-Za-z ])+$/
+};
+
 export default {
   data: () => ({
     step: 0,
     firstName: "",
-    lastName: "dsadasd",
+    lastName: "",
     email: "",
     recieveNotifications: true,
     dob: {
@@ -149,7 +194,18 @@ export default {
     },
     username: "",
     password: "",
-    password2: ""
+    password2: "",
+
+    errors: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      dob: "",
+      username: "",
+      password: "",
+      password2: "",
+      passwordsMatch: ""
+    }
   }),
 
   computed: {
@@ -167,15 +223,143 @@ export default {
   },
 
   methods: {
-    toStep1() {
+    verfiyFirstName() {
+      if (!this.firstName.length) {
+        return (this.errors.firstName = "First name is requried.");
+      }
+      if (!regex.name.test(this.firstName)) {
+        return (this.errors.firstName =
+          "First name must only contain alphabetic characters.");
+      }
+      if (this.firstName.length > 20) {
+        return (this.errors.firstName =
+          "First name must be 20 characters or less.");
+      }
+      this.errors.firstName = "";
+    },
+
+    verifyLastName() {
+      if (!this.lastName.length) {
+        return (this.errors.lastName = "Last name is required.");
+      }
+      if (!regex.name.test(this.lastName)) {
+        return (this.errors.lastName =
+          "Last name must only contain alphabetic characters.");
+      }
+      if (this.lastName.length > 20) {
+        return (this.errors.lastName =
+          "Last name must be 20 characters or less.");
+      }
+      this.errors.lastName = "";
+    },
+
+    async verifyEmail() {
+      if (!this.email.length) {
+        return (this.errors.email = "Email is required.");
+      }
+      if (!regex.email.test(this.email)) {
+        return (this.errors.email = "That email appears to be invalid.");
+      }
+      if (this.email.length > 32) {
+        return (this.errors.email = "Email must be 32 characters or less.");
+      }
+      // TODO check if email is available
+      this.errors.email = "";
+    },
+
+    verifyDOB() {
+      // TODO do age check
+      return true;
+    },
+
+    async verifyUsername() {
+      if (!this.username.length) {
+        return (this.errors.username = "Username is required.");
+      }
+      if (!regex.username.test(this.username)) {
+        return (this.errors.username =
+          "Usernames can only contain a-z, A-Z, 0-9, _, - characters. Cannot start or begin with _ or -.");
+      }
+      if (this.username.length > 20) {
+        return (this.errors.username =
+          "Usernames must be 20 characters or less.");
+      }
+      // TODO check if username is available
+      this.errors.username = "";
+    },
+
+    verifyPassword() {
+      if (!this.password.length) {
+        return (this.errors.password = "Password is required.");
+      }
+      if (this.password.length > 64) {
+        return (this.errors.password =
+          "Password must be 64 characters or less.");
+      }
+      this.errors.password = "";
+    },
+
+    verifyPassword2() {
+      if (!this.password2.length) {
+        return (this.errors.password2 = "Password is required.");
+      }
+      if (this.password2.length > 64) {
+        return (this.errors.password2 =
+          "Password must be 64 characters or less.");
+      }
+      this.errors.password2 = "";
+    },
+
+    verifyPasswordsMatch() {
+      if (this.password !== this.password2) {
+        return (this.errors.passwordsMatch = "Passwords do not match.");
+      }
+      this.errors.passwordsMatch = "";
+    },
+
+    async toStep1() {
+      this.verfiyFirstName();
+      this.verifyLastName();
+      await this.verifyEmail();
+      this.verifyDOB();
+
+      if (
+        !!this.errors.firstName ||
+        !!this.errors.lastName ||
+        !!this.errors.email ||
+        !!this.errors.dob
+      ) {
+        return;
+      }
+
       this.step++;
     },
 
-    toStep2() {
+    async toStep2() {
+      await this.verifyUsername();
+
+      if (!!this.errors.username) {
+        return;
+      }
+
       this.step++;
     },
 
-    signUp() {}
+    async signUp() {
+      this.verifyPassword();
+      this.verifyPassword2();
+      this.verifyPasswordsMatch();
+
+      if (
+        !!this.errors.password ||
+        !!this.errors.password2 ||
+        !!this.errors.passwordsMatch
+      ) {
+        return;
+      }
+
+      console.log("Sign Up");
+    }
   }
 };
 </script>

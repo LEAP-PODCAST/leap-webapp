@@ -119,5 +119,15 @@ export default {
     username(body) {
       return http.post("/chat/username", { body });
     }
+  },
+
+  user: {
+    signUp(body) {
+      return http.post("/user/signUp", { body })
+    },
+
+    logIn(body) {
+      return http.post("/user/logIn", { body })
+    }
   }
 };
