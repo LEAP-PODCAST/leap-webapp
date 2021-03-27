@@ -1,8 +1,9 @@
 <template>
-  <div
-    class="flex flex-col justify-center align-center p-8 w-full h-full text-center"
-  >
-    <div v-if="step === 0">
+  <div class="p-8 w-full h-full text-center">
+    <div
+      v-if="step === 0"
+      class="flex flex-col justify-center align-center w-full h-full"
+    >
       <div>
         <span class="text-sm font-thin opacity-75">
           Good {{ timeOfDayText }},
@@ -13,7 +14,7 @@
         </h2>
       </div>
       <div class="flex flex-col items-center mt-8">
-        <d-btn variant="primary">
+        <d-btn @click="step = 1" variant="primary">
           New episode
         </d-btn>
         <small class="italic text-xs opacity-50 my-2">or</small>
@@ -22,7 +23,11 @@
         </d-btn>
       </div>
     </div>
-    <div v-else-if="step === 1"></div>
+    <div v-else-if="step === 1">
+      <span class="text-sm font-thin opacity-75">
+        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
+      </span>
+    </div>
   </div>
 </template>
 
