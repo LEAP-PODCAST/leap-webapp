@@ -23,18 +23,42 @@
         </d-btn>
       </div>
     </div>
+
+    <!-- Schedule a Podcast -->
     <div v-else-if="step === 1">
       <span class="text-sm font-thin opacity-75">
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
+      <h2 class="text-2xl">Let's schedule it ⚡</h2>
+      <div class="flex justify-center items-center w-full my-4">
+        <div
+          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
+        >
+          New Episode
+          <i class="material-icons ml-3">videocam</i>
+        </div>
+        <button @click="step = 0" class="text-xl p-2 ml-3 text-gray-300">
+          <i class="material-icons">clear</i>
+        </button>
+      </div>
+
+      <div class="flex">
+        <ScheduleEpisode />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
+
 export default {
+  components: {
+    ScheduleEpisode
+  },
+
   data: () => ({
-    step: 0
+    step: 1
   }),
 
   computed: {
