@@ -61,7 +61,7 @@
       <d-input
         type="checkbox"
         v-model="receiveNotifications"
-        label="Recieve emails about upcoming your upcoming podcasts."
+        label="Recieve emails about your upcoming podcasts."
         class="mb-8 mt-3"
         required
       />
