@@ -17,7 +17,7 @@
     <!-- <p> following</p> -->
     <!-- <p>{{ user.followers }} followers</p> -->
 
-    <div v-if="profile.podcasts">
+    <div v-if="profile.podcasts.length">
       <h2 class="opacity-25 text-sm">My Podcasts</h2>
       <!-- <div v-for="(podcast, i) in podcasts" :key="i" class="flex flex-row">
         <img class="w-5" :src="podcast.image" :alt="podcast.title" />

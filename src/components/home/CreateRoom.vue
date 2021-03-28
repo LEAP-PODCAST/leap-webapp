@@ -1,7 +1,7 @@
 <template>
   <div class="p-8 w-full h-full text-center">
     <div
-      v-if="step === 0"
+      v-if="step === 'home'"
       class="flex flex-col justify-center align-center w-full h-full"
     >
       <div>
@@ -14,8 +14,15 @@
         </h2>
       </div>
       <div class="flex flex-col items-center mt-8">
-        <d-btn @click="step = 1" variant="primary">
+        <d-btn
+          v-if="$store.state.user.userProfile.podcasts.length"
+          @click="step = 'schedule'"
+          variant="primary"
+        >
           New episode
+        </d-btn>
+        <d-btn v-else @click="step = 'create'" variant="primary">
+          Create my podcast
         </d-btn>
         <small class="italic text-xs opacity-50 my-2">or</small>
         <d-btn @click="createRoom" variant="primary-outline">
@@ -25,7 +32,7 @@
     </div>
 
     <!-- Schedule a Podcast -->
-    <div v-else-if="step === 1">
+    <div v-else-if="step === 'schedule'">
       <span class="text-sm font-thin opacity-75">
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
@@ -41,9 +48,28 @@
           <i class="material-icons">clear</i>
         </button>
       </div>
+    </div>
+
+    <!-- Create a Podcast -->
+    <div v-else-if="step === 'create'">
+      <span class="text-sm font-thin opacity-75">
+        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
+      </span>
+      <h2 class="text-2xl">Let's create your podcast</h2>
+      <div class="flex justify-center items-center w-full my-4">
+        <div
+          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
+        >
+          New Podcast
+          <!-- <i class="material-icons ml-3">videocam</i> -->
+        </div>
+        <button @click="step = 'home'" class="text-xl p-2 ml-3 text-gray-300">
+          <i class="material-icons">clear</i>
+        </button>
+      </div>
 
       <div class="flex">
-        <ScheduleEpisode />
+        <CreatePodcast />
       </div>
     </div>
   </div>
@@ -51,14 +77,16 @@
 
 <script>
 import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
+import CreatePodcast from "@/components/home/CreatePodcast";
 
 export default {
   components: {
-    ScheduleEpisode
+    ScheduleEpisode,
+    CreatePodcast
   },
 
   data: () => ({
-    step: 1
+    step: "home"
   }),
 
   computed: {
