@@ -44,9 +44,13 @@
           New Episode
           <i class="material-icons ml-3">videocam</i>
         </div>
-        <button @click="step = 0" class="text-xl p-2 ml-3 text-gray-300">
+        <button @click="step = 'home'" class="text-xl p-2 ml-3 text-gray-300">
           <i class="material-icons">clear</i>
         </button>
+      </div>
+
+      <div class="flex">
+        <ScheduleEpisode />
       </div>
     </div>
 

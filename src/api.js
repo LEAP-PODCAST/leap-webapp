@@ -135,5 +135,11 @@ export default {
     verifyUserToken() {
       return http.post("/user/verifyUserToken");
     }
+  },
+
+  podcast: {
+    create(body) {
+      return http.post("/podcast/create", { body });
+    }
   }
 };
