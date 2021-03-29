@@ -44,6 +44,10 @@ export default ({ socket }) => {
       state.userAccount = info.userAccount;
       state.token = info.token;
       localStorage.setItem("token", info.token);
+    },
+
+    ADD_PODCAST(state, podcast) {
+      state.userProfile.podcasts.push(podcast);
     }
   };
 

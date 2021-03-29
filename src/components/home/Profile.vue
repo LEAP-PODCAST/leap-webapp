@@ -19,9 +19,16 @@
 
     <div v-if="profile.podcasts.length">
       <h2 class="opacity-25 text-sm">My Podcasts</h2>
-      <!-- <div v-for="(podcast, i) in podcasts" :key="i" class="flex flex-row">
-        <img class="w-5" :src="podcast.image" :alt="podcast.title" />
-      </div> -->
+      <ul class="flex py-3">
+        <li
+          v-for="podcast in profile.podcasts"
+          :key="podcast.id"
+          class="flex flex-col items-center mr-2"
+        >
+          <i class="material-icons text-4xl">mic</i>
+          <span>{{ podcast.name }}</span>
+        </li>
+      </ul>
     </div>
 
     <!-- <div>
