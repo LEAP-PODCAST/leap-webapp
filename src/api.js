@@ -140,6 +140,10 @@ export default {
   podcast: {
     create(body) {
       return http.post("/podcast/create", { body });
+    },
+
+    createScheduledEpisode(body) {
+      return http.post("/podcast/createScheduledEpisode", { body });
     }
   }
 };

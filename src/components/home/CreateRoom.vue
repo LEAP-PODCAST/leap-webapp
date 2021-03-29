@@ -14,14 +14,10 @@
         </h2>
       </div>
       <div class="flex flex-col items-center mt-8">
-        <d-btn
-          v-if="$store.state.user.userProfile.podcasts.length"
-          @click="step = 'schedule'"
-          variant="primary"
-        >
+        <d-btn @click="step = 'schedule'" variant="primary">
           New episode
         </d-btn>
-        <d-btn v-else @click="step = 'create'" variant="primary">
+        <d-btn @click="step = 'create'" variant="primary">
           Create my podcast
         </d-btn>
         <small class="italic text-xs opacity-50 my-2">or</small>
