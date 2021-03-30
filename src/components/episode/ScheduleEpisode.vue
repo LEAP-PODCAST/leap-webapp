@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white rounded-xl text-gray-700 p-4 w-full text-left">
-    <d-input type="text" v-model="name" label="Episode name" />
+    <d-input type="text" v-model="name" placeholder="Episode name" />
 
-    <div class="flex my-2">
-      <i class="material-icons">mic</i>
-      <label>
+    <div class="flex my-2 w-full">
+      <i class="material-icons w-8">mic</i>
+      <label class="w-full">
         <div class="visually-hidden">
           Podcasts
         </div>
@@ -53,12 +53,44 @@
       </div>
     </div>
 
-    <d-input type="text" v-model="guests" label="Add guests" />
-    <d-input type="text" v-model="description" label="Description" />
+    <div class="flex items-center">
+      <i class="material-icons w-8">group_add</i>
+      <div class="flex-grow">
+        <ul v-if="guests.length" class="flex flex-wrap p-2">
+          <li
+            v-for="(guest, i) in guests"
+            :key="i"
+            class="py-1 px-3 bg-gray-400 rounded-full m-1"
+          >
+            <span>{{ guest.fullUsername || guest.email }}</span>
+            <i
+              @click="() => removeGuest(i)"
+              class="material-icons text-sm ml-2 cursor-pointer"
+            >
+              close
+            </i>
+          </li>
+        </ul>
+        <d-user-search
+          @clickUser="addGuest"
+          placeholder="Add guests (type @username if they are on leap or simple add email)"
+        />
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <i class="material-icons w-8">article</i>
+      <textarea
+        rows="3"
+        v-model="description"
+        placeholder="Description"
+        class="w-full p-2"
+      />
+    </div>
 
     <div class="flex my-2">
-      <i class="material-icons">public</i>
-      <label class="block">
+      <i class="material-icons w-8">public</i>
+      <label class="block w-full">
         <div class="visually-hidden">
           Visibility
         </div>
@@ -70,8 +102,8 @@
     </div>
 
     <div class="flex my-2">
-      <i class="material-icons">notifications_none</i>
-      <label class="block">
+      <i class="material-icons w-8">notifications_none</i>
+      <label class="block w-full">
         <div class="visually-hidden">
           Alert notification
         </div>
@@ -101,14 +133,17 @@
 
 <script>
 import API from "@/api";
+import DUserSearch from "../globals/DUserSearch.vue";
 
 export default {
+  components: { DUserSearch },
+
   data: () => ({
     name: "",
     podcastId: 0,
     startTime: "",
     endTime: "",
-    guests: "",
+    guests: [],
     description: "",
     visibility: 0,
     timeToAlert: 30,
@@ -131,6 +166,14 @@ export default {
   },
 
   methods: {
+    addGuest(e) {
+      this.guests.push(e);
+    },
+
+    removeGuest(index) {
+      this.guests.splice(index, 1);
+    },
+
     async schedulePodcast() {
       console.log(this.startTime);
       console.log(this.endTime);

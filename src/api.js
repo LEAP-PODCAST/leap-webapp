@@ -145,5 +145,11 @@ export default {
     createScheduledEpisode(body) {
       return http.post("/podcast/createScheduledEpisode", { body });
     }
+  },
+
+  profiles: {
+    search(username) {
+      return http.get(`/profiles/search?username=${username}`);
+    }
   }
 };

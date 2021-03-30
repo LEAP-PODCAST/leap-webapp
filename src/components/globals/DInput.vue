@@ -1,5 +1,5 @@
 <template>
-  <label class="block text-lg rounded">
+  <label>
     <div
       class="flex"
       :class="{ 'flex-wrap items-center': type !== 'checkbox' }"
@@ -27,9 +27,10 @@
         :type="type"
         v-bind="$attrs"
         :value="value"
+        :placeholder="placeholder"
         @input="$emit('input', $event.target.value)"
         @blur="$emit('blur')"
-        class="rounded text-xl text-gray-900 h-10 py-2 px-3 w-full bg-gray-300 focus:border-"
+        class="py-2 px-3 w-full"
         :class="invalid ? 'border-red-500' : ''"
       />
     </div>
@@ -57,7 +58,8 @@ export default {
       type: Boolean,
       default: false
     },
-    invalid: Boolean
+    invalid: Boolean,
+    placeholder: String
   }
 };
 </script>
