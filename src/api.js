@@ -144,6 +144,10 @@ export default {
 
     createScheduledEpisode(body) {
       return http.post("/podcast/createScheduledEpisode", { body });
+    },
+
+    getAllScheduledEpisodes() {
+      return http.get("/podcast/getAllScheduledEpisodes");
     }
   },
 

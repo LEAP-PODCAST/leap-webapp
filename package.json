@@ -10,6 +10,7 @@
     "@vue/cli": "^4.5.12",
     "core-js": "^3.9.1",
     "mediasoup-client": "^3.6.29",
+    "moment": "^2.29.1",
     "popper.js": "^1.16.1",
     "socket.io-client": "^2.4.0",
     "tailwindcss": "^1.9.6",

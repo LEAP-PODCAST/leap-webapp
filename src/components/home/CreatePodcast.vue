@@ -61,23 +61,9 @@ export default {
     },
 
     async createPodcast() {
-      let hosts = [];
-
-      if (this.hosts.length) {
-        hosts = this.hosts;
-      }
-
-      const { userProfile, userAccount } = this.$store.state.user;
-      hosts.push({
-        type: "user",
-        id: userAccount.profileId,
-        username: userProfile.username,
-        fullUsername: userProfile.fullUsername
-      });
-
       const { ok, error, data } = await API.podcast.create({
         name: this.name,
-        hosts
+        hosts: this.hosts
       });
 
       if (!ok) {

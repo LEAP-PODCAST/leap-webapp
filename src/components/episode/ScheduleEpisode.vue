@@ -95,8 +95,8 @@
           Visibility
         </div>
         <select v-model="visibility" class="w-full">
-          <option value="0">Private</option>
-          <option value="1">Public</option>
+          <option :value="0">Private</option>
+          <option :value="1">Public</option>
         </select>
       </label>
     </div>
@@ -108,10 +108,10 @@
           Alert notification
         </div>
         <select v-model="timeToAlert" class="w-full">
-          <option value="15">15 minutes before</option>
-          <option value="30">30 minutes before</option>
-          <option value="60">1 hour before</option>
-          <option value="120">2 hours before</option>
+          <option :value="15">15 minutes before</option>
+          <option :value="30">30 minutes before</option>
+          <option :value="60">1 hour before</option>
+          <option :value="120">2 hours before</option>
         </select>
       </label>
     </div>
@@ -180,7 +180,7 @@ export default {
 
       const res = await API.podcast.createScheduledEpisode({
         name: this.name,
-        podcastId: 1,
+        podcastId: this.podcastId,
         startTime: new Date(this.startTime).toString(),
         endTime: new Date(this.endTime).toString(),
         guests: [],

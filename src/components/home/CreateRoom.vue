@@ -1,10 +1,11 @@
 <template>
-  <div class="p-8 w-full h-full text-center">
+  <div class="p-8 w-full h-full">
     <div
       v-if="step === 'home'"
-      class="flex flex-col justify-center align-center w-full h-full"
+      class="flex flex-col align-center w-full h-full"
     >
-      <div>
+      <ScheduledEpisodes class="mb-12" />
+      <div class="text-center">
         <span class="text-sm font-thin opacity-75">
           Good {{ timeOfDayText }},
           {{ $store.state.user.userProfile.firstName }}!
@@ -76,11 +77,13 @@
 </template>
 
 <script>
+import ScheduledEpisodes from "@/components/episode/ScheduledEpisodes";
 import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
 import CreatePodcast from "@/components/home/CreatePodcast";
 
 export default {
   components: {
+    ScheduledEpisodes,
     ScheduleEpisode,
     CreatePodcast
   },
