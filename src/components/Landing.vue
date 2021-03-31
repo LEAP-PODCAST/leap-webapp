@@ -18,7 +18,7 @@
 
     <div class='flex flex-col'>
       <div class="flex justify-center items-center mt-40 mb-40">
-        <div class="">
+        <div class="w-1/4">
           <h2 class="text-5xl">Podcasting</h2>
           <h2 class="text-5xl">simplified.</h2>
           <p>Effortlessly create, monetize, distribute, go live, and interact with your audience</p>
@@ -33,14 +33,14 @@
         <div class="flex">
           <img class="" src="https://j.gifs.com/Jqwkrg@facebook.gif" alt="">
         </div>
-        <div>
+        <div class="w-1/4 box-border pl-6">
           <h2 class="text-3xl">Earn from the get-go.</h2>
           <p>No matter your audience size, effortlessly set up subscriptions in 5 minutes</p>
         </div>
       </div>
 
       <div class='flex justify-center items-center'>
-        <div>
+        <div class="w-1/4">
           <h2 class="text-3xl">Go live with your audience</h2>
           <p>Your audience can participate and collaborate on each episode</p>
         </div>
