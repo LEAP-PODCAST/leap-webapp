@@ -29,6 +29,10 @@
       <d-btn type="submit" variant="primary" class="w-full mt-6">
         Log In
       </d-btn>
+
+      <d-btn @click="$router.push('/PasswordReset')" type="submit" variant="primary-outline" class="w-full mt-2">
+        Reset Password
+      </d-btn>
     </form>
 
   </div>

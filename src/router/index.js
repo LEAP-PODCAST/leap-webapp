@@ -7,6 +7,7 @@ import Home from "@/routes/Home";
 import Room from "@/routes/Room";
 import SignUp from "@/routes/SignUp";
 import LogIn from "@/routes/LogIn";
+import PasswordReset from "@/routes/PasswordReset";
 
 export default new VueRouter({
   mode: "history",
@@ -25,6 +26,11 @@ export default new VueRouter({
       path: "/login",
       name: "Log In",
       component: LogIn
+    },
+    {
+      path: "/passwordreset",
+      name: "Password Reset",
+      component: PasswordReset
     },
     {
       path: "/room/:roomId",
