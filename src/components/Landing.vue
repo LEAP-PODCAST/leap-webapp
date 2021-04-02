@@ -78,7 +78,7 @@
           </d-btn>        
           <d-btn
             variant="primary-outline"
-            @click="$router.push('/signup')"
+            @click="$router.push('/LogIn')"
             class="w-full mt-5"
           >
             Log In

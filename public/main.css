@@ -122,7 +122,6 @@ input::-moz-placeholder {
   border-radius: 9999px;
   border-color: rgba(229, 62, 62);
   background-color: rgba(26, 32, 44);
-  color: #ea455a;
 }
 
 .select-placeholder {

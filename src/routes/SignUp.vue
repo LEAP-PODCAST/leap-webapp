@@ -58,8 +58,7 @@
       <small v-if="errors.email" class="text-red-500">
         {{ errors.email }}
       </small>
-      
-      
+
       <div class="mt-3 mb-4">
         <d-input
           type="checkbox"
