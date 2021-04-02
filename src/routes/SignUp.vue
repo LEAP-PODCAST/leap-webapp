@@ -58,13 +58,17 @@
       <small v-if="errors.email" class="text-red-500">
         {{ errors.email }}
       </small>
-      <d-input
-        type="checkbox"
-        v-model="receiveNotifications"
-        label="Recieve emails about upcoming your upcoming podcasts."
-        class="mb-8 mt-3"
-        required
-      />
+      
+      
+      <div class="mt-3 mb-4">
+        <d-input
+          type="checkbox"
+          v-model="receiveNotifications"
+          label="Recieve emails about upcoming your upcoming podcasts."
+          required
+        />        
+      </div>
+
       <div>
         <h2 class="text-xl">Date of birth</h2>
         <p class="opacity-50 font-thin mb-2">
@@ -73,7 +77,8 @@
         </p>
         <div class="flex">
           <label class="w-6/12 mr-2">
-            <select v-model="dob.month" class="text-black w-full bg-gray-900 text-white" required>
+            <select v-model="dob.month" class="w-full bg-gray-900 rounded-select" required>
+              <option  value="" disabled selected hidden class="select-placeholder">Month</option>
               <option value="0">January</option>
               <option value="1">February</option>
               <option value="2">March</option>
@@ -89,14 +94,14 @@
             </select>
           </label>
           <label class="w-3/12 mr-2">
-            <select v-model="dob.day" class="text-black w-full bg-gray-900 text-white" required>
+            <select v-model="dob.day" class="w-full bg-gray-900 rounded-select" required>
               <option v-for="day in days" :key="day" :value="day">
                 {{ day }}
               </option>
             </select>
           </label>
           <label class="w-3/12">
-            <select v-model="dob.year" class="text-black w-full bg-gray-900 text-white" required>
+            <select v-model="dob.year" class="w-full bg-gray-900 rounded-select" required>
               <option v-for="year in years" :key="year" :value="year">
                 {{ year }}
               </option>
