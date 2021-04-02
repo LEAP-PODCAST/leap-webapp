@@ -88,7 +88,7 @@
         <div v-if="waitlist">
           <form class="flex flex-col" action="">
             <input class="rounded-full py-2 placeholder-input bg-gray-900 border border-red-600" type="text" placeholder="email">
-            <button class="w-full mt-5 p-btn flex justify-center inline-block font-bold px-5 btn-primary-outline py-2 px-3 rounded-full">Submit</button>
+            <button class="w-full mt-5 p-btn flex justify-center inline-block font-bold px-5 btn-primary py-2 px-3 rounded-full">Submit</button>
           </form>
         </div>
       </div>
