@@ -71,6 +71,7 @@ button:disabled {
 /* Rounded red inputs */
 
 input[type="text"] {
+  text-indent: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-width: 1px;
@@ -80,6 +81,7 @@ input[type="text"] {
 }
 
 input[type="password"] {
+  text-indent: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-width: 1px;
@@ -92,7 +94,7 @@ input[type="password"] {
   /* Chrome/Opera/Safari */
   font-size: 12px;
   position: relative !important;
-  transform: translateY(-65%) translateX(4%) !important;
+  transform: translateY(-65%) !important;
   /* transform: translateX(2%) !important; */
   color: #ea455a !important;
 }
