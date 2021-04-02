@@ -69,9 +69,40 @@ button:disabled {
 }
 
 input[type="text"] {
-  color: black;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(229, 62, 62);
+  background-color: rgba(26, 32, 44);
 }
 
 input[type="password"] {
-  color: black;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(229, 62, 62);
+  background-color: rgba(26, 32, 44);
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 12px;
+  position: relative !important;
+  transform: translateY(-65%) translateX(4%) !important;
+  /* transform: translateX(2%) !important; */
+  color: #ea455a !important;
+}
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  vertical-align: top;
+}
+input::-ms-input-placeholder {
+  /* IE 10+ */
+  vertical-align: top;
+}
+input::-moz-placeholder {
+  /* Firefox 18- */
+  vertical-align: top;
 }
