@@ -164,6 +164,10 @@ export default {
 
     watch(body) {
       return http.post("/episode/watch", { body });
+    },
+
+    authenticate() {
+      return http.post("/episode/authenticate");
     }
   }
 };

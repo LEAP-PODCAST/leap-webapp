@@ -303,6 +303,9 @@ export default ({ socket }) => {
       commit("SET_STREAMS", streams);
       dispatch("chat/join", { room }, { root: true });
 
+      // TODO check if is logged in
+      const res2 = await API.episode.authenticate();
+
       return true;
     },
     // METHOD END
