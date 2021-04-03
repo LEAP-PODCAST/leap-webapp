@@ -7,6 +7,7 @@ import Home from "@/routes/Home";
 import Room from "@/routes/Room";
 import SignUp from "@/routes/SignUp";
 import LogIn from "@/routes/LogIn";
+import Episode from "@/routes/podcast/Episode";
 
 export default new VueRouter({
   mode: "history",
@@ -30,6 +31,11 @@ export default new VueRouter({
       path: "/room/:roomId",
       name: "Room",
       component: Room
+    },
+    {
+      path: "/:podcastUrlName/:episodeUrlName",
+      name: "Podcast episode",
+      component: Episode
     }
   ]
 });

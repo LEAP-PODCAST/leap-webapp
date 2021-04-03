@@ -129,13 +129,35 @@ export default ({ socket }) => {
   };
 
   const actions = {
-    async join({ state, commit, dispatch }, { roomId, username }) {
+    async watchEpisode(
+      { commit, dispatch },
+      { podcastUrlName, episodeUrlName }
+    ) {
+      let res = await API.episode.watch({ podcastUrlName, episodeUrlName });
+
+      if (!res.ok) {
+        console.error(res.error);
+        return;
+      }
+
+      commit("SET_ROOM_ID", `episode/${episodeUrlName}`);
+      dispatch("onJoinRoom", res);
+    },
+
+    async join({ commit, dispatch }, { roomId, username }) {
       let res = await API.room.join({ roomId, username });
 
       if (!res.ok) {
         console.error(res.error);
         return;
       }
+
+      commit("SET_ROOM_ID", roomId);
+      dispatch("onJoinRoom", res);
+    },
+
+    async onJoinRoom({ state, commit, dispatch }, res) {
+      const { roomId } = state;
 
       socket.on("stream/webcam", async stream => {
         await dispatch("consumeWebcam", stream);
@@ -150,8 +172,6 @@ export default ({ socket }) => {
       const { routerRtpCapabilities, streams, room, key } = res.data;
       window.userKey = key;
 
-      commit("SET_ROOM_ID", roomId);
-      commit("SET_USERNAME", username);
       commit("SET_DEVICE", { routerRtpCapabilities });
 
       // Create a receive transport

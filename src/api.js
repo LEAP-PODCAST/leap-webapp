@@ -155,5 +155,15 @@ export default {
     search(username) {
       return http.get(`/profiles/search?username=${username}`);
     }
+  },
+
+  episode: {
+    start(body) {
+      return http.post("/episode/start", { body });
+    },
+
+    watch(body) {
+      return http.post("/episode/watch", { body });
+    }
   }
 };

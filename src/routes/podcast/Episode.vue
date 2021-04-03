@@ -1,6 +1,9 @@
 <template>
   <div class="flex w-full h-full bg-black-800 rounded-tl-lg rounded-tr-lg p-5">
     <div class="flex flex-col overflow-hidden w-full">
+      <h2 class="text-2xl text-white">
+        {{ podcastTitle }}
+      </h2>
       <div class="flex-grow p-2" id="room-container">
         <div
           class="flex flex-wrap md:flex-row items-center justify-center w-full h-full"
@@ -30,7 +33,7 @@
         <Controls />
       </div>
     </div>
-    <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" />
+    <!-- <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" /> -->
   </div>
 </template>
 
@@ -68,11 +71,10 @@ export default {
     }
   },
 
-  async mounted() {
-    if (this.$store.state.room.roomId) return;
-    this.$store.dispatch("room/join", {
-      roomId: this.$route.params.roomId,
-      username: "Anonymous"
+  async created() {
+    this.$store.dispatch("room/watchEpisode", {
+      podcastUrlName: this.$route.params.podcastUrlName,
+      episodeUrlName: this.$route.params.episodeUrlName
     });
   },
 

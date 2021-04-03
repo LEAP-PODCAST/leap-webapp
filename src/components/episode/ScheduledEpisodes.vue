@@ -15,7 +15,11 @@
             {{ getFormattedTime(episode.startTime) }}
           </p>
         </div>
-        <d-btn variant="primary-outline" class="px-6">
+        <d-btn
+          @click="() => startEpisode(episode)"
+          variant="primary-outline"
+          class="px-6"
+        >
           Start episode
         </d-btn>
       </li>
@@ -50,6 +54,20 @@ export default {
 
     getFormattedTime(time) {
       return moment(time).format("LLLL");
+    },
+
+    async startEpisode(episode) {
+      const { ok, error, data } = await API.episode.start({
+        podcastId: episode.podcastId,
+        episodeId: episode.id
+      });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
+
+      this.$router.push(`/${data.podcast.urlName}/${data.episode.urlName}`);
     }
   }
 };
