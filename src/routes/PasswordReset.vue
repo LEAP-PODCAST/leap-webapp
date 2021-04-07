@@ -4,7 +4,14 @@
     style="max-width:600px"
   >
     <h1 class="text-2xl font-bold mb-4">Reset Password</h1>
-    <form>
+
+    <div v-if="reset">
+      <p>Email sent!</p>
+      <p>Please check your inbox to reset your password.</p>
+      <p>Make sure to check the spam folder!</p>
+    </div>
+
+    <form v-if="!reset">
       <div class="mb-3">
         <d-input
           type="text"
@@ -15,9 +22,15 @@
         />
       </div>
 
-      <d-btn type="submit" variant="primary" class="w-full mt-6">
-        Reset Password
+      <d-btn
+        type="submit"
+        variant="primary"
+        class="w-full mt-6"
+        @click="resetPasswordPrompt()"
+      >
+        Reset
       </d-btn>
+
       <d-btn
         type="submit"
         variant="primary-outline"
@@ -32,9 +45,15 @@
 
 <script>
 export default {
+  data: () => ({
+    reset: false
+  }),
   methods: {
     returnToLogin() {
       this.$router.push("/login");
+    },
+    resetPasswordPrompt() {
+      this.reset = true;
     }
   }
 };
