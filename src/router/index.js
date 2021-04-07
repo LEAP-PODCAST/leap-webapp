@@ -10,6 +10,7 @@ import LogIn from "@/routes/LogIn";
 import Episode from "@/routes/podcast/Episode";
 import PasswordReset from "@/routes/PasswordReset";
 import GuestLogin from "@/routes/GuestLogin";
+import NewPassword from "@/routes/NewPassword";
 
 export default new VueRouter({
   mode: "history",
@@ -33,6 +34,11 @@ export default new VueRouter({
       path: "/passwordreset",
       name: "Password Reset",
       component: PasswordReset
+    },
+    {
+      path: "/newpassword",
+      name: "New Password",
+      component: NewPassword
     },
     {
       path: "/guestlogin",
