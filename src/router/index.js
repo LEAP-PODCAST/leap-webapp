@@ -8,6 +8,8 @@ import Room from "@/routes/Room";
 import SignUp from "@/routes/SignUp";
 import LogIn from "@/routes/LogIn";
 import Episode from "@/routes/podcast/Episode";
+import PasswordReset from "@/routes/PasswordReset";
+import GuestLogin from "@/routes/GuestLogin";
 
 export default new VueRouter({
   mode: "history",
@@ -26,6 +28,16 @@ export default new VueRouter({
       path: "/login",
       name: "Log In",
       component: LogIn
+    },
+    {
+      path: "/passwordreset",
+      name: "Password Reset",
+      component: PasswordReset
+    },
+    {
+      path: "/guestlogin",
+      name: "Guest Login",
+      component: GuestLogin
     },
     {
       path: "/room/:roomId",

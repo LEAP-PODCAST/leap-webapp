@@ -68,10 +68,106 @@ button:disabled {
   width: 100px;
 }
 
+/* Rounded red inputs */
+
 input[type="text"] {
-  color: black;
+  text-indent: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(229, 62, 62);
+  background-color: rgba(26, 32, 44);
 }
 
 input[type="password"] {
+  text-indent: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(229, 62, 62);
+  background-color: rgba(26, 32, 44);
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 12px;
+  position: relative !important;
+  transform: translateY(-65%) !important;
+  /* transform: translateX(2%) !important; */
+  color: #ea455a !important;
+}
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  vertical-align: top;
+}
+input::-ms-input-placeholder {
+  /* IE 10+ */
+  vertical-align: top;
+}
+input::-moz-placeholder {
+  /* Firefox 18- */
+  vertical-align: top;
+}
+
+/* Rounded red select */
+
+.rounded-select {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(229, 62, 62);
+  background-color: rgba(26, 32, 44);
+}
+
+.select-placeholder {
+  font-size: 12px;
+  position: relative !important;
+  transform: translateY(-65%) translateX(4%) !important;
+  /* transform: translateX(2%) !important; */
+  color: #ea455a !important;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+/* Checkbox un-checked style */
+input[type="checkbox"] + span:before {
+  content: "";
+  border: 1px solid grey;
+  border-radius: 3px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  vertical-align: -2px;
+}
+
+/* Checked checkbox style (in this case the background is red) */
+input[type="checkbox"]:checked + span:before {
+  /* NOTE: Replace the url with a path to an SVG of a checkmark to get a checkmark icon */
+  background-image: url("https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  /* The size of the checkmark icon, you may/may not need this */
+  background-size: 25px;
+  border-radius: 2px;
+  background-color: red;
+  color: white;
+}
+
+/* Disabled checkbox styles */
+input[type="checkbox"]:disabled + span {
+  cursor: default;
   color: black;
+  opacity: 0.5;
+  border-radius: 50%;
 }

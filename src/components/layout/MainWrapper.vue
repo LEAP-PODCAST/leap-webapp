@@ -9,7 +9,7 @@
         />
       </router-link>
       <div class="flex-grow"></div>
-      <d-input type="text" value="" placeholder="search" />
+      <d-input type="search" value="" placeholder="search" />
       <router-link
         to="/"
         class="flex items-center justify-center bg-black rounded-full p-2 ml-3"
