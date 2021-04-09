@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full bg-black-800 rounded-tl-lg rounded-tr-lg p-5">
+  <div class="flex w-full h-full bg-black-800 rounded-lg p-5">
     <div class="flex flex-col overflow-hidden w-full">
       <div class="flex-grow p-2" id="room-container">
         <div

@@ -1,10 +1,10 @@
 <template>
-  <div class="flex rounded-lg p-2 bg-gray-700">
+  <div class="flex rounded-lg bg-gray-700">
     <!-- Middle controls -->
     <div class="flex justify-center">
       <div class="controls flex">
         <!-- Start Recording -->
-        <button class="text-red-700 px-4 py-2">
+        <button class="text-red-700 px-4 py-2" disabled>
           <div class="material-icons">fiber_manual_record</div>
           <div class="text-sm">Start Recording</div>
         </button>
@@ -48,7 +48,7 @@
         </button>
 
         <!-- Mark Timestamp -->
-        <button class="text-white px-4 py-2">
+        <button class="text-white px-4 py-2" disabled>
           <div class="material-icons">bookmark</div>
           <div class="text-sm">Mark</div>
         </button>
@@ -57,6 +57,7 @@
         <button
           @click="$store.dispatch('nav/toggleChat')"
           :class="$store.state.nav.chat ? '' : ''"
+          disabled
           class="text-white px-4 py-2"
         >
           <span class="material-icons">people_alt</span>
