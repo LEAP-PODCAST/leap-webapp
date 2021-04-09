@@ -502,11 +502,30 @@ export default ({ socket }) => {
       return true;
     },
 
+    async endEpisode({ state, dispatch }) {
+      const res = await API.episode.end({
+        podcastId: state.podcast.id,
+        episodeId: state.episode.id
+      });
+
+      if (!res.ok) {
+        console.error(res.error);
+        return;
+      }
+
+      dispatch("leave");
+      return { ok: true };
+    },
+
     leave({ commit }) {
       socket.emit("room/leave");
 
       commit("SET_ROOM_ID", null);
       commit("SET_USERNAME", null);
+      commit("SET_EPISODE_INFO", {
+        podcast: null,
+        episode: null
+      });
 
       // TODO unsubscribe from corresponding socket events
       commit("SET_STREAMS", {

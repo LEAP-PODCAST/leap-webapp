@@ -65,7 +65,10 @@
         </button>
 
         <!-- End call -->
-        <button class="text-white bg-red-600 rounded-lg px-5 ml-8">
+        <button
+          @click="endEpisode"
+          class="text-white bg-red-600 rounded-lg px-5 ml-8"
+        >
           <span class="material-icons">call_end</span>
           <div class="text-sm">End Call</div>
         </button>
@@ -87,6 +90,16 @@ export default {
 
     room() {
       return this.$store.state.room;
+    }
+  },
+
+  methods: {
+    async endEpisode() {
+      const { ok } = await this.$store.dispatch("room/endEpisode");
+
+      if (ok) {
+        this.$router.push("/");
+      }
     }
   }
 };
