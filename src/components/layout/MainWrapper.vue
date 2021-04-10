@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-full px-6">
+  <div class="flex flex-col w-full h-full p-6 pt-0">
     <header class="flex flex-row items-center p-4">
       <router-link to="/" style="display:contents;">
         <img

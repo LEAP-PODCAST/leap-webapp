@@ -169,6 +169,10 @@ export default {
 
     authenticate() {
       return http.post("/episode/authenticate");
+    },
+
+    end(body) {
+      return http.put("/episode/end", { body });
     }
   }
 };

@@ -9,6 +9,9 @@ export default ({ socket }) => {
     roomId: null,
     username: null,
 
+    podcast: null,
+    episode: null,
+
     device: null,
     sendTransport: null,
     recvTransport: null,
@@ -41,6 +44,11 @@ export default ({ socket }) => {
 
     SET_USERNAME(state, username) {
       state.username = username;
+    },
+
+    SET_EPISODE_INFO(state, { podcast, episode }) {
+      state.podcast = podcast;
+      state.episode = episode;
     },
 
     SET_DEVICE(state, options) {
@@ -141,7 +149,13 @@ export default ({ socket }) => {
       }
 
       commit("SET_ROOM_ID", `episode/${episodeUrlName}`);
+      commit("SET_EPISODE_INFO", {
+        episode: res.data.episode,
+        podcast: res.data.podcast
+      });
+
       dispatch("onJoinRoom", res);
+      return { ok: true };
     },
 
     async join({ commit, dispatch }, { roomId, username }) {
@@ -488,11 +502,30 @@ export default ({ socket }) => {
       return true;
     },
 
+    async endEpisode({ state, dispatch }) {
+      const res = await API.episode.end({
+        podcastId: state.podcast.id,
+        episodeId: state.episode.id
+      });
+
+      if (!res.ok) {
+        console.error(res.error);
+        return;
+      }
+
+      dispatch("leave");
+      return { ok: true };
+    },
+
     leave({ commit }) {
       socket.emit("room/leave");
 
       commit("SET_ROOM_ID", null);
       commit("SET_USERNAME", null);
+      commit("SET_EPISODE_INFO", {
+        podcast: null,
+        episode: null
+      });
 
       // TODO unsubscribe from corresponding socket events
       commit("SET_STREAMS", {

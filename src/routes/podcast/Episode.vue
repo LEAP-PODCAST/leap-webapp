@@ -1,8 +1,14 @@
 <template>
-  <div class="flex w-full h-full bg-black-800 rounded-tl-lg rounded-tr-lg p-5">
+  <div
+    v-if="$store.state.room.episode"
+    class="flex w-full h-full bg-black-800 rounded-lg p-5"
+  >
     <div class="flex flex-col overflow-hidden w-full">
       <h2 class="text-2xl text-white">
-        {{ podcastTitle }}
+        {{ $store.state.room.episode.name }}
+      </h2>
+      <h2 class="text-white opacity-50">
+        {{ $store.state.room.podcast.name }}
       </h2>
       <div class="flex-grow p-2" id="room-container">
         <div
@@ -72,10 +78,14 @@ export default {
   },
 
   async created() {
-    this.$store.dispatch("room/watchEpisode", {
+    const res = await this.$store.dispatch("room/watchEpisode", {
       podcastUrlName: this.$route.params.podcastUrlName,
       episodeUrlName: this.$route.params.episodeUrlName
     });
+
+    if (!res.ok) {
+      alert("Something went wrong");
+    }
   },
 
   beforeDestroy() {
