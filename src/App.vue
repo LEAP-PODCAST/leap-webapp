@@ -2,10 +2,17 @@
   <div id="app" class="w-screen h-screen">
     <div v-if="!$store.state.user.isVerifyingToken" class="w-screen h-screen">
       <d-context-menu />
+
       <Landing v-if="$route.path === '/' && !isLoggedIn" />
+
+      <SimpleHeader v-else-if="!isLoggedIn">
+        <router-view></router-view>
+      </SimpleHeader>
+
       <MainWrapper v-else class="w-full h-full">
         <router-view></router-view>
       </MainWrapper>
+
       <DModal />
     </div>
   </div>
@@ -17,12 +24,14 @@ import { mapGetters } from "vuex";
 import MainWrapper from "@/components/layout/MainWrapper";
 import DModal from "@/components/DModal";
 import Landing from "@/components/Landing";
+import SimpleHeader from "@/components/layout/SimpleHeader";
 
 export default {
   components: {
     DModal,
     MainWrapper,
-    Landing
+    Landing,
+    SimpleHeader
   },
 
   computed: {

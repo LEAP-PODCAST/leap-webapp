@@ -1,10 +1,10 @@
 <template>
   <div
-    class="p-8 bg-gray-900 text-white rounded-lg m-auto"
+    class="p-8 bg-gray-900 text-white rounded-lg w-full"
     style="max-width:600px"
   >
     <div class="md:flex justify-between items-center mb-5">
-      <h1 v-if="step === 0" class="text-2xl font-bold">Create Your Account</h1>
+      <h1 v-if="stepb === 0" class="text-2xl font-bold">Create Your Account</h1>
       <h1 v-else-if="step === 1" class="text-2xl font-bold">
         Choose Your Username
       </h1>
@@ -65,7 +65,7 @@
           v-model="receiveNotifications"
           label="Recieve emails about upcoming your upcoming podcasts."
           required
-        />        
+        />
       </div>
 
       <div>
@@ -76,8 +76,19 @@
         </p>
         <div class="flex">
           <label class="w-6/12 mr-2">
-            <select v-model="dob.month" class="w-full bg-gray-900 rounded-select" required>
-              <option  value="" disabled selected hidden class="select-placeholder">Month</option>
+            <select
+              v-model="dob.month"
+              class="w-full bg-gray-900 rounded-select"
+              required
+            >
+              <option
+                value=""
+                disabled
+                selected
+                hidden
+                class="select-placeholder"
+                >Month</option
+              >
               <option value="0">January</option>
               <option value="1">February</option>
               <option value="2">March</option>
@@ -93,14 +104,22 @@
             </select>
           </label>
           <label class="w-3/12 mr-2">
-            <select v-model="dob.day" class="w-full bg-gray-900 rounded-select" required>
+            <select
+              v-model="dob.day"
+              class="w-full bg-gray-900 rounded-select"
+              required
+            >
               <option v-for="day in days" :key="day" :value="day">
                 {{ day }}
               </option>
             </select>
           </label>
           <label class="w-3/12">
-            <select v-model="dob.year" class="w-full bg-gray-900 rounded-select" required>
+            <select
+              v-model="dob.year"
+              class="w-full bg-gray-900 rounded-select"
+              required
+            >
               <option v-for="year in years" :key="year" :value="year">
                 {{ year }}
               </option>
@@ -119,7 +138,7 @@
         type="text"
         v-model="username"
         @blur="verifyUsername"
-        placeholder='Username'
+        placeholder="Username"
         required
       />
       <small v-if="errors.username" class="text-red-500">

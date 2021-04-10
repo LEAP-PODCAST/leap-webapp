@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-8 bg-gray-900 text-white rounded-lg m-auto"
+    class="p-8 bg-gray-900 text-white rounded-lg w-full"
     style="max-width:600px"
   >
     <h1 class="text-2xl font-bold mb-4">Reset Password</h1>
