@@ -1,20 +1,19 @@
-<template> 
+<template>
   <div
     class="p-8 bg-gray-900 text-white rounded-lg m-auto"
     style="max-width:600px"
   >
-  <h1 class="text-2xl font-bold mb-4">Log in to Leap</h1>
-    <form>
+    <h1 class="text-2xl font-bold mb-4">Log in to Leap</h1>
+    <form @submit.prevent="logIn">
       <div class="mb-3">
         <d-input
-            type="text"
-            v-model="username"
-            @blur="verifyUsername"
-            placeholder='Email, Phone or Username'
-            required
+          type="text"
+          v-model="username"
+          @blur="verifyUsername"
+          placeholder="Email, Phone or Username"
+          required
         />
       </div>
-      
 
       <div class="">
         <d-input
@@ -24,23 +23,87 @@
           placeholder="Password"
           required
         />
-      </div>    
+      </div>
 
       <d-btn type="submit" variant="primary" class="w-full mt-6">
         Log In
       </d-btn>
 
-      <d-btn @click="$router.push('/PasswordReset')" type="submit" variant="primary-outline" class="w-full mt-2">
+      <d-btn
+        @click="$router.push('/PasswordReset')"
+        type="submit"
+        variant="primary-outline"
+        class="w-full mt-2"
+      >
         Reset Password
       </d-btn>
     </form>
-
   </div>
-
 </template>
 
 <script>
-export default {};
+const regex = {
+  username: /^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
+};
+
+export default {
+  data: () => ({
+    username: "",
+    password: "",
+    errors: {
+      username: "",
+      password: ""
+    }
+  }),
+  methods: {
+    async logIn() {
+      // this.verifyUsername();
+      // this.verifyPassword();
+
+      // if (!!this.errors.username || !!this.errors.password) {
+      //   return;
+      // }
+
+      console.log("LOGIN FORM");
+      console.log(this.username);
+      console.log(this.password);
+
+      const res = await this.$store.dispatch("user/logIn", {
+        email: this.username,
+        password: this.password
+      });
+
+      this.$router.push("/");
+    },
+
+    async verifyUsername() {
+      if (!this.username.length) {
+        return (this.errors.username = "Username is required.");
+      }
+      if (!regex.username.test(this.username)) {
+        return (this.errors.username =
+          "Usernames can only contain a-z, A-Z, 0-9, _, - characters. Cannot start or begin with _ or -.");
+      }
+      if (this.username.length > 20) {
+        return (this.errors.username =
+          "Usernames must be 20 characters or less.");
+      }
+      // TODO check if username is available
+      this.errors.username = "";
+    },
+
+    verifyPassword() {
+      if (!this.password.length) {
+        return (this.errors.password = "Password is required.");
+      }
+      if (this.password.length > 64) {
+        return (this.errors.password =
+          "Password must be 64 characters or less.");
+      }
+      this.errors.password = "";
+    }
+  }
+};
 </script>
 
 <style></style>

@@ -65,7 +65,7 @@
         <img src="/images/leap.png" alt="Leap logo" class="mb-6" />
         <h1 class="text-lg font-bold py-6">
           Effortlessly way to create, monetize, distribute, go live, and
-          interact with their audience.
+          interact with your audience.
         </h1>
 
         <div v-if="!waitlist">
@@ -75,7 +75,7 @@
             class="w-full mt-5"
           >
             Join the Waitlist
-          </d-btn>        
+          </d-btn>
           <d-btn
             variant="primary-outline"
             @click="$router.push('/LogIn')"
@@ -87,8 +87,16 @@
 
         <div v-if="waitlist">
           <form class="flex flex-col" action="">
-            <input class="rounded-full py-2 placeholder-input bg-gray-900 border border-red-600" type="text" placeholder="email">
-            <button class="w-full mt-5 p-btn flex justify-center inline-block font-bold px-5 btn-primary py-2 px-3 rounded-full">Submit</button>
+            <input
+              class="rounded-full py-2 placeholder-input bg-gray-900 border border-red-600"
+              type="text"
+              placeholder="email"
+            />
+            <button
+              class="w-full mt-5 p-btn flex justify-center inline-block font-bold px-5 btn-primary py-2 px-3 rounded-full"
+            >
+              Submit
+            </button>
           </form>
         </div>
       </div>
@@ -98,11 +106,9 @@
 
 <script>
 export default {
-
- data: () => ({
-   waitlist: false
- })
-
+  data: () => ({
+    waitlist: false
+  })
 };
 </script>
 

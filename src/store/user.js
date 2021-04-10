@@ -63,6 +63,22 @@ export default ({ socket }) => {
       return res;
     },
 
+    async logIn({ commit }, body) {
+      console.log("BODY")
+      console.log(body)
+      const res = await API.user.logIn(body);
+
+      console.log("RES")
+      console.log(res)
+
+      if (!res.ok) {
+        return res;
+      }
+
+      commit("LOG_IN", res.data);
+      return res;
+    },
+
     async verifyToken({ commit }) {
       const res = await API.user.verifyUserToken();
 
