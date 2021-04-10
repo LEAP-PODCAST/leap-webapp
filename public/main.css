@@ -69,18 +69,7 @@ button:disabled {
 }
 
 /* Rounded red inputs */
-
-input[type="text"] {
-  text-indent: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-width: 1px;
-  border-radius: 9999px;
-  border-color: rgba(229, 62, 62);
-  background-color: rgba(26, 32, 44);
-}
-
-input[type="password"] {
+.rounded-red-inputs {
   text-indent: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -95,7 +84,13 @@ input[type="password"] {
   font-size: 12px;
   position: relative !important;
   transform: translateY(-65%) !important;
-  /* transform: translateX(2%) !important; */
+  color: #ea455a !important;
+}
+textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 12px;
+  position: relative !important;
+  transform: translateY(2%) !important;
   color: #ea455a !important;
 }
 input::-moz-placeholder {
