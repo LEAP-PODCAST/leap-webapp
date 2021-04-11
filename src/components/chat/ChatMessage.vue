@@ -1,13 +1,24 @@
 <template>
-  <li class="text-xs px-2 text-gray-300 my-1">
-    <h3 class="text-xs font-bold">{{ message.username }}</h3>
-    <p v-if="type === 'message'" class="text-xs break-words" v-html="computedMessage" />
-    <p
-      v-else-if="type === 'action'"
-      class="text-xs break-words opacity-75 italic"
-      v-html="computedMessage"
-    />
-    <img v-else-if="type === 'img'" :src="computedMessage" class="w-full rounded-md" />
+  <li class="flex text-xs px-2 text-gray-300 my-1">
+    <d-profile-image class="w-6 h-6 mr-2 mt-2" />
+    <div>
+      <h3 class="text-xs font-bold">{{ fullUsername }}</h3>
+      <p
+        v-if="type === 'message'"
+        class="text-xs break-words"
+        v-html="computedMessage"
+      />
+      <p
+        v-else-if="type === 'action'"
+        class="text-xs break-words opacity-75 italic"
+        v-html="computedMessage"
+      />
+      <img
+        v-else-if="type === 'img'"
+        :src="computedMessage"
+        class="w-full rounded-md"
+      />
+    </div>
   </li>
 </template>
 
@@ -24,8 +35,15 @@ export default {
   },
 
   data: () => ({
-    type: "message"
+    type: "message",
+    fullUsername: ""
   }),
+
+  mounted() {
+    this.fullUsername = this.users[
+      this.message.socketId
+    ].userProfile.fullUsername;
+  },
 
   computed: {
     users() {

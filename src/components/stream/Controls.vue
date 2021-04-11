@@ -4,7 +4,7 @@
     <div class="flex justify-center">
       <div class="controls flex">
         <!-- Start Recording -->
-        <button class="text-red-700 px-4 py-2" disabled>
+        <button class="text-red-700 p-6" disabled>
           <div class="material-icons">fiber_manual_record</div>
           <div class="text-sm">Start Recording</div>
         </button>
@@ -14,7 +14,7 @@
           v-if="!$store.state.room.localStreams.mic"
           @click="$store.dispatch('room/produceMic')"
           :disabled="!!room.activeProduceHandshakeType"
-          class="text-white px-4 py-2"
+          class="text-white p-6"
         >
           <div class="material-icons">mic</div>
           <div class="text-sm">Enable Mic</div>
@@ -22,7 +22,7 @@
         <button
           v-else
           @click="$store.dispatch('room/stopProduceMic')"
-          class="text-red-700 px-4 py-2"
+          class="text-red-700 p-6"
         >
           <div class="material-icons">mic_off</div>
           <div class="text-sm">Disable Mic</div>
@@ -33,7 +33,7 @@
           v-if="!room.localStreams.webcam"
           @click="$store.dispatch('room/produceWebcam')"
           :disabled="!!room.activeProduceHandshakeType"
-          class="text-white px-4 py-2"
+          class="text-white p-6"
         >
           <span class="material-icons">videocam</span>
           <div class="text-sm">Enable Webcam</div>
@@ -41,14 +41,14 @@
         <button
           v-else
           @click="$store.dispatch('room/stopProduceWebcam')"
-          class="text-red-700 px-4 py-2"
+          class="text-red-700 p-6"
         >
           <span class="material-icons">videocam_off</span>
           <div class="text-sm">Disable Webcam</div>
         </button>
 
         <!-- Mark Timestamp -->
-        <button class="text-white px-4 py-2" disabled>
+        <button class="text-white p-6" disabled>
           <div class="material-icons">bookmark</div>
           <div class="text-sm">Mark</div>
         </button>
@@ -57,7 +57,7 @@
         <button
           @click="$store.dispatch('nav/toggleChat')"
           :class="$store.state.nav.chat ? '' : ''"
-          class="text-white px-4 py-2"
+          class="text-white p-6"
         >
           <span class="material-icons">people_alt</span>
           <div class="text-sm">Audience</div>
@@ -66,7 +66,7 @@
         <!-- End call -->
         <button
           @click="endEpisode"
-          class="text-white bg-red-600 rounded-lg px-5 ml-8"
+          class="text-white bg-red-600 rounded-lg p-6 px-8 ml-8"
         >
           <span class="material-icons">call_end</span>
           <div class="text-sm">End Call</div>

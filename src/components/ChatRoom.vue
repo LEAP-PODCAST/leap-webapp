@@ -9,12 +9,7 @@
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
       >
-        <img
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi0.wp.com%2Fwww.repol.copl.ulaval.ca%2Fwp-content%2Fuploads%2F2019%2F01%2Fdefault-user-icon.jpg%3Ffit%3D300%252C300&f=1&nofb=1"
-          class="rounded-full"
-          style="width:52px;height:52px;object-fit:cover"
-          alt=""
-        />
+        <d-profile-image class="w-12 h-12" />
       </li>
     </ul>
 

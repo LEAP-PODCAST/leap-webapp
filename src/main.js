@@ -22,6 +22,7 @@ import DCopy from "./components/globals/DCopy";
 import VueCtkDateTimePicker from "vue-ctk-date-time-picker";
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import DUserSearch from "./components/globals/DUserSearch";
+import DProfileImage from "./components/globals/DProfileImage";
 Vue.component("d-input", DInput);
 Vue.component("d-btn", DButton);
 Vue.component("d-loader", DLoader);
@@ -30,6 +31,7 @@ Vue.component("d-context-menu-item", DContextMenuItem);
 Vue.component("d-copy", DCopy);
 Vue.component("d-datetime", VueCtkDateTimePicker);
 Vue.component("d-user-search", DUserSearch);
+Vue.component("d-profile-image", DProfileImage);
 
 // Register filters
 const filters = {
