@@ -30,7 +30,7 @@
         :placeholder="placeholder"
         @input="$emit('input', $event.target.value)"
         @blur="$emit('blur')"
-        class="py-2 px-3 w-full"
+        class="rounded-red-inputs w-full"
         :class="invalid ? 'border-red-500' : ''"
       />
     </div>

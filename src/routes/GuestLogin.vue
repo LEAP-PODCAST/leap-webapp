@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-8 bg-gray-900 text-white rounded-lg m-auto"
+    class="p-8 bg-gray-900 text-white rounded-lg w-full"
     style="max-width:600px"
   >
     <div class="md:flex justify-between items-center mb-5">
@@ -36,50 +36,49 @@
     </form>
 
     <form @submit.prevent="signUp" v-if="step === 1">
-        <div>
-            <d-input
-                type="text"
-                v-model="firstName"
-                @blur="verfiyFirstName"
-                placeholder="First Name"
-                required
-            />
-            <small v-if="errors.firstName" class="text-red-500">
-                {{ errors.firstName }}
-            </small>
-        </div>
+      <div>
+        <d-input
+          type="text"
+          v-model="firstName"
+          @blur="verfiyFirstName"
+          placeholder="First Name"
+          required
+        />
+        <small v-if="errors.firstName" class="text-red-500">
+          {{ errors.firstName }}
+        </small>
+      </div>
 
-        <div class="mt-4">
-            <d-input
-                type="text"
-                v-model="lastName"
-                @blur="verifyLastName"
-                placeholder="Last Name"
-                required
-            />
-            <small v-if="errors.lastName" class="text-red-500">
-                {{ errors.lastName }}
-            </small>
-        </div>
+      <div class="mt-4">
+        <d-input
+          type="text"
+          v-model="lastName"
+          @blur="verifyLastName"
+          placeholder="Last Name"
+          required
+        />
+        <small v-if="errors.lastName" class="text-red-500">
+          {{ errors.lastName }}
+        </small>
+      </div>
 
-        <div class="mt-4">
-            <d-input
-            type="text"
-            v-model="heading"
-            placeholder="Heading"
-            @blur="verifyHeading"
-            required
-            />
-            <small v-if="errors.heading" class="text-red-500">
-                {{ errors.heading }}
-            </small>
-        </div>
+      <div class="mt-4">
+        <d-input
+          type="text"
+          v-model="heading"
+          placeholder="Heading"
+          @blur="verifyHeading"
+          required
+        />
+        <small v-if="errors.heading" class="text-red-500">
+          {{ errors.heading }}
+        </small>
+      </div>
 
-        <d-btn type="submit" variant="primary" class="mt-6 w-full">
-            Continue
-        </d-btn>
+      <d-btn type="submit" variant="primary" class="mt-6 w-full">
+        Continue
+      </d-btn>
     </form>
-
   </div>
 </template>
 
@@ -96,14 +95,14 @@ export default {
     firstName: "",
     lastName: "",
     email: "",
-    "heading": "",
+    heading: "",
     receiveNotifications: true,
 
     errors: {
       firstName: "",
       lastName: "",
       email: "",
-      "heading": ""
+      heading: ""
     }
   }),
 
@@ -147,11 +146,10 @@ export default {
           "Heading must only contain alphabetic characters.");
       }
       if (this.heading.length > 20) {
-        return (this.errors.heading =
-          "Heading must be 20 characters or less.");
+        return (this.errors.heading = "Heading must be 20 characters or less.");
       }
       this.errors.Heading = "";
-    },    
+    },
 
     async verifyEmail() {
       if (!this.email.length) {
@@ -166,50 +164,47 @@ export default {
       // TODO check if email is available
       this.errors.email = "";
     },
-    
-    
+
     async toStep1() {
-        await this.verifyEmail()
+      await this.verifyEmail();
 
-        if (
-            !!this.errors.email
-        ) {
-            return;
-        }
+      if (!!this.errors.email) {
+        return;
+      }
 
-        this.step++;
+      this.step++;
     },
 
     async signUp() {
-        this.verfiyFirstName();
-        this.verifyLastName();        
-        this.verifyHeading(); 
+      this.verfiyFirstName();
+      this.verifyLastName();
+      this.verifyHeading();
 
-        if (
-            !!this.errors.firstName ||
-            !!this.errors.lastName ||
-            !!this.errors.heading
-        ) {
+      if (
+        !!this.errors.firstName ||
+        !!this.errors.lastName ||
+        !!this.errors.heading
+      ) {
         return;
-        }
+      }
 
-        const res = await this.$store.dispatch("user/GuestLogin", {
-            email: this.email,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            heading: this.heading,
-            receiveNotifications: this.receiveNotifications
-        });
+      const res = await this.$store.dispatch("user/GuestLogin", {
+        email: this.email,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        heading: this.heading,
+        receiveNotifications: this.receiveNotifications
+      });
 
-        if (res.error) {
-            // TODO better notification system
-            alert(res.error);
-            return;
-        }
+      if (res.error) {
+        // TODO better notification system
+        alert(res.error);
+        return;
+      }
 
-        this.$router.push("/");
+      this.$router.push("/");
     }
-    }
+  }
 };
 </script>
 
