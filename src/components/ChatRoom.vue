@@ -10,7 +10,7 @@
         :key="socketId"
       >
         <img
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs.abcnews.com%2Fimages%2FUS%2FHT_paul_dewolf_dm_130726_16x9_992.jpg&f=1&nofb=1"
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi0.wp.com%2Fwww.repol.copl.ulaval.ca%2Fwp-content%2Fuploads%2F2019%2F01%2Fdefault-user-icon.jpg%3Ffit%3D300%252C300&f=1&nofb=1"
           class="rounded-full"
           style="width:52px;height:52px;object-fit:cover"
           alt=""

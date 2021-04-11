@@ -57,7 +57,6 @@
         <button
           @click="$store.dispatch('nav/toggleChat')"
           :class="$store.state.nav.chat ? '' : ''"
-          disabled
           class="text-white px-4 py-2"
         >
           <span class="material-icons">people_alt</span>
