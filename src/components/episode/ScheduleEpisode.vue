@@ -1,6 +1,14 @@
 <template>
   <div class="bg-white rounded-xl text-gray-700 p-4 w-full text-left">
-    <d-input type="text" v-model="name" placeholder="Episode name" />
+    <div class="flex items-center">
+      <i class="material-icons w-8">add_circle</i>
+      <d-input
+        type="text"
+        v-model="name"
+        placeholder="Episode name"
+        class="flex-grow"
+      />
+    </div>
 
     <div class="flex my-2 w-full">
       <i class="material-icons w-8">mic</i>
