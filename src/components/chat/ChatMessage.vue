@@ -2,7 +2,12 @@
   <li class="flex text-xs px-2 text-gray-300 my-1">
     <d-profile-image class="w-6 h-6 mr-2 mt-2" />
     <div>
-      <h3 class="text-xs font-bold">{{ userProfile.firstName }}</h3>
+      <div class="flex items-center">
+        <h3 class="text-xs font-bold mr-2">{{ userProfile.firstName }}</h3>
+        <!-- <span class="opacity-50 font-thin" style="font-size:0.5rem"
+          >@{{ userProfile.fullUsername }}</span
+        > -->
+      </div>
       <p
         v-if="type === 'message'"
         class="text-xs break-words"
