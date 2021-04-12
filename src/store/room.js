@@ -154,7 +154,11 @@ export default ({ socket }) => {
         podcast: res.data.podcast
       });
 
-      dispatch("onJoinRoom", res);
+      await dispatch("onJoinRoom", res);
+
+      await dispatch("produceWebcam");
+      await dispatch("produceMic");
+
       return { ok: true };
     },
 
@@ -167,7 +171,11 @@ export default ({ socket }) => {
       }
 
       commit("SET_ROOM_ID", roomId);
-      dispatch("onJoinRoom", res);
+
+      await dispatch("onJoinRoom", res);
+
+      await dispatch("produceWebcam");
+      await dispatch("produceMic");
     },
 
     async onJoinRoom({ state, commit, dispatch }, res) {
@@ -246,6 +254,8 @@ export default ({ socket }) => {
       sendTransport.on(
         "connect",
         async ({ dtlsParameters }, callback, errback) => {
+          console.log("test!");
+
           // Connect the receive transport
           res = await API.transport.connect({
             type: "send",
@@ -402,9 +412,9 @@ export default ({ socket }) => {
       });
     },
 
-    async getWebcamStream({ commit }) {
+    async getWebcamStream({ commit }, { deviceId }) {
       const { ok, error, stream } = await WebRTC.getUserMedia({
-        video: { maxWidth: "1280", maxHeight: "720" }
+        video: { deviceId, maxWidth: "1280", maxHeight: "720" }
       });
 
       if (!ok) {
@@ -415,9 +425,9 @@ export default ({ socket }) => {
       commit("SET_LOCAL_STREAM", { type: "webcam", stream });
     },
 
-    async getMicStream({ commit }) {
+    async getMicStream({ commit }, { deviceId }) {
       const { ok, error, stream } = await WebRTC.getUserMedia({
-        audio: true
+        audio: { deviceId }
       });
 
       if (!ok) {
@@ -440,6 +450,8 @@ export default ({ socket }) => {
     },
 
     async produceWebcam({ state, commit, dispatch }) {
+      console.log("Hello!");
+
       // Get webcam track
       const videoTrack = state.localStreams.webcam.getVideoTracks()[0];
       if (!videoTrack) {

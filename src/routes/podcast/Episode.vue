@@ -78,15 +78,8 @@ export default {
     }
   },
 
-  async created() {
-    const res = await this.$store.dispatch("room/watchEpisode", {
-      podcastUrlName: this.$route.params.podcastUrlName,
-      episodeUrlName: this.$route.params.episodeUrlName
-    });
-
-    if (!res.ok) {
-      alert("Something went wrong");
-    }
+  created() {
+    this.$store.dispatch("nav/showModal", { id: "join-room" });
   },
 
   beforeDestroy() {

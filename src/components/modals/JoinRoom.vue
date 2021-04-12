@@ -2,12 +2,18 @@
   <div>
     <h1 class="text-2xl text-grey-400 mb-2">Join Room</h1>
     <form @submit.prevent="onSubmit">
-      <d-input v-model="username" label="Enter your name" required class="flex-grow mr-2 mb-4" />
+      <d-input
+        v-model="username"
+        label="Enter your name"
+        required
+        class="flex-grow mr-2 mb-4"
+      />
       <d-btn
         type="submit"
         variant="none"
         class="p-btn inline-block rounded font-bold bg-dark-2 px-3 py-2"
-      >Join Room</d-btn>
+        >Join Room</d-btn
+      >
     </form>
   </div>
 </template>
@@ -37,5 +43,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

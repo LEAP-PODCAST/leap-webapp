@@ -7,7 +7,8 @@ export default () => ({
     contextMenu: "",
     contextMenuData: {},
     chat: false,
-    homeView: ""
+    homeView: "home",
+    homeViewData: {}
   },
 
   getters: {},
@@ -28,7 +29,13 @@ export default () => ({
     },
 
     SET_HOME_VIEW(state, payload) {
-      state.homeView = payload;
+      if (typeof payload === "string") {
+        state.homeView = payload;
+        state.homeViewData = {};
+      } else {
+        state.homeView = payload.id;
+        state.homeViewData = payload.data;
+      }
     }
   },
 

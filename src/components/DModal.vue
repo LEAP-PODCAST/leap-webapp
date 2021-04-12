@@ -18,7 +18,7 @@
 
         <!-- Join room -->
         <section v-if="$store.state.nav.modal === 'join-room'">
-          <JoinRoom />
+          <ChooseDevices />
         </section>
 
         <!-- Add New Video Player -->
@@ -42,14 +42,14 @@
 </template>
 
 <script>
-import JoinRoom from "./modals/JoinRoom";
+import ChooseDevices from "@/components/home/ChooseDevices";
 import AddVideoPlayer from "./modals/AddVideoPlayer";
 import AddVideoToPlayer from "./modals/AddVideoToPlayer";
 import ChangeUsername from "./modals/ChangeUsername";
 
 export default {
   components: {
-    JoinRoom,
+    ChooseDevices,
     AddVideoPlayer,
     AddVideoToPlayer,
     ChangeUsername

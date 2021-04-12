@@ -1,9 +1,5 @@
 <template>
   <div class="p-8 w-full h-full">
-    <div v-if="$store.state.nav.homeView === ''">
-      <ChooseDevices redirectUrl="/Trystons-Podcast/dasda" />
-    </div>
-
     <div
       v-if="$store.state.nav.homeView === 'home'"
       class="flex flex-col align-center w-full h-full justify-center"
@@ -85,6 +81,13 @@
       <div class="flex">
         <CreatePodcast />
       </div>
+    </div>
+
+    <div v-else-if="$store.state.nav.homeView === 'join-room'">
+      <ChooseDevices
+        :episode="$store.state.nav.homeViewData.episode"
+        :isStarting="true"
+      />
     </div>
   </div>
 </template>
