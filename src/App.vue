@@ -5,7 +5,7 @@
 
       <Landing v-if="$route.path === '/' && !isLoggedIn" />
 
-      <SimpleHeader v-else-if="!isLoggedIn">
+      <SimpleHeader v-else-if="this.paths.includes($route.path)">
         <router-view></router-view>
       </SimpleHeader>
 
@@ -27,6 +27,15 @@ import Landing from "@/components/Landing";
 import SimpleHeader from "@/components/layout/SimpleHeader";
 
 export default {
+  data: () => ({
+    paths: [
+      "/LogIn",
+      "/GuestLogin",
+      "/NewPassword",
+      "/PasswordReset",
+      "/SignUp"
+    ]
+  }),
   components: {
     DModal,
     MainWrapper,
