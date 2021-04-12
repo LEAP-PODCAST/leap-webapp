@@ -97,7 +97,7 @@ textarea::-webkit-input-placeholder {
   font-size: 12px;
   position: relative !important;
   transform: translateY(2%) !important;
-  color: #ea455a !important;
+  /* color: #ea455a !important; */
 }
 
 input::-moz-placeholder {

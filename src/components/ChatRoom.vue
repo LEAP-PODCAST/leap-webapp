@@ -1,23 +1,27 @@
 <template>
   <div
-    class="flex flex-col h-full bg-gray-700 rounded-lg text-gray-400 text-center"
+    class="flex flex-col h-full bg-gray-700 p-2 rounded-lg text-gray-400 text-center"
     style="width:25rem"
   >
-    <h2>Paticipants</h2>
-    <ul class="p-3">
+    <h2 class="pt-4 pb-2 border-b-2 border-gray-600">
+      Live audience
+    </h2>
+    <ul class="flex flex-wrap p-3">
       <li
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
-        class="flex flex-col items-center w-12 h-12"
+        class="flex flex-col items-center w-12"
       >
-        <d-profile-image class="w-full h-full" />
+        <div class="h-12 w-12">
+          <d-profile-image class="w-full h-full" />
+        </div>
         <p class="text-xs">
           {{ $store.state.chat.users[socketId].userProfile.firstName }}
         </p>
       </li>
     </ul>
 
-    <h2>Live Chats</h2>
+    <h2 class="pt-4 pb-2 border-t-2 border-gray-600">Live Chats</h2>
     <div class="flex flex-col text-left flex-grow">
       <div
         class="flex-grow overflow-y-auto scrollbar relative"
@@ -33,12 +37,12 @@
         </ul>
       </div>
     </div>
-    <div class="relative bg-gray-600" style="height:3.5rem">
+    <div class="relative" style="height:3.5rem">
       <div class="w-full h-full">
         <textarea
           v-model="text"
           @keydown.prevent.enter="sendMessage"
-          class="w-full h-full bg-gray-600 text-gray-300 text-xs p-1"
+          class="w-full h-full bg-gray-600 text-gray-300 text-xs p-2 rounded-lg"
           placeholder="Enter a message..."
         ></textarea>
         <div class="absolute flex bottom-0 right-0 py-2 px-1 items-center">
