@@ -8,8 +8,12 @@
       <li
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
+        class="flex flex-col items-center w-12 h-12"
       >
-        <d-profile-image class="w-12 h-12" />
+        <d-profile-image class="w-full h-full" />
+        <p class="text-xs">
+          {{ $store.state.chat.users[socketId].userProfile.firstName }}
+        </p>
       </li>
     </ul>
 

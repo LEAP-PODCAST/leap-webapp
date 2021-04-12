@@ -2,7 +2,7 @@
   <li class="flex text-xs px-2 text-gray-300 my-1">
     <d-profile-image class="w-6 h-6 mr-2 mt-2" />
     <div>
-      <h3 class="text-xs font-bold">{{ fullUsername }}</h3>
+      <h3 class="text-xs font-bold">{{ userProfile.firstName }}</h3>
       <p
         v-if="type === 'message'"
         class="text-xs break-words"
@@ -36,13 +36,11 @@ export default {
 
   data: () => ({
     type: "message",
-    fullUsername: ""
+    userProfile: {}
   }),
 
   mounted() {
-    this.fullUsername = this.users[
-      this.message.socketId
-    ].userProfile.fullUsername;
+    this.userProfile = this.users[this.message.socketId].userProfile;
   },
 
   computed: {
