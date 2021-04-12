@@ -1,13 +1,7 @@
 <template>
   <div class="p-8">
     <div class="flex flex-col items-center mb-8">
-      <img
-        :src="
-          profile.avatar ||
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'
-        "
-        class="rounded-full w-24 h-24"
-      />
+      <d-profile-image :imgUrl="profile.avatarUrl" class="w-24 h-24" />
       <h2 class="font-bold text-lg mt-4 leading-tight">
         {{ `${profile.firstName} ${profile.lastName}` }}
       </h2>
@@ -19,25 +13,34 @@
 
     <div>
       <h2 class="opacity-25 text-sm">My Podcasts</h2>
-      <button
-        @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
-        v-if="profile.podcasts.length === 0"
-        class="my-5 flex align-start"
-      >
-        <div class="flex flex-col justify-center items-center">
-          <i class="material-icons bg-red-500 rounded-full mb-4 w-1/4">add</i>
-          <p class="text-xs text-red-500">CREATE PODCAST</p>
-        </div>
-      </button>
 
-      <ul v-if="profile.podcasts.length" class="flex py-3">
-        <li
-          v-for="podcast in profile.podcasts"
-          :key="podcast.id"
-          class="flex flex-col items-center mr-2"
-        >
-          <i class="material-icons text-4xl">mic</i>
-          <span>{{ podcast.name }}</span>
+      <ul v-if="profile.podcasts.length" class="flex items-center py-3">
+        <li v-for="podcast in profile.podcasts" :key="podcast.id">
+          <button
+            class="flex flex-col items-center justify-center mr-4 h-32 w-32"
+          >
+            <div class="flex-grow flex justify-center items-center">
+              <d-profile-image class="w-16 h-16" />
+            </div>
+            <span>{{ podcast.name }}</span>
+          </button>
+        </li>
+
+        <li>
+          <button
+            @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
+            class="flex flex-col justify-center items-center h-32 w-32"
+          >
+            <div class="flex-grow flex justify-center items-center">
+              <i
+                class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-8 h-8"
+                >add</i
+              >
+            </div>
+            <p class="text-xs text-red-500 mb-1">
+              Create new podcast
+            </p>
+          </button>
         </li>
       </ul>
     </div>
@@ -53,7 +56,9 @@
 </template>
 
 <script>
+import DProfileImage from "../globals/DProfileImage.vue";
 export default {
+  components: { DProfileImage },
   props: {
     profile: {
       type: Object,
