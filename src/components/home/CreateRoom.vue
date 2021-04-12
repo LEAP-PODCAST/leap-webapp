@@ -16,7 +16,7 @@
       </div>
       <div class="flex flex-col items-center mt-8">
         <d-btn
-          @click="$store.state.nav.homeView === 'schedule'"
+          @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
           variant="primary"
         >
           New episode
