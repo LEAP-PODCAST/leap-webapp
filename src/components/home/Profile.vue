@@ -17,9 +17,20 @@
     <!-- <p> following</p> -->
     <!-- <p>{{ user.followers }} followers</p> -->
 
-    <div v-if="profile.podcasts.length">
+    <div>
       <h2 class="opacity-25 text-sm">My Podcasts</h2>
-      <ul class="flex py-3">
+      <button
+        @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
+        v-if="profile.podcasts.length === 0"
+        class="my-5 flex align-start"
+      >
+        <div class="flex flex-col justify-center items-center">
+          <i class="material-icons bg-red-500 rounded-full mb-4 w-1/4">add</i>
+          <p class="text-xs text-red-500">CREATE PODCAST</p>
+        </div>
+      </button>
+
+      <ul v-if="profile.podcasts.length" class="flex py-3">
         <li
           v-for="podcast in profile.podcasts"
           :key="podcast.id"
@@ -31,13 +42,13 @@
       </ul>
     </div>
 
-    <!-- <div>
-        <h2>Posts</h2>
-        <div v-for="(post, i) in posts" :key='i' class="flex flex-row">
-            <img class="w-4" :src=user.image alt="">
-            <p>{{post.title}}</p>
-        </div>
-    </div> -->
+    <div>
+      <h2 class="opacity-25 text-sm">Posts</h2>
+      <div v-for="(post, i) in posts" :key="i" class="flex flex-row">
+        <img class="w-4" :src="user.image" alt="" />
+        <p>{{ post.title }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
