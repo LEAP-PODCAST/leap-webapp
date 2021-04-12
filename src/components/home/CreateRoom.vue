@@ -1,8 +1,8 @@
 <template>
   <div class="p-8 w-full h-full">
     <div
-      v-if="step === 'home'"
-      class="flex flex-col align-center w-full h-full"
+      v-if="$store.state.nav.homeView === 'home'"
+      class="flex flex-col align-center w-full h-full justify-center"
     >
       <ScheduledEpisodes class="mb-12" />
       <div class="text-center">
@@ -15,12 +15,15 @@
         </h2>
       </div>
       <div class="flex flex-col items-center mt-8">
-        <d-btn @click="step = 'schedule'" variant="primary">
+        <d-btn
+          @click="$store.state.nav.homeView === 'schedule'"
+          variant="primary"
+        >
           New episode
         </d-btn>
-        <d-btn @click="step = 'create'" variant="primary">
+        <!-- <d-btn @click="step = 'create'" variant="primary">
           Create my podcast
-        </d-btn>
+        </d-btn> -->
         <small class="italic text-xs opacity-50 my-2">or</small>
         <d-btn @click="createRoom" variant="primary-outline">
           Create room
@@ -29,7 +32,7 @@
     </div>
 
     <!-- Schedule a Podcast -->
-    <div v-else-if="step === 'schedule'">
+    <div v-else-if="$store.state.nav.homeView === 'schedule'">
       <span class="text-sm font-thin opacity-75">
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
@@ -41,7 +44,10 @@
           New Episode
           <i class="material-icons ml-3">videocam</i>
         </div>
-        <button @click="step = 'home'" class="text-xl p-2 ml-3 text-gray-300">
+        <button
+          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+          class="text-xl p-2 ml-3 text-gray-300"
+        >
           <i class="material-icons">clear</i>
         </button>
       </div>
@@ -52,7 +58,7 @@
     </div>
 
     <!-- Create a Podcast -->
-    <div v-else-if="step === 'create'">
+    <div v-else-if="$store.state.nav.homeView === 'create-podcast'">
       <span class="text-sm font-thin opacity-75">
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
@@ -64,7 +70,10 @@
           New Podcast
           <!-- <i class="material-icons ml-3">videocam</i> -->
         </div>
-        <button @click="step = 'home'" class="text-xl p-2 ml-3 text-gray-300">
+        <button
+          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+          class="text-xl p-2 ml-3 text-gray-300"
+        >
           <i class="material-icons">clear</i>
         </button>
       </div>

@@ -6,7 +6,8 @@ export default () => ({
     modalData: {},
     contextMenu: "",
     contextMenuData: {},
-    chat: false
+    chat: false,
+    homeView: "home"
   },
 
   getters: {},
@@ -24,6 +25,10 @@ export default () => ({
 
     SET_CHAT(state, payload) {
       state.chat = payload;
+    },
+
+    SET_HOME_VIEW(state, payload) {
+      state.homeView = payload;
     }
   },
 
