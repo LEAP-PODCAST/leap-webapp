@@ -39,7 +39,8 @@
         <Controls />
       </div>
     </div>
-    <!-- <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" /> -->
+
+    <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" />
   </div>
 </template>
 

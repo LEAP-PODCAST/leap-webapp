@@ -8,13 +8,12 @@
       <li
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
+        class="flex flex-col items-center w-12 h-12"
       >
-        <img
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs.abcnews.com%2Fimages%2FUS%2FHT_paul_dewolf_dm_130726_16x9_992.jpg&f=1&nofb=1"
-          class="rounded-full"
-          style="width:52px;height:52px;object-fit:cover"
-          alt=""
-        />
+        <d-profile-image class="w-full h-full" />
+        <p class="text-xs">
+          {{ $store.state.chat.users[socketId].userProfile.firstName }}
+        </p>
       </li>
     </ul>
 
