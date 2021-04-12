@@ -1,0 +1,160 @@
+<template>
+  <div class="w-full max-w-128 m-auto">
+    <div class="text-center">
+      <span class="text-sm font-thin opacity-75">
+        Check sound and video
+      </span>
+      <h2 class="text-2xl">
+        Ready? 🔥
+      </h2>
+    </div>
+    <div class="flex justify-center items-center w-full my-4">
+      <div
+        class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
+      >
+        <i class="material-icons mr-3">videocam</i>
+        Go live
+      </div>
+      <button
+        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+        class="text-xl p-2 ml-3 text-gray-300"
+      >
+        <i class="material-icons">clear</i>
+      </button>
+    </div>
+
+    <div class="flex items-center relative mb-3">
+      <video
+        autoplay
+        muted
+        playsinline
+        ref="video"
+        class="bg-black w-full max-w-128 max-h-32 m-auto rounded-lg"
+      />
+      <!-- <div class="relative">
+        <div
+          class="absolute bg-gray-900 px-6 py-4 rounded-xl text-white"
+          style="bottom:2rem;left:2rem"
+        >
+          <h2 class="text-lg leading-none">
+            {{ user.firstName }} {{ user.lastName }}
+          </h2>
+          <p class="opacity-50 italic text-sm">@{{ user.fullUsername }}</p>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="bg-gray-700 rounded-xl p-3">
+      <select class="my-1 w-full p-2 rounded-md bg-gray-900 text-gray-300">
+        <option v-for="d in devices.videoinput" :key="d.id" :value="d.id">
+          {{ d.label }}
+        </option>
+      </select>
+      <select class="my-1 w-full p-2 rounded-md bg-gray-900 text-white">
+        <option v-for="d in devices.audioinput" :key="d.id" :value="d.id">
+          {{ d.label }}
+        </option>
+      </select>
+      <select class="my-1 w-full p-2 rounded-md bg-gray-900 text-white">
+        <option v-for="d in devices.audiooutput" :key="d.id" :value="d.id">
+          {{ d.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="flex flex-col items-center mt-8">
+      <div class="mb-2">
+        <span v-if="!webcam" class="text-red-700">
+          We failed to capture your webcam.
+        </span>
+        <span v-if="!mic" class="text-red-700">
+          We failed to capture your microphone.
+        </span>
+      </div>
+
+      <d-btn
+        @click="$router.push(redirectUrl)"
+        variant="primary-outline"
+        :disabled="!webcamAndMic"
+      >
+        Join
+      </d-btn>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    redirectUrl: {
+      type: String,
+      required: true
+    }
+  },
+
+  created() {
+    this.getLocalStreams();
+    this.enumerateDevices();
+  },
+
+  data: () => ({
+    devices: {
+      videoinput: [],
+      audioinput: [],
+      audiooutput: []
+    }
+  }),
+
+  methods: {
+    async getLocalStreams() {
+      await this.$store.dispatch("room/getWebcamStream");
+      await this.$store.dispatch("room/getMicStream");
+    },
+
+    async enumerateDevices() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+        console.log("enumerateDevices() not supported.");
+        return;
+      }
+
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      if (!devices || !devices.length) {
+        console.error("Somehow, you have no devices connected at all");
+        return;
+      }
+
+      console.log(devices);
+      for (const device of devices) {
+        console.log(device);
+        this.devices[device.kind].push(device);
+      }
+    }
+  },
+
+  computed: {
+    webcamAndMic() {
+      return !!this.webcam && this.mic;
+    },
+
+    webcam() {
+      return this.$store.state.room.localStreams.webcam;
+    },
+
+    mic() {
+      return this.$store.state.room.localStreams.mic;
+    },
+
+    user() {
+      return this.$store.state.user.userProfile;
+    }
+  },
+
+  watch: {
+    "$store.state.room.localStreams.webcam"(stream) {
+      if (stream) this.$refs.video.srcObject = stream;
+    }
+  }
+};
+</script>
+
+<style></style>

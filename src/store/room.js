@@ -402,6 +402,32 @@ export default ({ socket }) => {
       });
     },
 
+    async getWebcamStream({ commit }) {
+      const { ok, error, stream } = await WebRTC.getUserMedia({
+        video: { maxWidth: "1280", maxHeight: "720" }
+      });
+
+      if (!ok) {
+        console.error(error);
+        return;
+      }
+
+      commit("SET_LOCAL_STREAM", { type: "webcam", stream });
+    },
+
+    async getMicStream({ commit }) {
+      const { ok, error, stream } = await WebRTC.getUserMedia({
+        audio: true
+      });
+
+      if (!ok) {
+        console.error(error);
+        return;
+      }
+
+      commit("SET_LOCAL_STREAM", { type: "mic", stream });
+    },
+
     async produce({ state }, track) {
       const producer = await state.sendTransport.produce({
         track,
@@ -413,17 +439,14 @@ export default ({ socket }) => {
       return producer;
     },
 
-    async produceWebcam({ commit, dispatch }) {
-      const { ok, error, stream } = await WebRTC.getUserMedia({
-        video: { maxWidth: "1280", maxHeight: "720" }
-      });
-
-      if (!ok) {
-        console.error(error);
-        return;
+    async produceWebcam({ state, commit, dispatch }) {
+      // Get webcam track
+      const videoTrack = state.localStreams.webcam.getVideoTracks()[0];
+      if (!videoTrack) {
+        console.error("No webcam track");
+        return { ok: false };
       }
 
-      const videoTrack = stream.getVideoTracks()[0];
       // If client clicks Stop Sharing button or ends stream via browser APIs
       videoTrack.onended = () => dispatch("stopProduceWebcam");
 
@@ -449,18 +472,14 @@ export default ({ socket }) => {
       commit("CLOSE_LOCAL_STREAM", "webcam");
     },
 
-    async produceMic({ commit, dispatch }) {
-      const { ok, error, stream } = await WebRTC.getUserMedia({
-        // TODO add settings for choosing mic to use (this uses default)
-        audio: true
-      });
-
-      if (!ok) {
-        console.error(error);
-        return;
+    async produceMic({ state, commit, dispatch }) {
+      // Get mic track
+      const audioTrack = state.localStreams.mic.getVideoTracks()[0];
+      if (!audioTrack) {
+        console.error("No microphone track");
+        return { ok: false };
       }
 
-      const audioTrack = stream.getAudioTracks()[0];
       // If client clicks Stop Sharing button or ends stream via browser APIs
       audioTrack.onended = () => dispatch("stopProduceMic");
 

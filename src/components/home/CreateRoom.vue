@@ -1,5 +1,9 @@
 <template>
   <div class="p-8 w-full h-full">
+    <div v-if="$store.state.nav.homeView === ''">
+      <ChooseDevices redirectUrl="/Trystons-Podcast/dasda" />
+    </div>
+
     <div
       v-if="$store.state.nav.homeView === 'home'"
       class="flex flex-col align-center w-full h-full justify-center"
@@ -89,12 +93,14 @@
 import ScheduledEpisodes from "@/components/episode/ScheduledEpisodes";
 import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
 import CreatePodcast from "@/components/home/CreatePodcast";
+import ChooseDevices from "@/components/home/ChooseDevices";
 
 export default {
   components: {
     ScheduledEpisodes,
     ScheduleEpisode,
-    CreatePodcast
+    CreatePodcast,
+    ChooseDevices
   },
 
   data: () => ({

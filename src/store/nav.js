@@ -7,7 +7,7 @@ export default () => ({
     contextMenu: "",
     contextMenuData: {},
     chat: false,
-    homeView: "home"
+    homeView: ""
   },
 
   getters: {},
