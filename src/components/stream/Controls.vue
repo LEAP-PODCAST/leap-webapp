@@ -6,10 +6,10 @@
         <!-- Start Recording -->
         <button class="text-red-700 p-6" disabled>
           <div class="material-icons">fiber_manual_record</div>
-          <div class="text-sm">Start Recording</div>
+          <div class="text-sm">Record</div>
         </button>
 
-        <!-- Mute Microphone -->
+        <!-- Mute Microphone
         <button
           v-if="!$store.state.room.localStreams.mic"
           @click="$store.dispatch('room/produceMic')"
@@ -28,7 +28,6 @@
           <div class="text-sm">Disable Mic</div>
         </button>
 
-        <!-- Webcam -->
         <button
           v-if="!room.localStreams.webcam"
           @click="$store.dispatch('room/produceWebcam')"
@@ -45,7 +44,7 @@
         >
           <span class="material-icons">videocam_off</span>
           <div class="text-sm">Disable Webcam</div>
-        </button>
+        </button> -->
 
         <!-- Mark Timestamp -->
         <button class="text-white p-6" disabled>
