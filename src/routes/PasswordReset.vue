@@ -21,11 +21,11 @@
           required
         />
       </div>
-      <div class="flex justify-center space-x-4">
+      <div class="flex space-x-4">
         <d-btn
           type="submit"
           variant="primary"
-          class="w-5/12"
+          class="w-4/12"
           @click="resetPasswordPrompt()"
         >
           Reset
@@ -34,7 +34,7 @@
         <d-btn
           type="submit"
           variant="primary-outline"
-          class="w-5/12"
+          class="w-4/12"
           @click="returnToLogin()"
         >
           Cancel
