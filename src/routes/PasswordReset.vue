@@ -11,7 +11,7 @@
       <p>Make sure to check the spam folder!</p>
     </div>
 
-    <form v-else>
+    <form v-else @submit.prevent="resetPasswordPrompt()">
       <div class="mb-3">
         <d-input
           type="text"
@@ -25,12 +25,7 @@
         </small>
       </div>
       <div class="flex space-x-4">
-        <d-btn
-          type="submit"
-          variant="primary"
-          class="w-4/12"
-          @click="resetPasswordPrompt()"
-        >
+        <d-btn type="submit" variant="primary" class="w-4/12">
           Reset
         </d-btn>
 
@@ -62,6 +57,7 @@ export default {
     },
     resetPasswordPrompt() {
       this.reset = true;
+      this.verified = true;
     },
     verifyEmail() {
       if (!this.email.length) {
@@ -75,7 +71,6 @@ export default {
       }
       // TODO check if email is available
       this.errors.email = "";
-      this.verified = true;
     }
   }
 };
