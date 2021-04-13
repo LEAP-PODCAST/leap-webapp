@@ -76,7 +76,6 @@ button:disabled {
   border-width: 1px;
   border-radius: 9999px;
   border-color: darkgray;
-  background-color: rgba(26, 32, 44);
 }
 
 .rounded-red-inputs:focus {

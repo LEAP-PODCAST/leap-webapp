@@ -10,7 +10,7 @@
         v-bind="$attrs"
         :checked="value"
         @input="$emit('input', !value)"
-        class="w-6 h-6 mr-2 flex-shrink-0 bg-gray-200 text-gray-800 border rounded"
+        class="w-6 h-6 mr-2 flex-shrink-0 text-gray-800 border rounded"
       />
       <span v-if="label" :class="{ 'visually-hidden': screenReaderOnly }">
         {{ label }}

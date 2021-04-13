@@ -2,7 +2,7 @@
   <div class="p-8 w-full h-full">
     <div
       v-if="$store.state.nav.homeView === 'home'"
-      class="flex flex-col align-center w-full h-full justify-center"
+      class="flex flex-col w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
       <div class="text-center">
@@ -30,7 +30,7 @@
           Create my podcast
         </d-btn>
         <small class="italic text-xs opacity-50 my-2">or</small>
-        <d-btn @click="createRoom" variant="primary-outline">
+        <d-btn @click="createRoom" variant="primary-outline" disabled>
           Create room
         </d-btn>
       </div>
