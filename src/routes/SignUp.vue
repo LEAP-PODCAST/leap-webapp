@@ -23,7 +23,7 @@
 
     <form @submit.prevent="toStep1" v-if="step === 0">
       <div class="md:flex mb-3">
-        <div class="md:w-6/12 mr-6">
+        <div class="md:w-6/12 mr-2">
           <d-input
             type="text"
             v-model="firstName"
