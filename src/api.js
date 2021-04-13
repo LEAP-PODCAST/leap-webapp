@@ -54,6 +54,11 @@ export default {
       return http.post("/room/join", { body });
     }
   },
+  general: {
+    emailList(body) {
+      return http.post("/general/emailList", { body })
+    }
+  },
 
   transport: {
     create(body) {

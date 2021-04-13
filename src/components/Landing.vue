@@ -29,15 +29,15 @@
         </div>
 
         <div v-if="waitlist">
-          <form class="flex flex-col" action="">
+          <form class="flex flex-col" @submit.prevent="submitEmail">
             <d-input type="text" v-model="email" placeholder="Email" required />
-            <d-btn variant="primary" class="mt-2">Submit</d-btn>
+            <d-btn variant="primary" type="submit" class="mt-2">Submit</d-btn>
             <d-btn
               @click="waitlist = !waitlist"
               variant="primary-outline"
               class="mt-5"
-              >Cancel</d-btn
-            >
+              >Cancel
+            </d-btn>
           </form>
         </div>
       </div>
@@ -46,10 +46,18 @@
 </template>
 
 <script>
+import API from "@/api";
+
 export default {
   data: () => ({
-    waitlist: false
-  })
+    waitlist: false,
+    email: ""
+  }),
+  methods: {
+    submitEmail() {
+      API.general.emailList({ email: this.email });
+    }
+  }
 };
 </script>
 
