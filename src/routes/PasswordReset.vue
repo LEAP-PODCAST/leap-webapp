@@ -21,24 +21,25 @@
           required
         />
       </div>
+      <div class="flex justify-center space-x-4">
+        <d-btn
+          type="submit"
+          variant="primary"
+          class="w-5/12"
+          @click="resetPasswordPrompt()"
+        >
+          Reset
+        </d-btn>
 
-      <d-btn
-        type="submit"
-        variant="primary"
-        class="w-full mt-6"
-        @click="resetPasswordPrompt()"
-      >
-        Reset
-      </d-btn>
-
-      <d-btn
-        type="submit"
-        variant="primary-outline"
-        class="w-full mt-3"
-        @click="returnToLogin()"
-      >
-        Cancel
-      </d-btn>
+        <d-btn
+          type="submit"
+          variant="primary-outline"
+          class="w-5/12"
+          @click="returnToLogin()"
+        >
+          Cancel
+        </d-btn>
+      </div>
     </form>
   </div>
 </template>
