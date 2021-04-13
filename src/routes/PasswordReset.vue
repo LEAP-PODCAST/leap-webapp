@@ -5,21 +5,24 @@
   >
     <h1 class="text-2xl font-bold mb-4">Reset Password</h1>
 
-    <div v-if="reset">
+    <div v-if="reset && verified">
       <p>Email sent!</p>
       <p>Please check your inbox to reset your password.</p>
       <p>Make sure to check the spam folder!</p>
     </div>
 
-    <form v-if="!reset">
+    <form v-else>
       <div class="mb-3">
         <d-input
           type="text"
-          v-model="username"
-          @blur="verifyUsername"
+          v-model="email"
           placeholder="Email"
+          @blur="verifyEmail"
           required
         />
+        <small v-if="errors.email" class="text-red-500">
+          {{ errors.email }}
+        </small>
       </div>
       <div class="flex space-x-4">
         <d-btn
@@ -32,7 +35,6 @@
         </d-btn>
 
         <d-btn
-          type="submit"
           variant="primary-outline"
           class="w-4/12"
           @click="returnToLogin()"
@@ -47,7 +49,12 @@
 <script>
 export default {
   data: () => ({
-    reset: false
+    reset: false,
+    verified: false,
+    email: "",
+    errors: {
+      email: ""
+    }
   }),
   methods: {
     returnToLogin() {
@@ -55,6 +62,20 @@ export default {
     },
     resetPasswordPrompt() {
       this.reset = true;
+    },
+    verifyEmail() {
+      if (!this.email.length) {
+        return (this.errors.email = "Email is required.");
+      }
+      if (!regex.email.test(this.email)) {
+        return (this.errors.email = "That email appears to be invalid.");
+      }
+      if (this.email.length > 32) {
+        return (this.errors.email = "Email must be 32 characters or less.");
+      }
+      // TODO check if email is available
+      this.errors.email = "";
+      this.verified = true;
     }
   }
 };
