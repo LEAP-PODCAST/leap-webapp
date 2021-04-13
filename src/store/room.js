@@ -125,6 +125,8 @@ export default ({ socket }) => {
     },
 
     SET_LOCAL_STREAM(state, { type, stream }) {
+      const ls = state.localStreams[type];
+      if (ls) ls.getTracks().forEach(t => t.stop());
       state.localStreams[type] = stream;
     },
 
@@ -145,7 +147,7 @@ export default ({ socket }) => {
 
       if (!res.ok) {
         console.error(res.error);
-        return;
+        return res;
       }
 
       commit("SET_ROOM_ID", `episode/${episodeUrlName}`);
@@ -450,8 +452,6 @@ export default ({ socket }) => {
     },
 
     async produceWebcam({ state, commit, dispatch }) {
-      console.log("Hello!");
-
       // Get webcam track
       const videoTrack = state.localStreams.webcam.getVideoTracks()[0];
       if (!videoTrack) {
@@ -466,7 +466,6 @@ export default ({ socket }) => {
       const producer = await dispatch("produce", videoTrack);
 
       commit("SET_PRODUCER", { type: "webcam", producer });
-      commit("SET_LOCAL_STREAM", { type: "webcam", stream });
       commit("SET_ACTIVE_PRODUCE_HANDSHAKE_TYPE", "");
     },
 
@@ -486,7 +485,7 @@ export default ({ socket }) => {
 
     async produceMic({ state, commit, dispatch }) {
       // Get mic track
-      const audioTrack = state.localStreams.mic.getVideoTracks()[0];
+      const audioTrack = state.localStreams.mic.getAudioTracks()[0];
       if (!audioTrack) {
         console.error("No microphone track");
         return { ok: false };
@@ -499,7 +498,6 @@ export default ({ socket }) => {
       const producer = await dispatch("produce", audioTrack);
 
       commit("SET_PRODUCER", { type: "mic", producer });
-      commit("SET_LOCAL_STREAM", { type: "mic", stream });
       commit("SET_ACTIVE_PRODUCE_HANDSHAKE_TYPE", "");
     },
 

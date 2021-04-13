@@ -59,12 +59,17 @@
 import DProfileImage from "../globals/DProfileImage.vue";
 export default {
   components: { DProfileImage },
+
   props: {
     profile: {
       type: Object,
       required: true
     }
-  }
+  },
+
+  data: () => ({
+    posts: []
+  })
 };
 </script>
 

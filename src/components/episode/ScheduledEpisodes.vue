@@ -57,12 +57,17 @@ export default {
     },
 
     async startEpisode(episode) {
-      this.$store.commit("nav/SET_HOME_VIEW", {
-        id: "join-room",
-        data: {
-          episode
-        }
+      const { ok, error, data } = await API.episode.start({
+        podcastId: episode.podcastId,
+        episodeId: episode.id
       });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
+
+      this.$router.push(`/${data.podcast.urlName}/${data.episode.urlName}`);
     }
   }
 };

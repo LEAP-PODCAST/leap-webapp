@@ -78,8 +78,12 @@ export default {
     }
   },
 
-  created() {
-    this.$store.dispatch("nav/showModal", { id: "join-room" });
+  async mounted() {
+    await this.$nextTick();
+    this.$store.dispatch("nav/showModal", {
+      id: "join-room",
+      data: { noclose: true }
+    });
   },
 
   beforeDestroy() {

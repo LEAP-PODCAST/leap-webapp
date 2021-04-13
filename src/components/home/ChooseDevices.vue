@@ -15,10 +15,7 @@
         <i class="material-icons mr-3">videocam</i>
         Go live
       </div>
-      <button
-        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-        class="text-xl p-2 ml-3 text-gray-300"
-      >
+      <button @click="$router.push('/')" class="text-xl p-2 ml-3 text-gray-300">
         <i class="material-icons">clear</i>
       </button>
     </div>
@@ -81,7 +78,7 @@
     </div>
 
     <div class="flex flex-col items-center mt-8">
-      <div class="mb-2">
+      <div v-if="!isFetchingDevices" class="mb-2">
         <span v-if="!webcam" class="text-red-700">
           We failed to capture your webcam.
         </span>
@@ -90,7 +87,12 @@
         </span>
       </div>
 
-      <d-btn @click="join" variant="primary-outline" :disabled="!webcamAndMic">
+      <d-btn
+        @click="join"
+        type="button"
+        variant="primary-outline"
+        :disabled="!webcamAndMic"
+      >
         {{ isStarting ? "Start episode" : "Join episode" }}
       </d-btn>
     </div>
@@ -107,6 +109,7 @@ export default {
   },
 
   data: () => ({
+    isFetchingDevices: true,
     selectedDevices: {
       webcamId: "",
       micId: ""
@@ -123,6 +126,7 @@ export default {
     await this.enumerateDevices();
     await this.getLocalStreams();
     this.checkDevicesInterval = setInterval(this.enumerateDevices, 1000);
+    this.isFetchingDevices = false;
   },
 
   beforeDestroy() {
@@ -208,31 +212,16 @@ export default {
     },
 
     async join() {
-      if (this.isStarting && this.episode) {
-        const { ok, error, data } = await API.episode.start({
-          podcastId: this.episode.podcastId,
-          episodeId: this.episode.id
-        });
+      this.$store.dispatch("nav/hideModal");
 
-        if (!ok) {
-          alert(error);
-          return;
-        }
+      const res = await this.$store.dispatch("room/watchEpisode", {
+        podcastUrlName: this.$route.params.podcastUrlName,
+        episodeUrlName: this.$route.params.episodeUrlName
+      });
 
-        this.$router.push(`/${data.podcast.urlName}/${data.episode.urlName}`);
-      } else {
-        console.log("Hey!");
-
-        const res = await this.$store.dispatch("room/watchEpisode", {
-          podcastUrlName: this.$route.params.podcastUrlName,
-          episodeUrlName: this.$route.params.episodeUrlName
-        });
-
-        if (!res.ok) {
-          alert("Something went wrong");
-        }
-
-        this.$store.dispatch("nav/hideModal");
+      if (!res.ok) {
+        alert(res.error);
+        return;
       }
     }
   }

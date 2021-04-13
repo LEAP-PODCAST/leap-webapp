@@ -6,7 +6,7 @@
   >
     <div class="modal__box-container w-full" style="max-width:600px">
       <div
-        class="modal__box bg-dark-5 shadow-reg scrollbar overflow-auto text-gray-300"
+        class="modal__box bg-gray-900 shadow-reg scrollbar overflow-auto text-gray-300"
       >
         <button
           v-if="!$store.state.nav.modalData.noclose"
@@ -63,9 +63,14 @@ export default {
     async "$store.state.nav.modal"(modalName) {
       if (modalName) {
         await this.$nextTick();
+        if (!this.$refs.modal) return;
         const input = this.$refs.modal.querySelector("input");
         if (input) input.focus();
       }
+    },
+
+    "$route.path"() {
+      this.$store.dispatch("nav/hideModal");
     }
   },
 
