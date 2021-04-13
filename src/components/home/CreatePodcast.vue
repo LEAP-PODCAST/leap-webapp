@@ -92,6 +92,7 @@ export default {
       }
 
       this.$store.commit("user/ADD_PODCAST", data);
+      this.$store.commit("nav/SET_HOME_VIEW", "home");
     }
   }
 };

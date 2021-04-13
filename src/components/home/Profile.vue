@@ -14,7 +14,7 @@
     <div>
       <h2 class="opacity-25 text-sm">My Podcasts</h2>
 
-      <ul v-if="profile.podcasts.length" class="flex items-center py-3">
+      <ul class="flex items-center py-3">
         <li v-for="podcast in profile.podcasts" :key="podcast.id">
           <button
             class="flex flex-col items-center justify-center mr-4 h-32 w-32"
@@ -33,7 +33,7 @@
           >
             <div class="flex-grow flex justify-center items-center">
               <i
-                class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-8 h-8"
+                class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-12 text-2xl h-12"
                 >add</i
               >
             </div>

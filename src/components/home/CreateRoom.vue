@@ -16,14 +16,19 @@
       </div>
       <div class="flex flex-col items-center mt-8">
         <d-btn
+          v-if="$store.state.user.userProfile.podcasts.length"
           @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
           variant="primary"
         >
           New episode
         </d-btn>
-        <!-- <d-btn @click="step = 'create'" variant="primary">
+        <d-btn
+          v-else
+          @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
+          variant="primary"
+        >
           Create my podcast
-        </d-btn> -->
+        </d-btn>
         <small class="italic text-xs opacity-50 my-2">or</small>
         <d-btn @click="createRoom" variant="primary-outline">
           Create room

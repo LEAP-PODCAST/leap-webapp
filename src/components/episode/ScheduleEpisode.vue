@@ -183,9 +183,6 @@ export default {
     },
 
     async schedulePodcast() {
-      console.log(this.startTime);
-      console.log(this.endTime);
-
       const res = await API.podcast.createScheduledEpisode({
         name: this.name,
         podcastId: this.podcastId,
@@ -201,6 +198,8 @@ export default {
         this.errors.general = res.error;
         return;
       }
+
+      this.$store.commit("nav/SET_HOME_VIEW", "home");
     }
   }
 };
