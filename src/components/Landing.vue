@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full text-white scale-150">
+  <div v-if="!waitlist" class="flex w-full h-full text-white scale-150">
     <div class="hidden md:block md:w-1/12 bg-gray-900"></div>
     <div
       class="w-full flex justify-center md:justify-start md:items-center md:w-6/12 bg-gray-900"
@@ -17,7 +17,7 @@
             @click="waitlist = !waitlist"
             class="w-full mt-5"
           >
-            Join the Waitlist
+            Request Access
           </d-btn>
           <d-btn
             variant="primary-outline"
@@ -27,26 +27,20 @@
             Log In
           </d-btn>
         </div>
-
-        <div v-if="waitlist">
-          <form class="flex flex-col" @submit.prevent="submitEmail">
-            <d-input type="text" v-model="email" placeholder="Email" required />
-            <div class="flex space-x-4 mt-2">
-              <d-btn variant="primary" type="submit" class="w-4/12"
-                >Submit</d-btn
-              >
-              <d-btn
-                @click="waitlist = !waitlist"
-                variant="primary-outline"
-                class="w-4/12"
-                >Cancel
-              </d-btn>
-            </div>
-          </form>
-        </div>
       </div>
     </div>
     <div class="hidden md:block md:w-6/12 bg-gray-900"></div>
+  </div>
+
+  <div v-else>
+    <iframe
+      id="typeform-full"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      allow="camera; microphone; autoplay; encrypted-media;"
+      src="https://form.typeform.com/to/VaXJD5AB?typeform-medium=embed-snippet"
+    ></iframe>
   </div>
 </template>
 
@@ -66,4 +60,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style type="text/css">
+iframe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  border: 0;
+}
+</style>
