@@ -102,11 +102,11 @@ export default {
 }
 
 .btn-primary-hover {
-  color: #009dee;
+  color: #ea455a;
   background: transparent;
 
   &:hover {
-    background: #009dee;
+    background: #ea455a;
     color: #e2e8f0;
   }
 }
