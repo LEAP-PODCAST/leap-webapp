@@ -56,12 +56,12 @@ export default {
   }),
   methods: {
     async logIn() {
-      // this.verifyUsername();
-      // this.verifyPassword();
+      this.verifyUsername();
+      this.verifyPassword();
 
-      // if (!!this.errors.username || !!this.errors.password) {
-      //   return;
-      // }
+      if (!!this.errors.username || !!this.errors.password) {
+        return;
+      }
 
       console.log("LOGIN FORM");
       console.log(this.username);
