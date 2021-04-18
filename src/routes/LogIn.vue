@@ -11,7 +11,7 @@
             type="text"
             v-model="username"
             @blur="verifyUsername"
-            placeholder="Email, Phone or Username"
+            placeholder="Email or Username"
             required
           />
         </div>

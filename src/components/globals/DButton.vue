@@ -18,7 +18,8 @@ const variants = [
   "white",
   "white-outline",
   "dark",
-  "primary-dashed"
+  "primary-dashed",
+  "simple"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
 
@@ -69,6 +70,12 @@ export default {
   &:hover {
     transform: translateY(-1px);
   }
+}
+
+.btn-simple {
+  color: lightgray;
+  background: transparent;
+  font-weight: 200;
 }
 
 .btn-primary {

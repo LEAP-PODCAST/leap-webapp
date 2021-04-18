@@ -29,7 +29,7 @@
           Reset
         </d-btn>
 
-        <d-btn variant="primary-hover" class="w-4/12" @click="returnToLogin()">
+        <d-btn variant="simple" class="w-3/12" @click="returnToLogin()">
           Cancel
         </d-btn>
       </div>
