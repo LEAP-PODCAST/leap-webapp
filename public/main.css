@@ -77,8 +77,6 @@ button:disabled {
   border-radius: 10px;
   border-color: darkgray;
   background-color: rgba(26, 32, 44);
-  --tw-text-opacity: 1;
-  color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 
 .rounded-red-inputs:focus {
@@ -88,9 +86,9 @@ button:disabled {
 
 input:focus::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  font-size: 12px;
+  font-size: 10px;
   vertical-align: top;
-  transform: translateY(-115%) translateX(-1%) !important;
+  transform: translateY(-150%) translateX(-1%) !important;
   color: #ea455a !important;
 }
 
@@ -152,4 +150,10 @@ input[type="checkbox"]:disabled + span {
   color: black;
   opacity: 0.5;
   border-radius: 50%;
+}
+
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
