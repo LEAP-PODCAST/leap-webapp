@@ -28,13 +28,13 @@
             <d-btn variant="primary" @click="step = 1" class="w-full mt-5">
               Request Access
             </d-btn>
-            <d-btn
+            <!-- <d-btn
               variant="primary-outline"
               @click="$router.push('/LogIn')"
               class="w-full mt-5"
             >
               Log In
-            </d-btn>
+            </d-btn> -->
           </div>
 
           <div v-else-if="step === 1">
