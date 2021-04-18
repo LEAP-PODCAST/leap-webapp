@@ -152,8 +152,6 @@ input[type="checkbox"]:disabled + span {
   border-radius: 50%;
 }
 
-.align {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.font-oxygen {
+  font-family: "Oxygen", sans-serif;
 }
