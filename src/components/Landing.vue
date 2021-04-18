@@ -52,7 +52,7 @@
           </div>
 
           <div v-else-if="step === 2">
-            Signed up succesfully!
+            Signed up successfully!
           </div>
         </div>
 
