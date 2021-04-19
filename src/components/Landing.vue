@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col w-full h-full p-6 pt-0 bg-gray-900">
-    <header class="flex flex-row items-center p-4">
+  <div class="flex flex-col w-full h-full pt-0 bg-gray-900">
+    <header class="flex flex-row items-center p-4 bg-gray-900">
       <router-link to="/" style="display:contents;">
         <img src="/images/leap.png" class="h-full" alt="Leap Logo" />
       </router-link>
@@ -9,10 +9,15 @@
 
     <div class="flex w-full h-full text-white bg-gray-900">
       <div class="hidden md:block md:w-1/12 bg-gray-900"></div>
+
       <div
-        class="w-full flex justify-center md:justify-start md:items-center bg-gray-900"
+        class="flex flex-col justify-center items-center w-full md:flex-row md:justify-start md:items-center bg-gray-900"
       >
-        <div class="p-6 md:ml-6" style="max-width:450px">
+        <div class="flex w-full justify-center items-center md:hidden">
+          <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
+        </div>
+
+        <div class="md:ml-6" style="max-width:450px">
           <h1 class="text-6xl font-bold font-oxygen">
             Simplify
           </h1>
@@ -56,7 +61,9 @@
           </div>
         </div>
 
-        <div class="flex w-full h-full justify-center items-center">
+        <div
+          class="hidden md:flex lg:flex flex w-full h-full justify-center items-center"
+        >
           <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
         </div>
       </div>
