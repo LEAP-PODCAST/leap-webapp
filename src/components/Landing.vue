@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-full pt-0 bg-gray-900">
+  <div class="flex flex-col w-full h-full md:p-6 pt-0 bg-gray-900">
     <header class="flex flex-row items-center p-4 bg-gray-900">
       <router-link to="/" style="display:contents;">
         <img src="/images/leap.png" class="h-full" alt="Leap Logo" />
