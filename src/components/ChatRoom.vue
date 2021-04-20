@@ -10,7 +10,7 @@
       <li
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
-        class="flex flex-col items-center w-12"
+        class="flex flex-col items-center w-12 mr-2"
       >
         <div class="h-12 w-12">
           <d-profile-image class="w-full h-full" />
