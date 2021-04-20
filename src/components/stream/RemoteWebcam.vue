@@ -14,9 +14,12 @@
         style="bottom:2rem;left:2rem"
       >
         <h2 class="text-lg leading-none">
-          {{ user.firstName }} {{ user.lastName }}
+          {{ user.userProfile.firstName }}
+          {{ user.userProfile.lastName }}
         </h2>
-        <p class="opacity-50 italic text-sm">@{{ user.fullUsername }}</p>
+        <p class="opacity-50 italic text-sm">
+          {{ subtitle }}
+        </p>
       </div>
     </div>
   </div>
@@ -41,7 +44,13 @@ export default {
     },
 
     user() {
-      return this.$store.state.chat.users[this.stream.socketId].userProfile;
+      return this.$store.state.chat.users[this.stream.socketId];
+    },
+
+    subtitle() {
+      const podcastName = this.$store.state.room.podcast.name;
+      if (this.user.role === "host") return `Host of ${podcastName}`;
+      if (this.user.role === "guest") return `Guest on ${podcastName}`;
     }
   },
 

@@ -216,11 +216,6 @@ export default {
       // Dispatch produce webcam and microphone
       await this.$store.dispatch("room/produceWebcam");
       await this.$store.dispatch("room/produceMic");
-
-      if (!res.ok) {
-        alert(res.error);
-        return;
-      }
     }
   }
 };

@@ -7,8 +7,6 @@ import WebRTC from "@/webrtc.js";
 export default ({ socket }) => {
   const state = {
     roomId: null,
-    username: null,
-
     podcast: null,
     episode: null,
 
@@ -40,10 +38,6 @@ export default ({ socket }) => {
   const mutations = {
     SET_ROOM_ID(state, roomId) {
       state.roomId = roomId;
-    },
-
-    SET_USERNAME(state, username) {
-      state.username = username;
     },
 
     SET_EPISODE_INFO(state, { podcast, episode }) {
@@ -161,8 +155,8 @@ export default ({ socket }) => {
       return { ok: true };
     },
 
-    async join({ commit, dispatch }, { roomId, username }) {
-      let res = await API.room.join({ roomId, username });
+    async join({ commit, dispatch }, { roomId }) {
+      let res = await API.room.join({ roomId });
 
       if (!res.ok) {
         console.error(res.error);
@@ -506,22 +500,6 @@ export default ({ socket }) => {
       commit("CLOSE_LOCAL_STREAM", "mic");
     },
 
-    async changeUsername({ state, commit }, { username }) {
-      const { ok, error } = await API.chat.username({
-        roomId: state.roomId,
-        username
-      });
-
-      if (!ok) {
-        console.error(error);
-        return false;
-      }
-
-      commit("SET_USERNAME", username);
-
-      return true;
-    },
-
     async endEpisode({ state, dispatch }) {
       const res = await API.episode.end({
         podcastId: state.podcast.id,
@@ -541,7 +519,6 @@ export default ({ socket }) => {
       socket.emit("room/leave");
 
       commit("SET_ROOM_ID", null);
-      commit("SET_USERNAME", null);
       commit("SET_EPISODE_INFO", {
         podcast: null,
         episode: null
