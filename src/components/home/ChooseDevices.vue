@@ -214,10 +214,9 @@ export default {
     async join() {
       this.$store.dispatch("nav/hideModal");
 
-      const res = await this.$store.dispatch("room/watchEpisode", {
-        podcastUrlName: this.$route.params.podcastUrlName,
-        episodeUrlName: this.$route.params.episodeUrlName
-      });
+      // Dispatch produce webcam and microphone
+      await this.$store.dispatch("room/produceWebcam");
+      await this.$store.dispatch("room/produceMic");
 
       if (!res.ok) {
         alert(res.error);

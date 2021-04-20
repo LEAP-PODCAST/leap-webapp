@@ -158,9 +158,6 @@ export default ({ socket }) => {
 
       await dispatch("onJoinRoom", res);
 
-      await dispatch("produceWebcam");
-      await dispatch("produceMic");
-
       return { ok: true };
     },
 
@@ -176,8 +173,7 @@ export default ({ socket }) => {
 
       await dispatch("onJoinRoom", res);
 
-      await dispatch("produceWebcam");
-      await dispatch("produceMic");
+      return { ok: true };
     },
 
     async onJoinRoom({ state, commit, dispatch }, res) {
@@ -328,9 +324,6 @@ export default ({ socket }) => {
 
       commit("SET_STREAMS", streams);
       dispatch("chat/join", { room }, { root: true });
-
-      // TODO check if is logged in
-      const res2 = await API.episode.authenticate();
 
       return true;
     },
