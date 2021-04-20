@@ -1,21 +1,32 @@
 <template>
-  <div class="flex rounded-lg bg-gray-700">
+  <div
+    class="flex rounded-lg"
+    :class="isAbleToProduce && !isProducing ? 'bg-primary' : ''"
+  >
     <!-- Middle controls -->
     <div class="flex justify-center">
-      <div v-if="isAbleToProduce" class="controls flex">
-        <!-- Start Recording -->
-        <d-btn
-          variant="control"
-          class="control-button text-red-700"
-          disabled
-          content="Start Recording"
-          v-tippy="{ placement: 'top' }"
+      <div v-if="isAbleToProduce">
+        <button
+          v-if="!isProducing"
+          @click="$store.dispatch('nav/showModal', { id: 'join-room' })"
+          class="bg-primary rounded-tl-lg rounded-tr-lg w-full p-2 text-white font-bold"
         >
-          <div class="material-icons">fiber_manual_record</div>
-          <div class="text-xs">Record</div>
-        </d-btn>
+          Join with Webcam and Microphone
+        </button>
+        <div class="controls flex bg-gray-700 rounded-lg">
+          <!-- Start Recording -->
+          <d-btn
+            variant="control"
+            class="control-button text-red-700"
+            disabled
+            content="Start Recording"
+            v-tippy="{ placement: 'top' }"
+          >
+            <div class="material-icons">fiber_manual_record</div>
+            <div class="text-xs">Record</div>
+          </d-btn>
 
-        <!-- Mute Microphone
+          <!-- Mute Microphone
         <button
           v-if="!$store.state.room.localStreams.mic"
           @click="$store.dispatch('room/produceMic')"
@@ -52,44 +63,45 @@
           <div class="text-xs">Disable Webcam</div>
         </button> -->
 
-        <!-- Mark Timestamp -->
-        <d-btn
-          variant="control"
-          class="control-button"
-          disabled
-          content="Mark this timestamp for later as a highlight"
-          v-tippy="{ placement: 'top' }"
-        >
-          <div class="material-icons">bookmark</div>
-          <div class="text-xs">Mark</div>
-        </d-btn>
+          <!-- Mark Timestamp -->
+          <d-btn
+            variant="control"
+            class="control-button"
+            disabled
+            content="Mark this timestamp for later as a highlight"
+            v-tippy="{ placement: 'top' }"
+          >
+            <div class="material-icons">bookmark</div>
+            <div class="text-xs">Mark</div>
+          </d-btn>
 
-        <!-- Show Audience -->
-        <d-btn
-          variant="control"
-          @click="$store.dispatch('nav/toggleChat')"
-          :class="$store.state.nav.chat ? '' : ''"
-          class="control-button"
-          content="Toggle the audience view"
-          v-tippy="{ placement: 'top' }"
-        >
-          <span class="material-icons">people_alt</span>
-          <div class="text-xs">Audience</div>
-        </d-btn>
+          <!-- Show Audience -->
+          <d-btn
+            variant="control"
+            @click="$store.dispatch('nav/toggleChat')"
+            :class="$store.state.nav.chat ? '' : ''"
+            class="control-button"
+            content="Toggle the audience view"
+            v-tippy="{ placement: 'top' }"
+          >
+            <span class="material-icons">people_alt</span>
+            <div class="text-xs">Audience</div>
+          </d-btn>
 
-        <!-- End call -->
-        <d-btn
-          variant="control"
-          v-if="isHost"
-          @click="endEpisode"
-          norounded
-          class="control-button bg-red-600 rounded-tr-lg rounded-br-lg"
-          content="End the call for everyone"
-          v-tippy="{ placement: 'top' }"
-        >
-          <span class="material-icons">call_end</span>
-          <div class="text-xs">End Call</div>
-        </d-btn>
+          <!-- End call -->
+          <d-btn
+            variant="control"
+            v-if="isHost"
+            @click="endEpisode"
+            norounded
+            class="control-button bg-red-600 rounded-tr-lg rounded-br-lg"
+            content="End the call for everyone"
+            v-tippy="{ placement: 'top' }"
+          >
+            <span class="material-icons">call_end</span>
+            <div class="text-xs">End Call</div>
+          </d-btn>
+        </div>
       </div>
 
       <!-- 
@@ -97,7 +109,7 @@
         Audience controls
         
       -->
-      <div v-else class="controls flex">
+      <div v-else class="controls flex bg-gray-700 rounded-lg">
         <!-- Show Share Menu -->
         <d-btn
           variant="control"
@@ -176,6 +188,13 @@ export default {
       const user = this.$store.state.chat.users[window.socket.id];
       if (!user) return false;
       return user.role === "host";
+    },
+
+    isProducing() {
+      return (
+        !!this.$store.state.room.producers.webcam &&
+        !!this.$store.state.room.producers.mic
+      );
     }
   },
 

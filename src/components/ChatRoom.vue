@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import API from "@/api";
+
 import ChatMessage from "./chat/ChatMessage";
 import AudienceMember from "./chat/AudienceMember";
 
@@ -131,7 +133,12 @@ export default {
     },
 
     async addUserAsGuest(socketId) {
-      console.log(socketId);
+      const { ok, error } = await API.room.addUserAsGuest({ socketId });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
     },
 
     sendMessage() {
