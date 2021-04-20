@@ -18,7 +18,8 @@ const variants = [
   "white",
   "white-outline",
   "dark",
-  "primary-dashed"
+  "primary-dashed",
+  "simple"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
 
@@ -71,6 +72,12 @@ export default {
   }
 }
 
+.btn-simple {
+  color: lightgray;
+  background: transparent;
+  font-weight: 200;
+}
+
 .btn-primary {
   background: #ea455a;
 }
@@ -102,11 +109,11 @@ export default {
 }
 
 .btn-primary-hover {
-  color: #009dee;
+  color: #ea455a;
   background: transparent;
 
   &:hover {
-    background: #009dee;
+    background: #ea455a;
     color: #e2e8f0;
   }
 }

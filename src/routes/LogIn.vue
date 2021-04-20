@@ -4,40 +4,39 @@
     style="max-width:600px"
   >
     <h1 class="text-2xl font-bold mb-4">Log in to Leap</h1>
-    <form @submit.prevent="logIn">
-      <div class="mb-3">
-        <d-input
-          type="text"
-          v-model="username"
-          @blur="verifyUsername"
-          placeholder="Email, Phone or Username"
-          required
-        />
-      </div>
+    <div>
+      <form @submit.prevent="logIn" class="flex flex-col">
+        <div class="mb-3">
+          <d-input
+            type="text"
+            v-model="username"
+            @blur="verifyUsername"
+            placeholder="Email or Username"
+            required
+          />
+        </div>
 
-      <div class="">
-        <d-input
-          type="password"
-          v-model="password"
-          @blur="verifyPassword"
-          placeholder="Password"
-          required
-        />
-      </div>
+        <div class="">
+          <d-input
+            type="password"
+            v-model="password"
+            @blur="verifyPassword"
+            placeholder="Password"
+            required
+          />
+        </div>
 
-      <d-btn type="submit" variant="primary" class="w-full mt-6">
-        Log In
-      </d-btn>
+        <d-btn type="submit" variant="primary" class="w-full mt-6">
+          Log In
+        </d-btn>
 
-      <d-btn
-        @click="$router.push('/PasswordReset')"
-        type="submit"
-        variant="primary-outline"
-        class="w-full mt-2"
-      >
-        Reset Password
-      </d-btn>
-    </form>
+        <span
+          class="self-center mt-3 text-sm text-red-500 cursor-pointer"
+          @click="$router.push('/PasswordReset')"
+          >Forgot your password?
+        </span>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -57,12 +56,12 @@ export default {
   }),
   methods: {
     async logIn() {
-      // this.verifyUsername();
-      // this.verifyPassword();
+      this.verifyUsername();
+      this.verifyPassword();
 
-      // if (!!this.errors.username || !!this.errors.password) {
-      //   return;
-      // }
+      if (!!this.errors.username || !!this.errors.password) {
+        return;
+      }
 
       console.log("LOGIN FORM");
       console.log(this.username);

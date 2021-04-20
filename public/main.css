@@ -71,10 +71,10 @@ button:disabled {
 /* Rounded red inputs */
 .rounded-red-inputs {
   text-indent: 1rem !important;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-width: 1px;
-  border-radius: 9999px;
+  border-radius: 10px;
   border-color: darkgray;
 }
 
@@ -85,9 +85,9 @@ button:disabled {
 
 input:focus::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  font-size: 12px;
-  position: relative !important;
-  transform: translateY(-65%) !important;
+  font-size: 10px;
+  vertical-align: top;
+  transform: translateY(-150%) translateX(-1%) !important;
   color: #ea455a !important;
 }
 
@@ -96,41 +96,19 @@ textarea::-webkit-input-placeholder {
   font-size: 12px;
   position: relative !important;
   transform: translateY(2%) !important;
-  /* color: #ea455a !important; */
-}
-
-input::-moz-placeholder {
-  /* Firefox 19+ */
-  vertical-align: top;
-}
-input::-ms-input-placeholder {
-  /* IE 10+ */
-  vertical-align: top;
-}
-input::-moz-placeholder {
-  /* Firefox 18- */
-  vertical-align: top;
 }
 
 /* Rounded red select */
-
 .rounded-select {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  text-indent: 1rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-width: 1px;
-  border-radius: 9999px;
-  border-color: rgba(229, 62, 62);
+  border-radius: 10px;
+  border-color: darkgray;
   background-color: rgba(26, 32, 44);
-}
-
-.select-placeholder {
-  font-size: 12px;
-  position: relative !important;
-  transform: translateY(-65%) translateX(4%) !important;
-  /* transform: translateX(2%) !important; */
-  color: #ea455a !important;
+  --tw-text-opacity: 1;
+  color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 
 input[type="checkbox"] {
@@ -161,7 +139,7 @@ input[type="checkbox"]:checked + span:before {
   /* The size of the checkmark icon, you may/may not need this */
   background-size: 25px;
   border-radius: 2px;
-  background-color: red;
+  background-color: #ea455a;
   color: white;
 }
 
@@ -171,4 +149,8 @@ input[type="checkbox"]:disabled + span {
   color: black;
   opacity: 0.5;
   border-radius: 50%;
+}
+
+.font-oxygen {
+  font-family: "Oxygen", sans-serif;
 }
