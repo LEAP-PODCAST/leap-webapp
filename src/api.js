@@ -52,6 +52,10 @@ export default {
   room: {
     join(body) {
       return http.post("/room/join", { body });
+    },
+
+    requestToJoinAsGuest() {
+      return http.post("/room/requestToJoinAsGuest", {});
     }
   },
   general: {

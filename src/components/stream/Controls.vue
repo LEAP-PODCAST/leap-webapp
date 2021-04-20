@@ -4,7 +4,13 @@
     <div class="flex justify-center">
       <div v-if="isAbleToProduce" class="controls flex">
         <!-- Start Recording -->
-        <d-btn variant="control" class="control-button text-red-700" disabled>
+        <d-btn
+          variant="control"
+          class="control-button text-red-700"
+          disabled
+          content="Start Recording"
+          v-tippy="{ placement: 'top' }"
+        >
           <div class="material-icons">fiber_manual_record</div>
           <div class="text-xs">Record</div>
         </d-btn>
@@ -47,7 +53,13 @@
         </button> -->
 
         <!-- Mark Timestamp -->
-        <d-btn variant="control" class="control-button" disabled>
+        <d-btn
+          variant="control"
+          class="control-button"
+          disabled
+          content="Mark this timestamp for later as a highlight"
+          v-tippy="{ placement: 'top' }"
+        >
           <div class="material-icons">bookmark</div>
           <div class="text-xs">Mark</div>
         </d-btn>
@@ -58,6 +70,8 @@
           @click="$store.dispatch('nav/toggleChat')"
           :class="$store.state.nav.chat ? '' : ''"
           class="control-button"
+          content="Toggle the audience view"
+          v-tippy="{ placement: 'top' }"
         >
           <span class="material-icons">people_alt</span>
           <div class="text-xs">Audience</div>
@@ -70,22 +84,40 @@
           @click="endEpisode"
           norounded
           class="control-button bg-red-600 rounded-tr-lg rounded-br-lg"
+          content="End the call for everyone"
+          v-tippy="{ placement: 'top' }"
         >
           <span class="material-icons">call_end</span>
           <div class="text-xs">End Call</div>
         </d-btn>
       </div>
 
-      <!-- Audience controls -->
+      <!-- 
+        
+        Audience controls
+        
+      -->
       <div v-else class="controls flex">
         <!-- Show Share Menu -->
-        <d-btn variant="control" disabled class="control-button">
+        <d-btn
+          variant="control"
+          disabled
+          class="control-button"
+          content="Share on social media or copy the link"
+          v-tippy="{ placement: 'top' }"
+        >
           <span class="material-icons">share</span>
           <div class="text-xs">Share</div>
         </d-btn>
 
         <!-- Raise Hand (Request to join) -->
-        <d-btn variant="control" disabled class="control-button">
+        <d-btn
+          variant="control"
+          @click="requestToJoinAsGuest"
+          class="control-button"
+          content="Request to join the conversation"
+          v-tippy="{ placement: 'top' }"
+        >
           <span class="material-icons">waving_hand</span>
           <div>Raise Hand</div>
         </d-btn>
@@ -95,6 +127,8 @@
           variant="control"
           @click="$store.dispatch('nav/toggleChat')"
           :class="$store.state.nav.chat ? '' : ''"
+          content="Toggle the audience view"
+          v-tippy="{ placement: 'top' }"
           class="control-button"
         >
           <span class="material-icons">people_alt</span>
@@ -105,6 +139,8 @@
         <d-btn
           variant="control"
           @click="$router.push('/')"
+          content="Leave the room"
+          v-tippy="{ placement: 'top' }"
           class="control-button"
         >
           <span class="material-icons">meeting_room</span>
@@ -117,6 +153,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+
+import API from "@/api";
 
 export default {
   data: () => ({
@@ -142,6 +180,15 @@ export default {
   },
 
   methods: {
+    async requestToJoinAsGuest() {
+      const { ok, error } = await API.room.requestToJoinAsGuest();
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
+    },
+
     async endEpisode() {
       const { ok } = await this.$store.dispatch("room/endEpisode");
 

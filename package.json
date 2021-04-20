@@ -19,6 +19,7 @@
     "vue-ctk-date-time-picker": "^2.5.0",
     "vue-router": "^3.5.1",
     "vue-search-select": "^2.9.3",
+    "vue-tippy": "^4.10.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
