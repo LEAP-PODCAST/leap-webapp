@@ -252,8 +252,6 @@ export default ({ socket }) => {
       sendTransport.on(
         "connect",
         async ({ dtlsParameters }, callback, errback) => {
-          console.log("test!");
-
           // Connect the receive transport
           res = await API.transport.connect({
             type: "send",
@@ -572,7 +570,6 @@ export default ({ socket }) => {
 
       // End all local streams
       for (const type in state.localStreams) {
-        console.log(type);
         commit("CLOSE_LOCAL_STREAM", type);
       }
 

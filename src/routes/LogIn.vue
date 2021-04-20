@@ -63,10 +63,6 @@ export default {
         return;
       }
 
-      console.log("LOGIN FORM");
-      console.log(this.username);
-      console.log(this.password);
-
       const res = await this.$store.dispatch("user/logIn", {
         email: this.username,
         password: this.password

@@ -185,7 +185,7 @@ export default {
       };
 
       if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-        console.log("enumerateDevices() not supported.");
+        console.error("enumerateDevices() not supported.");
         return;
       }
 

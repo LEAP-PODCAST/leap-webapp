@@ -56,7 +56,7 @@ export default {
   },
   general: {
     emailList(body) {
-      return http.post("/general/emailList", { body })
+      return http.post("/general/emailList", { body });
     }
   },
 
@@ -134,7 +134,6 @@ export default {
     },
 
     logIn(body) {
-      console.log("BODY:" + body)
       return http.post("/user/logIn", { body });
     },
 
