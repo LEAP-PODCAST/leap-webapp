@@ -25,8 +25,8 @@
             Podcasting
           </h1>
           <h1 class="text-xl py-6">
-            Effortlessly record, monetize, discover, stream, and interact with
-            your audience.
+            Leap is the easiest way to watch, share, create, and monetize video
+            podcasts.
           </h1>
 
           <div v-if="step === 0">
