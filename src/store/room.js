@@ -133,7 +133,7 @@ export default ({ socket }) => {
     CLOSE_LOCAL_STREAM(state, type) {
       // Stop all tracks belonging to localStream
       if (!state.localStreams[type]) return;
-      state.localStreams[type].getTracks(t => t.stop());
+      state.localStreams[type].getTracks().forEach(t => t.stop());
       state.localStreams[type] = null;
     }
   };
@@ -572,6 +572,7 @@ export default ({ socket }) => {
 
       // End all local streams
       for (const type in state.localStreams) {
+        console.log(type);
         commit("CLOSE_LOCAL_STREAM", type);
       }
 

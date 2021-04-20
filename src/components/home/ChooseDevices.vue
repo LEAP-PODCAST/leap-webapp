@@ -157,7 +157,6 @@ export default {
     },
 
     "selectedDevices.webcamId"(deviceId) {
-      console.log(deviceId);
       this.$store.dispatch("room/getWebcamStream", { deviceId });
     },
 

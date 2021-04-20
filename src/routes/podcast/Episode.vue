@@ -64,10 +64,6 @@ export default {
     ChatRoom
   },
 
-  data: () => ({
-    podcastTitle: "#23 - Yussef Guf"
-  }),
-
   computed: {
     ...mapGetters("user", ["isLoggedIn"]),
     ...mapGetters("chat", ["isAbleToProduce"]),
