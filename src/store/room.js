@@ -1,6 +1,8 @@
 import Vue from "vue";
 import { Device } from "mediasoup-client";
 
+import Router from "@/router/index";
+
 import API from "@/api.js";
 import WebRTC from "@/webrtc.js";
 
@@ -181,6 +183,11 @@ export default ({ socket }) => {
       socket.on("stream/mic", async stream => {
         await dispatch("consumeMic", stream);
         commit("ADD_STREAM", { type: "mic", stream });
+      });
+
+      socket.on("episode/end", () => {
+        dispatch("leave");
+        Router.push("/");
       });
 
       const { routerRtpCapabilities, streams, room, key } = res.data;
@@ -553,6 +560,7 @@ export default ({ socket }) => {
 
       socket.off("stream/webcam");
       socket.off("stream/mic");
+      socket.off("episode/end");
     }
   };
 
