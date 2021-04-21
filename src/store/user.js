@@ -64,8 +64,6 @@ export default ({ socket }) => {
     },
 
     async logIn({ commit }, body) {
-      console.log("hello!");
-
       const res = await API.user.logIn(body);
 
       if (!res.ok) {
