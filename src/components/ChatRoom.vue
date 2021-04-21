@@ -133,7 +133,10 @@ export default {
     },
 
     async addUserAsGuest(socketId) {
-      const { ok, error } = await API.room.addUserAsGuest({ socketId });
+      const { ok, error } = await API.room.changeUserRole({
+        socketId,
+        role: "guest"
+      });
 
       if (!ok) {
         alert(error);

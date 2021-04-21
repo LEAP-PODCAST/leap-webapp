@@ -58,8 +58,8 @@ export default {
       return http.post("/room/requestToJoinAsGuest", {});
     },
 
-    addUserAsGuest(body) {
-      return http.put("/room/addUserAsGuest", { body });
+    changeUserRole(body) {
+      return http.put("/room/changeUserRole", { body });
     }
   },
   general: {

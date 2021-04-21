@@ -116,6 +116,18 @@ export default {
 
   beforeDestroy() {
     this.$store.dispatch("room/leave");
+  },
+
+  watch: {
+    isAbleToProduce(value) {
+      this.$notify.success({
+        message: value
+          ? "You were added as a speaker!"
+          : "You were removed as a speaker.",
+        bottom: true,
+        right: true
+      });
+    }
   }
 };
 </script>

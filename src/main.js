@@ -24,6 +24,8 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import DUserSearch from "./components/globals/DUserSearch";
 import DProfileImage from "./components/globals/DProfileImage";
 import Tippy, { TippyComponent } from "vue-tippy";
+import VueNotification from "@mathieustan/vue-notification";
+Vue.use(VueNotification);
 Vue.use(Tippy);
 Vue.component("d-input", DInput);
 Vue.component("d-btn", DButton);

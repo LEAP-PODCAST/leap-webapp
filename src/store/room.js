@@ -519,6 +519,7 @@ export default ({ socket }) => {
       socket.emit("room/leave");
 
       commit("SET_ROOM_ID", null);
+      commit("SET_USERNAME", null);
       commit("SET_EPISODE_INFO", {
         podcast: null,
         episode: null
