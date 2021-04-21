@@ -31,7 +31,7 @@
 
           <div v-if="step === 0">
             <d-btn variant="primary" @click="step = 1" class="w-full mt-5">
-              Request Access
+              Get Early Access
             </d-btn>
             <!-- <d-btn
               variant="primary-outline"
