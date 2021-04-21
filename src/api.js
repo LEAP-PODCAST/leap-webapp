@@ -52,11 +52,19 @@ export default {
   room: {
     join(body) {
       return http.post("/room/join", { body });
+    },
+
+    requestToJoinAsGuest() {
+      return http.post("/room/requestToJoinAsGuest", {});
+    },
+
+    changeUserRole(body) {
+      return http.put("/room/changeUserRole", { body });
     }
   },
   general: {
     emailList(body) {
-      return http.post("/general/emailList", { body })
+      return http.post("/general/emailList", { body });
     }
   },
 
@@ -134,7 +142,6 @@ export default {
     },
 
     logIn(body) {
-      console.log("BODY:" + body)
       return http.post("/user/logIn", { body });
     },
 

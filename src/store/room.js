@@ -1,14 +1,14 @@
 import Vue from "vue";
 import { Device } from "mediasoup-client";
 
+import Router from "@/router/index";
+
 import API from "@/api.js";
 import WebRTC from "@/webrtc.js";
 
 export default ({ socket }) => {
   const state = {
     roomId: null,
-    username: null,
-
     podcast: null,
     episode: null,
 
@@ -40,10 +40,6 @@ export default ({ socket }) => {
   const mutations = {
     SET_ROOM_ID(state, roomId) {
       state.roomId = roomId;
-    },
-
-    SET_USERNAME(state, username) {
-      state.username = username;
     },
 
     SET_EPISODE_INFO(state, { podcast, episode }) {
@@ -133,7 +129,7 @@ export default ({ socket }) => {
     CLOSE_LOCAL_STREAM(state, type) {
       // Stop all tracks belonging to localStream
       if (!state.localStreams[type]) return;
-      state.localStreams[type].getTracks(t => t.stop());
+      state.localStreams[type].getTracks().forEach(t => t.stop());
       state.localStreams[type] = null;
     }
   };
@@ -158,14 +154,11 @@ export default ({ socket }) => {
 
       await dispatch("onJoinRoom", res);
 
-      await dispatch("produceWebcam");
-      await dispatch("produceMic");
-
       return { ok: true };
     },
 
-    async join({ commit, dispatch }, { roomId, username }) {
-      let res = await API.room.join({ roomId, username });
+    async join({ commit, dispatch }, { roomId }) {
+      let res = await API.room.join({ roomId });
 
       if (!res.ok) {
         console.error(res.error);
@@ -176,8 +169,7 @@ export default ({ socket }) => {
 
       await dispatch("onJoinRoom", res);
 
-      await dispatch("produceWebcam");
-      await dispatch("produceMic");
+      return { ok: true };
     },
 
     async onJoinRoom({ state, commit, dispatch }, res) {
@@ -191,6 +183,11 @@ export default ({ socket }) => {
       socket.on("stream/mic", async stream => {
         await dispatch("consumeMic", stream);
         commit("ADD_STREAM", { type: "mic", stream });
+      });
+
+      socket.on("episode/end", () => {
+        dispatch("leave");
+        Router.push("/");
       });
 
       const { routerRtpCapabilities, streams, room, key } = res.data;
@@ -256,8 +253,6 @@ export default ({ socket }) => {
       sendTransport.on(
         "connect",
         async ({ dtlsParameters }, callback, errback) => {
-          console.log("test!");
-
           // Connect the receive transport
           res = await API.transport.connect({
             type: "send",
@@ -328,9 +323,6 @@ export default ({ socket }) => {
 
       commit("SET_STREAMS", streams);
       dispatch("chat/join", { room }, { root: true });
-
-      // TODO check if is logged in
-      const res2 = await API.episode.authenticate();
 
       return true;
     },
@@ -515,22 +507,6 @@ export default ({ socket }) => {
       commit("CLOSE_LOCAL_STREAM", "mic");
     },
 
-    async changeUsername({ state, commit }, { username }) {
-      const { ok, error } = await API.chat.username({
-        roomId: state.roomId,
-        username
-      });
-
-      if (!ok) {
-        console.error(error);
-        return false;
-      }
-
-      commit("SET_USERNAME", username);
-
-      return true;
-    },
-
     async endEpisode({ state, dispatch }) {
       const res = await API.episode.end({
         podcastId: state.podcast.id,
@@ -584,6 +560,7 @@ export default ({ socket }) => {
 
       socket.off("stream/webcam");
       socket.off("stream/mic");
+      socket.off("episode/end");
     }
   };
 

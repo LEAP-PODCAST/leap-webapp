@@ -4,7 +4,7 @@
     style="max-width:600px"
   >
     <div class="md:flex justify-between items-center mb-5">
-      <h1 v-if="stepb === 0" class="text-2xl font-bold">Create Your Account</h1>
+      <h1 v-if="step === 0" class="text-2xl font-bold">Create Your Account</h1>
       <h1 v-else-if="step === 1" class="text-2xl font-bold">
         Choose Your Username
       </h1>
