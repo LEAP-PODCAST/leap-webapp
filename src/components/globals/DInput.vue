@@ -68,4 +68,27 @@ export default {
 input:disabled {
   @apply text-gray-600;
 }
+
+.rounded-red-inputs {
+  text-indent: 1rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: darkgray;
+  background-color: #1a202c;
+
+  &:focus {
+    border-color: #ea455a;
+    outline: none;
+  }
+}
+
+.rounded-red-inputs:focus::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 10px;
+  vertical-align: top;
+  transform: translateY(-150%) translateX(-1%);
+  color: #ea455a;
+}
 </style>
