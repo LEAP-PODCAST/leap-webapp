@@ -69,6 +69,11 @@ export default {
 
   &:hover {
     transform: translateY(-1px);
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -76,6 +81,11 @@ export default {
   color: lightgray;
   background: transparent;
   font-weight: 200;
+  outline: none;
+
+  &:hover {
+    outline: none;
+  }
 }
 
 .btn-primary {

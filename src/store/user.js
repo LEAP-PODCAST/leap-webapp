@@ -64,12 +64,7 @@ export default ({ socket }) => {
     },
 
     async logIn({ commit }, body) {
-      console.log("BODY")
-      console.log(body)
       const res = await API.user.logIn(body);
-
-      console.log("RES")
-      console.log(res)
 
       if (!res.ok) {
         return res;
