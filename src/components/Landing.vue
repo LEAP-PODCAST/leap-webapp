@@ -1,23 +1,26 @@
 <template>
-  <div class="flex flex-col w-full h-full md:p-6 pt-0 bg-gray-900">
-    <header class="flex flex-row items-center p-4 bg-gray-900">
+  <div class="flex flex-col w-full h-full md:p-6 md:pt-0 bg-gray-900">
+    <header class="flex flex-row items-center p-4 mt-4 md:mt-0">
       <router-link to="/" style="display:contents;">
         <img src="/images/leap.png" class="h-full" alt="Leap Logo" />
       </router-link>
       <div class="flex-grow"></div>
     </header>
 
-    <div class="flex w-full h-full text-white bg-gray-900">
-      <div class="hidden md:block md:w-1/12 bg-gray-900"></div>
+    <div class="flex w-full h-full text-white">
+      <div class="hidden md:block md:w-1/12"></div>
 
       <div
-        class="flex flex-col justify-center items-center w-full md:flex-row md:justify-start md:items-center bg-gray-900"
+        class="flex flex-col items-center w-full md:flex-row md:justify-start md:items-center"
       >
-        <div class="flex w-full justify-center items-center md:hidden">
-          <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
+        <div class="flex w-full justify-center items-center mt-6 md:hidden">
+          <img src="../assets/valueprop.png" class="w-full" alt="Leap Logo" />
         </div>
 
-        <div class="md:ml-6" style="max-width:450px">
+        <div
+          class="flex flex-col justify-center mt-6 md:mx-0 md:mt-0 md:ml-6"
+          style="max-width:450px"
+        >
           <h1 class="text-6xl font-bold font-oxygen">
             Simplify
           </h1>
@@ -62,10 +65,12 @@
         </div>
 
         <div
-          class="hidden md:flex lg:flex flex w-full h-full justify-center items-center"
+          class="hidden md:flex md:w-full md:h-full md:justify-center md:items-center p-12"
         >
-          <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
+          <img src="../assets/valueprop.png" class="w-full" alt="Leap Logo" />
         </div>
+
+        <div class="hidden md:block md:w-1/12"></div>
       </div>
     </div>
   </div>
