@@ -29,15 +29,16 @@
         <li>
           <button
             @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
-            class="flex flex-col justify-center items-center h-32 w-32"
+            class="flex flex-col justify-center items-center h-14 w-14"
           >
             <div class="flex-grow flex justify-center items-center">
               <i
-                class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-12 text-2xl h-12"
+                class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-6 h-6 text-2xl "
                 >add</i
               >
             </div>
-            <p class="text-xs text-red-500 mb-1">
+
+            <p class="text-xs text-red-500">
               Create new podcast
             </p>
           </button>
