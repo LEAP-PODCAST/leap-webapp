@@ -6,7 +6,7 @@
       </router-link>
     </header>
 
-    <div class="flex justify-center items-center h-full p-2">
+    <div class="flex justify-center h-full transform scale-95 md:items-center">
       <div class="text-white flex flex-col" style="max-width:450px">
         <div class=" md:hidden">
           <img src="../assets/valueprop.png" class="w-full" alt="Leap Logo" />
@@ -109,6 +109,6 @@ export default {
 
 <style type="text/css">
 header {
-  max-height: 3.5rem;
+  max-height: 3rem;
 }
 </style>
