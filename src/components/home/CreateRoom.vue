@@ -66,13 +66,22 @@
     </div>
 
     <!-- Create a Podcast -->
-    <div v-else-if="$store.state.nav.homeView === 'create-podcast'">
-      <span class="text-sm font-thin opacity-75">
-        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
-      </span>
-      <h2 class="text-2xl">Let's create your podcast</h2>
+    <div
+      v-else-if="$store.state.nav.homeView === 'create-podcast'"
+      class="w-full h-full flex flex-col items-center justify-center"
+    >
+      <h2 class="text-xl opacity-75 font-thin">
+        Ready to Create your Podcast?
+      </h2>
+      <h2 class="text-3xl">Let's Go!</h2>
 
-      <div class="flex">
+      <img
+        src="../../assets/podcast_icon.png"
+        alt=""
+        class="w-24 h-24 opacity-75"
+      />
+
+      <div class="flex w-full justify-center mt-2">
         <CreatePodcast />
       </div>
     </div>
