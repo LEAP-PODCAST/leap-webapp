@@ -71,20 +71,6 @@
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
       <h2 class="text-2xl">Let's create your podcast</h2>
-      <div class="flex justify-center items-center w-full my-4">
-        <div
-          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
-        >
-          New Podcast
-          <!-- <i class="material-icons ml-3">videocam</i> -->
-        </div>
-        <button
-          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-          class="text-xl p-2 ml-3 text-gray-300"
-        >
-          <i class="material-icons">clear</i>
-        </button>
-      </div>
 
       <div class="flex">
         <CreatePodcast />

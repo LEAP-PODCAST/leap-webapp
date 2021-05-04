@@ -1,8 +1,5 @@
 <template>
-  <form
-    @submit.prevent="createPodcast"
-    class="bg-white rounded-xl p-4 w-full text-left"
-  >
+  <form @submit.prevent="createPodcast" class="rounded-xl p-4 w-full text-left">
     <div class="flex items-center my-2">
       <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
@@ -13,8 +10,8 @@
     <div class="flex items-center my-2">
       <i class="material-icons w-8 text-gray-700">description</i>
       <div class="flex-grow">
-        <textarea
-          rows="3"
+        <d-input
+          type="text"
           v-model="description"
           placeholder="Description"
           class="w-full p-2"
@@ -51,9 +48,18 @@
     <small v-if="errors.general" class="text-red-500">
       {{ errors.general }}
     </small>
-    <d-btn variant="primary" class="mt-2">
-      Create
-    </d-btn>
+    <div class="flex flex-col justify-center items-center">
+      <d-btn variant="primary" class="mt-2 w-1/4">
+        Create
+      </d-btn>
+      <d-btn
+        variant="simple"
+        class="mt-2"
+        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+      >
+        Cancel
+      </d-btn>
+    </div>
   </form>
 </template>
 
