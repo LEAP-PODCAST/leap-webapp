@@ -19,7 +19,8 @@ const variants = [
   "white-outline",
   "dark",
   "primary-dashed",
-  "simple"
+  "simple",
+  "simple-black"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
 
@@ -79,6 +80,17 @@ export default {
 
 .btn-simple {
   color: lightgray;
+  background: transparent;
+  font-weight: 200;
+  outline: none;
+
+  &:hover {
+    outline: none;
+  }
+}
+
+.btn-simple-black {
+  color: #3a3e46;
   background: transparent;
   font-weight: 200;
   outline: none;
