@@ -1,6 +1,11 @@
 <template>
   <div class="w-full">
-    <d-input type="text" v-model="search" :placeholder="placeholder" />
+    <d-input
+      type="text"
+      variant="white-underline"
+      v-model="search"
+      :placeholder="placeholder"
+    />
     <ul class="bg-gray-400 w-full">
       <button
         v-for="(result, i) in results"

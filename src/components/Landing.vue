@@ -35,7 +35,12 @@
           </d-btn> -->
         </div>
         <div v-else-if="step === 1">
-          <d-input type="text" v-model="email" placeholder="Email" />
+          <d-input
+            type="text"
+            variant="primary"
+            v-model="email"
+            placeholder="Email"
+          />
           <small v-if="errors.email" class="text-red-500">
             {{ errors.email }}
           </small>
