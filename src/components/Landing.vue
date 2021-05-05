@@ -9,7 +9,7 @@
     <div class="flex justify-center h-full transform scale-95 md:items-center">
       <div class="text-white flex flex-col" style="max-width:450px">
         <div class=" md:hidden">
-          <img src="../assets/valueprop.png" class="w-full" alt="Leap Logo" />
+          <img src="../assets/valueprop.webp" class="w-full" alt="Leap Logo" />
         </div>
 
         <h1 class="text-6xl font-bold font-oxygen">
@@ -60,7 +60,7 @@
       <div
         class="hidden md:flex md:w-1/2 md:h-1/2 md:justify-center md:items-center md:pl-24"
       >
-        <img src="../assets/valueprop.png" class="w-full" alt="Leap Logo" />
+        <img src="../assets/valueprop.webp" class="w-full" alt="Leap Logo" />
       </div>
     </div>
   </div>
