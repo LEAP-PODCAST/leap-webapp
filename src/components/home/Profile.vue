@@ -56,9 +56,9 @@
 
       <div>
         <h2 class="opacity-25 text-sm">Episodes</h2>
-        <div v-for="(post, i) in posts" :key="i" class="flex flex-row">
+        <div v-for="(episode, i) in episodes" :key="i" class="flex flex-row">
           <img class="w-4" :src="user.image" alt="" />
-          <p>{{ post.title }}</p>
+          <p>{{ episode.title }}</p>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
   },
 
   data: () => ({
-    posts: []
+    episodes: []
   })
 };
 </script>
