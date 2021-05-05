@@ -73,13 +73,13 @@
       <h2 class="text-xl opacity-75 font-thin">
         Ready to Create your Podcast?
       </h2>
-      <h2 class="text-3xl">Let's Go!</h2>
+      <h2 class="text-3xl mb-4">Let's Go!</h2>
 
-      <img
+      <!-- <img
         src="../../assets/podcast_icon.png"
         alt=""
         class="w-24 h-24 opacity-75"
-      />
+      /> -->
 
       <div class="flex w-full justify-center mt-2">
         <CreatePodcast />

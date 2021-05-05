@@ -2,7 +2,7 @@
   <div class="w-full">
     <d-input
       type="text"
-      variant="white-underline"
+      variant="white-underline-small-placeholder"
       v-model="search"
       :placeholder="placeholder"
     />

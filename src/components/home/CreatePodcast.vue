@@ -4,13 +4,13 @@
     class="bg-white rounded-xl p-4 w-full text-left"
     style="max-width:450px"
   >
-    <div class="flex items-center border-b-2 mb-4">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <div class="flex-grow">
         <d-input
           type="text"
           variant="white-underline"
           v-model="name"
-          placeholder="Podcast name"
+          placeholder="Podcast Name"
         />
       </div>
     </div>
@@ -19,7 +19,7 @@
       {{ errors.name }}
     </small>
 
-    <div class="flex items-center border-b-2 mb-4">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <i class="material-icons w-8 text-gray-700">group_add</i>
       <div class="flex-grow">
         <ul v-if="hosts.length" class="flex flex-wrap pb-1">
@@ -45,11 +45,11 @@
       </div>
     </div>
 
-    <div class="flex items-center border-b-2 mb-4">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <i class="material-icons w-8 text-gray-700">description</i>
       <d-input
         type="text"
-        variant="white-underline"
+        variant="white-underline-small-placeholder"
         v-model="description"
         placeholder="Add Description"
         class="w-full"

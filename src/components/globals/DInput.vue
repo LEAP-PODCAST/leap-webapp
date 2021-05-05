@@ -105,7 +105,16 @@ input:disabled {
   @apply .text-black;
 }
 
+.input-white-underline-small-placeholder {
+  @apply .text-black;
+}
+
 .input-white-underline::-webkit-input-placeholder {
   color: #3a3e46;
+}
+
+.input-white-underline-small-placeholder::-webkit-input-placeholder {
+  color: #3a3e46;
+  font-size: 14px;
 }
 </style>
