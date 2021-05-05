@@ -55,7 +55,7 @@
       </div>
 
       <div>
-        <h2 class="opacity-25 text-sm">Posts</h2>
+        <h2 class="opacity-25 text-sm">Episodes</h2>
         <div v-for="(post, i) in posts" :key="i" class="flex flex-row">
           <img class="w-4" :src="user.image" alt="" />
           <p>{{ post.title }}</p>
