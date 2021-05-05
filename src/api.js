@@ -134,7 +134,6 @@ export default {
     },
 
     logIn(body) {
-      console.log("BODY:" + body)
       return http.post("/user/logIn", { body });
     },
 
