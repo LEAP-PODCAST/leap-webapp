@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="flex items-center my-2">
+    <!-- <div class="flex items-center my-2">
       <div class="flex-grow">
         <d-input
           type="text"
@@ -31,7 +31,7 @@
           :value="`${profile.fullUsername}`"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="flex items-center my-2">
       <div class="flex-grow">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="flex items-center my-2">
+    <!-- <div class="flex items-center my-2">
       <div class="flex-grow">
         <d-input
           type="text"
@@ -53,7 +53,7 @@
           variant="secondary"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="flex items-center my-2">
       <div class="flex-grow">
