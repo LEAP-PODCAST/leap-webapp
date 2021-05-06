@@ -29,13 +29,15 @@
           variant="primary"
           class="w-1/4"
         >
+          <i class="material-icons mr-2">videocam</i>
           Create my podcast
         </d-btn>
 
-        <small class="italic text-xs opacity-50 my-2">or</small>
-        <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+        <!-- <small class="italic text-xs opacity-50 my-2">or</small> -->
+        <!-- <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+          <i class="material-icons mr-2">videocam</i>
           Create room
-        </d-btn>
+        </d-btn> -->
       </div>
     </div>
 
