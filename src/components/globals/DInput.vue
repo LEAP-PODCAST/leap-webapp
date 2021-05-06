@@ -40,7 +40,13 @@
 <script>
 const types = ["text", "email", "password", "checkbox"];
 
-const variants = ["none", "primary", "white-underline"];
+const variants = [
+  "none",
+  "primary",
+  "secondary",
+  "white-underline",
+  "white-underline-small-placeholder"
+];
 
 export default {
   props: {
@@ -74,6 +80,48 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+@mixin focus-placeholder {
+  @include optional-at-root(":focus::-webkit-input-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":focus:-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":focus::-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":focus:-ms-input-placeholder") {
+    @content;
+  }
+}
+
+@mixin placeholder {
+  @include optional-at-root("::-webkit-input-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root("::-moz-placeholder") {
+    @content;
+  }
+
+  @include optional-at-root(":-ms-input-placeholder") {
+    @content;
+  }
+}
+
 input:disabled {
   @apply text-gray-600;
 }
@@ -91,30 +139,51 @@ input:disabled {
     border-color: #ea455a;
     outline: none;
   }
+
+  @include focus-placeholder {
+    font-size: 10px;
+    vertical-align: top;
+    transform: translateY(-150%) translateX(-1%);
+    color: #ea455a;
+  }
 }
 
-.input-primary:focus::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  font-size: 10px;
-  vertical-align: top;
-  transform: translateY(-150%) translateX(-1%);
-  color: #ea455a;
+.input-secondary {
+  text-indent: 1rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: darkgray;
+  background-color: #1a202c;
+
+  &:focus {
+    border-color: #ea455a;
+    outline: none;
+  }
+
+  @include focus-placeholder {
+    font-size: 10px;
+    vertical-align: top;
+    transform: translateY(-150%) translateX(-1%);
+    color: #ea455a;
+  }
 }
 
 .input-white-underline {
   @apply .text-black;
+
+  @include placeholder {
+    color: #3a3e46;
+  }
 }
 
 .input-white-underline-small-placeholder {
   @apply .text-black;
-}
 
-.input-white-underline::-webkit-input-placeholder {
-  color: #3a3e46;
-}
-
-.input-white-underline-small-placeholder::-webkit-input-placeholder {
-  color: #3a3e46;
-  font-size: 14px;
+  @include placeholder {
+    color: #3a3e46;
+    font-size: 14px;
+  }
 }
 </style>
