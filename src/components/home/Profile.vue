@@ -41,13 +41,13 @@
             >
               <div class="flex-grow flex justify-center items-center">
                 <i
-                  class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-4 w-6 h-6 text-2xl "
+                  class="material-icons flex items-center justify-center bg-red-500 rounded-full mb-3 w-8 h-8 text-2xl "
                   >add</i
                 >
               </div>
 
               <p class="text-xs text-red-500">
-                Create new podcast
+                CREATE PODCAST
               </p>
             </button>
           </li>
