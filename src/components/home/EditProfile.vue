@@ -15,9 +15,9 @@
       <div class="flex-grow">
         <d-input
           type="text"
-          v-model="name"
           placeholder="Name"
           variant="secondary"
+          :value="`${profile.firstName} ${profile.lastName}`"
         />
       </div>
     </div>
@@ -26,9 +26,9 @@
       <div class="flex-grow">
         <d-input
           type="text"
-          v-model="name"
           placeholder="Username"
           variant="secondary"
+          :value="`${profile.fullUsername}`"
         />
       </div>
     </div>
@@ -37,9 +37,9 @@
       <div class="flex-grow">
         <d-input
           type="text"
-          v-model="name"
           placeholder="Bio"
           variant="secondary"
+          :value="`${profile.bio}`"
         />
       </div>
     </div>
