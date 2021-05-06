@@ -391,7 +391,8 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         password: this.password,
-        receiveNotifications: this.receiveNotifications
+        receiveNotifications: this.receiveNotifications,
+        dob: ` ${this.dob.month} ${this.dob.day}, ${this.dob.year}`
       });
 
       if (res.error) {
