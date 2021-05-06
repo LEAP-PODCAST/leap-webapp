@@ -8,7 +8,7 @@
 
       <!-- <d-input type="text" value="" placeholder="search" /> -->
 
-      <router-link
+      <!-- <router-link
         to="/"
         class="flex items-center justify-center bg-black rounded-full p-1 ml-3 text-xs"
       >
@@ -31,7 +31,7 @@
         <span class="material-icons text-white">
           account_circle
         </span>
-      </router-link>
+      </router-link> -->
     </header>
 
     <main class="flex-grow">
