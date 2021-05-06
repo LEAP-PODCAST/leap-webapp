@@ -64,7 +64,7 @@
     </div>
 
     <div v-if="$store.state.nav.profileView === 'edit-profile'">
-      <EditProfile />
+      <EditProfile :profile="$store.state.user.userProfile" />
     </div>
   </div>
 </template>

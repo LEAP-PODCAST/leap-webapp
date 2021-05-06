@@ -1,51 +1,90 @@
 <template>
-  <form @submit.prevent="createPodcast" class="rounded-xl p-4 w-full text-left">
+  <form
+    @submit.prevent="createPodcast"
+    class="flex flex-col justify-center rounded-xl p-4 w-full text-left"
+  >
+    <div class="flex flex-col items-center mb-8">
+      <d-profile-image
+        :imgUrl="profile.avatarUrl"
+        class="w-24 h-24 opacity-50"
+      />
+      <h1 class="text-gray-200 text-sm mt-1 underline">Change Photo</h1>
+    </div>
+
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Podcast name" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Name"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Username" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Username"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Bio" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Bio"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Leap Link" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Leap Link"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Instagram" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Instagram"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Twitter" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Twitter"
+          variant="secondary"
+        />
       </div>
     </div>
 
     <div class="flex items-center my-2">
-      <i class="material-icons w-8 text-gray-700">account_circle</i>
       <div class="flex-grow">
-        <d-input type="text" v-model="name" placeholder="Date of Birth" />
+        <d-input
+          type="text"
+          v-model="name"
+          placeholder="Date of Birth"
+          variant="secondary"
+        />
       </div>
     </div>
 
@@ -53,7 +92,7 @@
       {{ errors.general }}
     </small>
     <div class="flex flex-col justify-center items-center">
-      <d-btn variant="primary" class="mt-2 w-1/4">
+      <d-btn variant="primary" class="mt-2 w-full">
         Create
       </d-btn>
       <d-btn
@@ -69,8 +108,20 @@
 
 <script>
 import API from "@/api";
+import DProfileImage from "../globals/DProfileImage.vue";
 
 export default {
+  components: {
+    DProfileImage
+  },
+
+  props: {
+    profile: {
+      type: Object,
+      required: true
+    }
+  },
+
   data: () => ({
     name: "",
     description: "",
