@@ -256,7 +256,6 @@ export default ({ socket }) => {
       sendTransport.on(
         "connect",
         async ({ dtlsParameters }, callback, errback) => {
-          console.log("test!");
 
           // Connect the receive transport
           res = await API.transport.connect({

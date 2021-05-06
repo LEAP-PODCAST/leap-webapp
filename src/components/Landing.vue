@@ -1,71 +1,66 @@
 <template>
-  <div class="flex flex-col w-full h-full md:p-6 pt-0 bg-gray-900">
-    <header class="flex flex-row items-center p-4 bg-gray-900">
+  <div class="flex flex-col w-full h-full bg-gray-900 overflow-x-hidden">
+    <header class="flex flex-row p-4 md:pl-8">
       <router-link to="/" style="display:contents;">
         <img src="/images/leap.png" class="h-full" alt="Leap Logo" />
       </router-link>
-      <div class="flex-grow"></div>
     </header>
 
-    <div class="flex w-full h-full text-white bg-gray-900">
-      <div class="hidden md:block md:w-1/12 bg-gray-900"></div>
+    <div class="flex justify-center h-full transform scale-95 md:items-center">
+      <div class="text-white flex flex-col" style="max-width:450px">
+        <div class=" md:hidden">
+          <img src="../assets/valueprop.webp" class="w-full" alt="Leap Logo" />
+        </div>
 
+        <h1 class="text-6xl font-bold font-oxygen">
+          Simplify
+        </h1>
+        <h1 class="text-6xl font-bold font-oxygen leading-8">
+          Podcasting
+        </h1>
+        <h1 class="text-xl py-6">
+          Leap is the easiest way to watch, share, create, and monetize video
+          podcasts.
+        </h1>
+        <div v-if="step === 0">
+          <d-btn variant="primary" @click="step = 1" class="w-full mt-5">
+            Get Early Access
+          </d-btn>
+          <!-- <d-btn
+            variant="primary-outline"
+            @click="$router.push('/LogIn')"
+            class="w-full mt-5"
+          >
+            Log In
+          </d-btn> -->
+        </div>
+        <div v-else-if="step === 1">
+          <d-input
+            type="text"
+            variant="primary"
+            v-model="email"
+            placeholder="Email"
+          />
+          <small v-if="errors.email" class="text-red-500">
+            {{ errors.email }}
+          </small>
+
+          <d-btn variant="primary" @click="submitEmail" class="w-full mt-5">
+            Submit
+          </d-btn>
+          <d-btn variant="simple" @click="step = 0" class="w-full mt-2">
+            Cancel
+          </d-btn>
+        </div>
+
+        <div v-else-if="step === 2">
+          Signed up successfully!
+        </div>
+      </div>
       <div
-        class="flex flex-col justify-center items-center w-full md:flex-row md:justify-start md:items-center bg-gray-900"
+        class="hidden md:flex md:w-1/2 md:h-1/2 md:justify-center md:items-center md:pl-24"
       >
-        <div class="flex w-full justify-center items-center md:hidden">
-          <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
-        </div>
-
-        <div class="md:ml-6" style="max-width:450px">
-          <h1 class="text-6xl font-bold font-oxygen">
-            Simplify
-          </h1>
-          <h1 class="text-6xl font-bold font-oxygen leading-8">
-            Podcasting
-          </h1>
-          <h1 class="text-xl py-6">
-            Effortlessly record, monetize, discover, stream, and interact with
-            your audience.
-          </h1>
-
-          <div v-if="step === 0">
-            <d-btn variant="primary" @click="step = 1" class="w-full mt-5">
-              Request Access
-            </d-btn>
-            <!-- <d-btn
-              variant="primary-outline"
-              @click="$router.push('/LogIn')"
-              class="w-full mt-5"
-            >
-              Log In
-            </d-btn> -->
-          </div>
-
-          <div v-else-if="step === 1">
-            <d-input type="text" v-model="email" placeholder="Email" />
-            <small v-if="errors.email" class="text-red-500">
-              {{ errors.email }}
-            </small>
-
-            <d-btn variant="primary" @click="submitEmail" class="w-full mt-5">
-              Submit
-            </d-btn>
-            <d-btn variant="simple" @click="step = 0" class="w-full mt-2">
-              Cancel
-            </d-btn>
-          </div>
-
-          <div v-else-if="step === 2">
-            Signed up successfully!
-          </div>
-        </div>
-
-        <div
-          class="hidden md:flex lg:flex flex w-full h-full justify-center items-center"
-        >
-          <img src="/images/valueprop.png" class="w-full" alt="Leap Logo" />
-        </div>
+        <img src="../assets/valueprop.webp" class="w-full" alt="Leap Logo" />
       </div>
     </div>
   </div>
@@ -119,6 +114,6 @@ export default {
 
 <style type="text/css">
 header {
-  max-height: 4rem;
+  max-height: 3rem;
 }
 </style>

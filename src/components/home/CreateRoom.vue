@@ -19,6 +19,7 @@
           v-if="$store.state.user.userProfile.podcasts.length"
           @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
           variant="primary"
+          class="w-full"
         >
           New episode
         </d-btn>
@@ -26,13 +27,17 @@
           v-else
           @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
           variant="primary"
+          class="w-1/4"
         >
+          <i class="material-icons mr-2">videocam</i>
           Create my podcast
         </d-btn>
-        <small class="italic text-xs opacity-50 my-2">or</small>
-        <d-btn @click="createRoom" variant="primary-outline" disabled>
+
+        <!-- <small class="italic text-xs opacity-50 my-2">or</small> -->
+        <!-- <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+          <i class="material-icons mr-2">videocam</i>
           Create room
-        </d-btn>
+        </d-btn> -->
       </div>
     </div>
 
@@ -63,27 +68,16 @@
     </div>
 
     <!-- Create a Podcast -->
-    <div v-else-if="$store.state.nav.homeView === 'create-podcast'">
-      <span class="text-sm font-thin opacity-75">
-        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
-      </span>
-      <h2 class="text-2xl">Let's create your podcast</h2>
-      <div class="flex justify-center items-center w-full my-4">
-        <div
-          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
-        >
-          New Podcast
-          <!-- <i class="material-icons ml-3">videocam</i> -->
-        </div>
-        <button
-          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-          class="text-xl p-2 ml-3 text-gray-300"
-        >
-          <i class="material-icons">clear</i>
-        </button>
-      </div>
+    <div
+      v-else-if="$store.state.nav.homeView === 'create-podcast'"
+      class="w-full h-full flex flex-col items-center justify-center"
+    >
+      <h2 class="text-xl opacity-75 font-thin">
+        Ready to Create your Podcast?
+      </h2>
+      <h2 class="text-3xl mb-4">Let's Go!</h2>
 
-      <div class="flex">
+      <div class="flex w-full justify-center mt-2">
         <CreatePodcast />
       </div>
     </div>

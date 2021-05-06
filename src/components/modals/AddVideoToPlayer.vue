@@ -6,40 +6,58 @@
         v-model="url"
         placeholder="Add a YouTube, Twitch, or .mp4 video URL"
         class="flex-grow mr-2"
+        variant="none"
       />
       <d-btn variant="primary" type="submit" class="h-full">Add</d-btn>
     </form>
     <ul class="queue list-style-none overflow-y-auto">
       <!-- Data object here is the video stream object for this player -->
-      <li v-for="(video, i) in queue" :key="i" class="flex items-center mb-1 rounded p-1">
+      <li
+        v-for="(video, i) in queue"
+        :key="i"
+        class="flex items-center mb-1 rounded p-1"
+      >
         <div class="flex flex-grow">
           <!-- Video Image -->
-          <div class="relative flex-shrink-0 mr-2 rounded" style="max-width:12rem">
-            <img :src="getVideoThumbnail(video)" class="w-full h-full rounded" />
+          <div
+            class="relative flex-shrink-0 mr-2 rounded"
+            style="max-width:12rem"
+          >
+            <img
+              :src="getVideoThumbnail(video)"
+              class="w-full h-full rounded"
+            />
             <div v-if="video.data">
               <small
                 v-if="video.data.duration"
                 class="absolute bg-black-700 px-1 rounded-br"
                 style="bottom:0;right:0;"
-              >{{ video.data.duration }}</small>
+                >{{ video.data.duration }}</small
+              >
             </div>
           </div>
 
           <!-- Video Metadata -->
           <div class="flex flex-col justify-center">
-            <h3 class="text-lg font-bold break-all">{{ getVideoTitle(video) | truncate(64) }}</h3>
+            <h3 class="text-lg font-bold break-all">
+              {{ getVideoTitle(video) | truncate(64) }}
+            </h3>
             <div v-if="video.data">
-              <small
-                v-if="video.data.publishedAt"
-                class="mb-1"
-              >Uploaded on {{ video.data.publishedAt | formatDate }}</small>
+              <small v-if="video.data.publishedAt" class="mb-1"
+                >Uploaded on {{ video.data.publishedAt | formatDate }}</small
+              >
             </div>
 
             <!-- Video Actions -->
             <div>
               <d-btn
                 v-if="i > 0"
-                @click="$store.dispatch('room/removeVideoPlayerFromVideoPlayerQueue', { id: stream.id, queueId: queueIds[i] })"
+                @click="
+                  $store.dispatch(
+                    'room/removeVideoPlayerFromVideoPlayerQueue',
+                    { id: stream.id, queueId: queueIds[i] }
+                  )
+                "
                 variant="none"
                 size="xs"
                 class="bg-red-400 text-xs"
@@ -48,7 +66,12 @@
               </d-btn>
               <d-btn
                 v-if="i === 0"
-                @click="$store.dispatch('room/removeVideoPlayerFromVideoPlayerQueue', { id: stream.id, queueId: queueIds[0] })"
+                @click="
+                  $store.dispatch(
+                    'room/removeVideoPlayerFromVideoPlayerQueue',
+                    { id: stream.id, queueId: queueIds[0] }
+                  )
+                "
                 variant="none"
                 size="xs"
                 class="bg-blue-400 text-xs"
@@ -126,5 +149,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

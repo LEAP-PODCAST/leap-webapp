@@ -26,6 +26,7 @@
         <div class="md:w-6/12 mr-2">
           <d-input
             type="text"
+            variant="primary"
             v-model="firstName"
             @blur="verfiyFirstName"
             placeholder="First Name"
@@ -38,6 +39,7 @@
         <div class="md:w-6/12">
           <d-input
             type="text"
+            variant="primary"
             v-model="lastName"
             @blur="verifyLastName"
             placeholder="Last Name"
@@ -50,6 +52,7 @@
       </div>
       <d-input
         type="text"
+        variant="primary"
         v-model="email"
         placeholder="Email"
         @blur="verifyEmail"
@@ -62,6 +65,7 @@
       <div class="mt-3 mb-4">
         <d-input
           type="checkbox"
+          variant="none"
           v-model="receiveNotifications"
           label="Recieve emails about upcoming your upcoming podcasts."
           required
@@ -136,6 +140,7 @@
     <form @submit.prevent="toStep2" v-if="step === 1">
       <d-input
         type="text"
+        variant="primary"
         v-model="username"
         @blur="verifyUsername"
         placeholder="Username"
@@ -154,6 +159,7 @@
       <div class="mb-3">
         <d-input
           type="password"
+          variant="primary"
           v-model="password"
           @blur="verifyPassword"
           placeholder="Password"
@@ -166,6 +172,7 @@
       <div class="mb-8">
         <d-input
           type="password"
+          variant="primary"
           v-model="password2"
           @blur="verifyPassword2"
           placeholder="Re-enter Password"
@@ -384,7 +391,8 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         password: this.password,
-        receiveNotifications: this.receiveNotifications
+        receiveNotifications: this.receiveNotifications,
+        dob: ` ${this.dob.month} ${this.dob.day}, ${this.dob.year}`
       });
 
       if (res.error) {

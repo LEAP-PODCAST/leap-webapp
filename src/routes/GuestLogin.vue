@@ -21,6 +21,7 @@
     <form @submit.prevent="toStep1" v-if="step === 0">
       <d-input
         type="text"
+        variant="primary"
         v-model="email"
         placeholder="Email"
         @blur="verifyEmail"
@@ -39,6 +40,7 @@
       <div>
         <d-input
           type="text"
+          variant="primary"
           v-model="firstName"
           @blur="verfiyFirstName"
           placeholder="First Name"
@@ -52,6 +54,7 @@
       <div class="mt-4">
         <d-input
           type="text"
+          variant="primary"
           v-model="lastName"
           @blur="verifyLastName"
           placeholder="Last Name"
@@ -65,6 +68,7 @@
       <div class="mt-4">
         <d-input
           type="text"
+          variant="primary"
           v-model="heading"
           placeholder="Heading"
           @blur="verifyHeading"

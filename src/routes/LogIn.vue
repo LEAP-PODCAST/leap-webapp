@@ -9,6 +9,7 @@
         <div class="mb-3">
           <d-input
             type="text"
+            variant="primary"
             v-model="username"
             @blur="verifyUsername"
             placeholder="Email or Username"
@@ -19,6 +20,7 @@
         <div class="">
           <d-input
             type="password"
+            variant="primary"
             v-model="password"
             @blur="verifyPassword"
             placeholder="Password"
@@ -62,10 +64,6 @@ export default {
       if (!!this.errors.username || !!this.errors.password) {
         return;
       }
-
-      console.log("LOGIN FORM");
-      console.log(this.username);
-      console.log(this.password);
 
       const res = await this.$store.dispatch("user/logIn", {
         email: this.username,

@@ -7,6 +7,7 @@
         label="Enter your name"
         required
         class="flex-grow mr-2 mb-4"
+        variant="none"
       />
       <d-btn
         type="submit"

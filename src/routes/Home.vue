@@ -29,7 +29,7 @@ export default {
 <style lang="scss">
 .display-card {
   @apply .text-white;
-  @apply .bg-black-800;
+  @apply .bg-gray-900;
   @apply .w-full;
   @apply .h-full;
   @apply .rounded-lg;

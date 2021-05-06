@@ -1,21 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function(apiKey) {
+        (function(p, e, n, d, o) {
+          var v, w, x, y, z;
+          o = p[d] = p[d] || {};
+          o._q = o._q || [];
+          v = ["initialize", "identify", "updateOptions", "pageLoad", "track"];
+          for (w = 0, x = v.length; w < x; ++w)
+            (function(m) {
+              o[m] =
+                o[m] ||
+                function() {
+                  o._q[m === v[0] ? "unshift" : "push"](
+                    [m].concat([].slice.call(arguments, 0))
+                  );
+                };
+            })(v[w]);
+          y = e.createElement(n);
+          y.async = !0;
+          y.src = "https://cdn.pendo.io/agent/static/" + apiKey + "/pendo.js";
+          z = e.getElementsByTagName(n)[0];
+          z.parentNode.insertBefore(y, z);
+        })(window, document, "script", "pendo");
+
+        // Call this whenever information about your visitors becomes available
+        // Please use Strings, Numbers, or Bools for value types.
+        pendo.initialize({});
+      })("a65d8c3c-f089-43c7-6996-c3c1e30ffe79");
+    </script>
+
+    <!-- Hotjar Tracking Code for www.joinleap.co -->
+    <script>
+      (function(h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function() {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 2361111, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>LEAP</title>
+    <meta name="title" content="Leap - Video Podcasting Made Easy" />
+
+    <meta
+      name="description"
+      content="Leap is a single platform for video podcast recording, discovery, and streaming, and monetization."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://joinleap.co/" />
+    <meta property="og:title" content="Leap - Video Podcasting Made Easy" />
+    <meta name="theme-color" content="#1a202c" />
+    <meta
+      property="og:description"
+      content="Leap is a single platform for video podcast recording, discovery, and streaming, and monetization."
+    />
+    <meta
+      property="og:image"
+      content="https://joinleap.co/images/valueprop.webp"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://joinleap.co/" />
+    <meta
+      property="twitter:title"
+      content="Leap - Video Podcasting Made Easy"
+    />
+    <meta
+      property="twitter:description"
+      content="Leap is a single platform for video podcast recording, discovery, and streaming, and monetization."
+    />
+    <meta
+      property="twitter:image"
+      content="https://joinleap.co/images/valueprop.webp"
+    />
+
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <link rel="stylesheet" href="/main.css" />
-    <title>Leap</title>
   </head>
   <body>
     <noscript>
       <strong>
-        We're sorry but Doice doesn't work properly without JavaScript enabled.
+        We're sorry but Leap doesn't work properly without JavaScript enabled.
         Please enable it to continue.
       </strong>
     </noscript>
