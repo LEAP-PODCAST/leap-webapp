@@ -8,7 +8,12 @@
         :imgUrl="profile.avatarUrl"
         class="w-24 h-24 opacity-50"
       />
-      <h1 class="text-gray-200 text-sm mt-1 underline">Change Photo</h1>
+      <label
+        class="text-gray-200 text-sm mt-1 underline cursor-pointer"
+        for="myfile"
+        >Change Photo</label
+      >
+      <input class="hidden" type="file" id="myfile" name="myfile" />
     </div>
 
     <div class="flex items-center my-2">
