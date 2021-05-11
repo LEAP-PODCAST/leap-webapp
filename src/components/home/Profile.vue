@@ -21,7 +21,6 @@
 
       <div>
         <h2 class="opacity-25 text-sm">My Podcasts</h2>
-
         <ul class="flex items-center py-3">
           <li v-for="podcast in profile.podcasts" :key="podcast.id">
             <button
@@ -33,7 +32,6 @@
               <span>{{ podcast.name }}</span>
             </button>
           </li>
-
           <li>
             <button
               @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"

@@ -45,6 +45,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+import API from "@/api";
+
 import VideoContainer from "@/components/VideoContainer";
 import RemoteWebcam from "@/components/stream/RemoteWebcam";
 import VoiceChatter from "@/components/stream/VoiceChatter";
@@ -60,11 +64,10 @@ export default {
     ChatRoom
   },
 
-  data: () => ({
-    podcastTitle: "#23 - Yussef Guf"
-  }),
-
   computed: {
+    ...mapGetters("user", ["isLoggedIn"]),
+    ...mapGetters("chat", ["isAbleToProduce"]),
+
     room() {
       return this.$store.state.room;
     },
@@ -80,14 +83,51 @@ export default {
 
   async mounted() {
     await this.$nextTick();
-    this.$store.dispatch("nav/showModal", {
-      id: "join-room",
-      data: { noclose: true }
+
+    // Join episode
+    const res = await this.$store.dispatch("room/watchEpisode", {
+      podcastUrlName: this.$route.params.podcastUrlName,
+      episodeUrlName: this.$route.params.episodeUrlName
     });
+
+    if (!res.ok) {
+      alert(res.error);
+      return;
+    }
+
+    // Attempt to authenticate user
+    if (this.isLoggedIn) {
+      const res2 = await API.episode.authenticate();
+
+      if (!res2.ok) {
+        alert(res2.error);
+        return;
+      }
+
+      // Show produce modal if user is loggedIn and host/guest
+      if (this.isAbleToProduce) {
+        this.$store.dispatch("nav/showModal", {
+          id: "join-room",
+          data: { noclose: true }
+        });
+      }
+    }
   },
 
   beforeDestroy() {
     this.$store.dispatch("room/leave");
+  },
+
+  watch: {
+    isAbleToProduce(value) {
+      this.$notify.success({
+        message: value
+          ? "You were added as a speaker!"
+          : "You were removed as a speaker.",
+        bottom: true,
+        right: true
+      });
+    }
   }
 };
 </script>

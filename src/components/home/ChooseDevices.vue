@@ -157,7 +157,6 @@ export default {
     },
 
     "selectedDevices.webcamId"(deviceId) {
-      console.log(deviceId);
       this.$store.dispatch("room/getWebcamStream", { deviceId });
     },
 
@@ -186,7 +185,7 @@ export default {
       };
 
       if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-        console.log("enumerateDevices() not supported.");
+        console.error("enumerateDevices() not supported.");
         return;
       }
 
@@ -214,15 +213,9 @@ export default {
     async join() {
       this.$store.dispatch("nav/hideModal");
 
-      const res = await this.$store.dispatch("room/watchEpisode", {
-        podcastUrlName: this.$route.params.podcastUrlName,
-        episodeUrlName: this.$route.params.episodeUrlName
-      });
-
-      if (!res.ok) {
-        alert(res.error);
-        return;
-      }
+      // Dispatch produce webcam and microphone
+      await this.$store.dispatch("room/produceWebcam");
+      await this.$store.dispatch("room/produceMic");
     }
   }
 };
