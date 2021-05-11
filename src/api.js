@@ -137,6 +137,10 @@ export default {
       return http.post("/user/logIn", { body });
     },
 
+    editProfile(body) {
+      return http.post("/user/editProfile", { body });
+    },
+
     verifyUserToken() {
       return http.post("/user/verifyUserToken");
     }
