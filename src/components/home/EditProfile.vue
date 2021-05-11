@@ -1,13 +1,10 @@
 <template>
   <form
-    @submit.prevent="createPodcast"
+    @submit.prevent="editProfile"
     class="flex flex-col justify-center rounded-xl p-4 w-full text-left"
   >
     <div class="flex flex-col items-center mb-8">
-      <d-profile-image
-        :imgUrl="profile.avatarUrl"
-        class="w-24 h-24 opacity-50"
-      />
+      <d-profile-image :imgUrl="avatarUrl" class="w-24 h-24 opacity-50" />
       <label
         class="text-gray-200 text-sm mt-1 underline cursor-pointer"
         for="myfile"
@@ -16,27 +13,37 @@
       <input class="hidden" type="file" id="myfile" name="myfile" />
     </div>
 
-    <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          placeholder="Name"
-          variant="secondary"
-          :value="`${profile.firstName} ${profile.lastName}`"
-        />
+    <div class="flex justify-between">
+      <div class="flex flex-col flex-grow mr-2 my-2">
+        <div class="flex-grow">
+          <d-input
+            type="text"
+            placeholder="First Name"
+            v-model="firstName"
+            variant="secondary"
+          />
+        </div>
+        <small v-if="errors.firstName" class="text-red-500">
+          {{ errors.firstName }}
+        </small>
+      </div>
+
+      <div class="flex flex-col flex-grow">
+        <div class="flex flex-grow my-2">
+          <div class="flex-grow">
+            <d-input
+              type="text"
+              placeholder="Last Name"
+              v-model="lastName"
+              variant="secondary"
+            />
+          </div>
+        </div>
+        <small v-if="errors.lastName" class="text-red-500">
+          {{ errors.lastName }}
+        </small>
       </div>
     </div>
-
-    <!-- <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          placeholder="Username"
-          variant="secondary"
-          :value="`${profile.fullUsername}`"
-        />
-      </div>
-    </div> -->
 
     <div class="flex items-center my-2">
       <div class="flex-grow">
@@ -44,58 +51,44 @@
           type="text"
           placeholder="Bio"
           variant="secondary"
-          :value="`${profile.bio}`"
+          v-model="bio"
         />
       </div>
     </div>
-
-    <!-- <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          v-model="name"
-          placeholder="Leap Link"
-          variant="secondary"
-        />
-      </div>
-    </div> -->
-
-    <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          v-model="name"
-          placeholder="Instagram"
-          variant="secondary"
-        />
-      </div>
-    </div>
-
-    <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          v-model="name"
-          placeholder="Twitter"
-          variant="secondary"
-        />
-      </div>
-    </div>
-
-    <div class="flex items-center my-2">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          v-model="name"
-          placeholder="Date of Birth"
-          variant="secondary"
-        />
-      </div>
-    </div>
-
-    <small v-if="errors.general" class="text-red-500">
-      {{ errors.general }}
+    <small v-if="errors.bio" class="text-red-500">
+      {{ errors.bio }}
     </small>
+
+    <div class="flex justify-between">
+      <div class="flex flex-col flex-grow flex-wrap mr-2 my-2">
+        <div class="">
+          <d-input
+            type="text"
+            placeholder="Twitter"
+            v-model="twitter"
+            variant="secondary"
+          />
+        </div>
+        <small v-if="errors.socials.twitter" class="text-red-500">
+          {{ errors.socials.twitter }}
+        </small>
+      </div>
+
+      <div class="flex flex-col flex-grow flex-wrap my-2">
+        <div class="flex-grow">
+          <d-input
+            type="text"
+            placeholder="Instagram"
+            v-model="instagram"
+            variant="secondary"
+          />
+        </div>
+        <small v-if="errors.socials.instagram" class="text-red-500">
+          {{ errors.socials.instagram }}
+        </small>
+      </div>
+    </div>
+
     <div class="flex flex-col justify-center items-center">
       <d-btn variant="primary" class="mt-2 w-full">
         Create
@@ -115,50 +108,151 @@
 import API from "@/api";
 import DProfileImage from "../globals/DProfileImage.vue";
 
+const regex = {
+  nameWithSpaces: /^([A-Za-z ])+$/,
+  name: /^[A-Za-z]+$/,
+  twitter: /^@?(\w){1,15}$/,
+  instagram: /(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
+};
+
 export default {
   components: {
     DProfileImage
   },
 
-  props: {
-    profile: {
-      type: Object,
-      required: true
-    }
-  },
-
   data: () => ({
-    name: "",
-    description: "",
-    hosts: [],
+    firstName: "",
+    lastName: "",
+    bio: "",
+    twitter: "",
+    instagram: "",
+    avatarUrl: "",
     errors: {
-      general: ""
+      firstName: "",
+      lastName: "",
+      bio: "",
+      socials: {
+        twitter: "",
+        instagram: ""
+      }
     }
   }),
 
+  created() {
+    this.firstName = this.$store.state.user.userProfile.firstName;
+    this.lastName = this.$store.state.user.userProfile.lastName;
+    this.bio = this.$store.state.user.userProfile.bio;
+    this.twitter = this.$store.state.user.userProfile.socials.twitter;
+    this.instagram = this.$store.state.user.userProfile.socials.instagram;
+    this.avatarUrl = this.$store.state.user.userProfile.avatarUrl;
+  },
+
   methods: {
-    addHost(e) {
-      //check to see if the host is already within the array before adding
-      this.hosts.push(e);
+    verfiyFirstName() {
+      if (!this.firstName.length) {
+        return (this.errors.firstName = "First name is requried.");
+      }
+      if (!regex.name.test(this.firstName)) {
+        return (this.errors.firstName =
+          "First name must only contain alphabetic characters.");
+      }
+      if (this.firstName.length > 20) {
+        return (this.errors.firstName =
+          "First name must be 20 characters or less.");
+      }
+      this.errors.firstName = "";
     },
 
-    removeHost(index) {
-      this.hosts.splice(index, 1);
+    verifyLastName() {
+      if (!this.lastName.length) {
+        return (this.errors.lastName = "Last name is required.");
+      }
+      if (!regex.name.test(this.lastName)) {
+        return (this.errors.lastName =
+          "Last name must only contain alphabetic characters.");
+      }
+      if (this.lastName.length > 20) {
+        return (this.errors.lastName =
+          "Last name must be 20 characters or less.");
+      }
+      this.errors.lastName = "";
     },
 
-    async createPodcast() {
-      const { ok, error, data } = await API.podcast.create({
-        name: this.name,
-        hosts: this.hosts
-      });
+    verfiyBio() {
+      if (!this.bio.length) {
+        return (this.errors.name = "Bio is requried.");
+      }
+      if (this.bio.length > 500) {
+        return (this.errors.name = "Name must be 500 characters or less.");
+      }
+      this.errors.bio = "";
+    },
 
-      if (!ok) {
-        this.errors.general = error;
+    verifyTwitter() {
+      if (!regex.twitter.test(this.twitter)) {
+        return (this.errors.socials.twitter =
+          "The Twitter handle contains errors. Please try again.");
+      }
+      this.errors.socials.twitter = "";
+    },
+
+    verifyInstagram() {
+      if (!regex.instagram.test(this.instagram)) {
+        return (this.errors.socials.instagram =
+          "The instagram handle contains errors. Please try again.");
+      }
+      this.errors.socials.instagram = "";
+    },
+
+    async editProfile() {
+      this.verfiyFirstName();
+      this.verifyLastName();
+      this.verfiyBio();
+      this.verifyTwitter();
+      this.verifyInstagram();
+
+      if (
+        !!this.errors.firstName ||
+        !!this.errors.lastName ||
+        !!this.errors.bio ||
+        !!this.errors.socials.twitter ||
+        !!this.errors.socials.instagram
+      ) {
         return;
       }
 
-      this.$store.commit("user/ADD_PODCAST", data);
-      this.$store.commit("nav/SET_HOME_VIEW", "home");
+      console.log(this.firstName);
+      console.log(this.lastName);
+      console.log(this.bio);
+      console.log(this.twitter);
+      console.log(this.instagram);
+
+      const socials = {
+        instagram: this.instagram,
+        twitter: this.twitter
+      };
+
+      const data = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        bio: this.bio,
+        socials: socials
+      };
+
+      // const { ok, error, data } = await API.user.editProfile({
+      //   firstName: this.firstName,
+      //   lastName: this.lastName,
+      //   bio: this.bio,
+      //   socials: socials
+      // });
+
+      // if (error) {
+      //   // TODO better notification system
+      //   alert(error);
+      //   return;
+      // }
+      this.$store.commit("nav/SET_PROFILE_VIEW", "profile");
+      this.$store.commit("user/EDIT_PROFILE", data);
     }
   }
 };

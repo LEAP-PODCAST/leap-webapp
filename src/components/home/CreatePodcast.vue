@@ -165,14 +165,10 @@ export default {
     },
 
     async submitPodcast() {
-      console.log("SUBMITTING");
-
       const { ok, error, data } = await API.podcast.create({
         name: this.name,
         hosts: this.hosts
       });
-
-      console.log("DONE");
 
       //this should come up as a notification
       //failed to create podcast due to ...

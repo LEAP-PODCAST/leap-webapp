@@ -1,12 +1,12 @@
 <template>
-  <div class="p-8 w-full h-full">
+  <div class="flex justify-center items-center p-8 w-full h-full">
     <div
       v-if="$store.state.nav.homeView === 'home'"
-      class="flex flex-col w-full h-full"
+      class="flex flex-col justify-center w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
       <div class="text-center">
-        <span class="text-sm font-thin opacity-75">
+        <span class="font-thin opacity-75">
           Good {{ timeOfDayText }},
           {{ $store.state.user.userProfile.firstName }}!
         </span>
@@ -19,8 +19,9 @@
           v-if="$store.state.user.userProfile.podcasts.length"
           @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
           variant="primary"
-          class="w-full"
+          class="w-1/4"
         >
+          <i class="material-icons mr-3">videocam</i>
           New episode
         </d-btn>
         <d-btn
@@ -33,36 +34,28 @@
           Create my podcast
         </d-btn>
 
-        <!-- <small class="italic text-xs opacity-50 my-2">or</small> -->
-        <!-- <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+        <small class="italic text-sm opacity-50 my-2">or</small>
+        <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
           <i class="material-icons mr-2">videocam</i>
           Create room
-        </d-btn> -->
+        </d-btn>
       </div>
     </div>
 
     <!-- Schedule a Podcast -->
-    <div v-else-if="$store.state.nav.homeView === 'schedule'">
-      <span class="text-sm font-thin opacity-75">
-        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
-      </span>
-      <h2 class="text-2xl">Let's schedule it ⚡</h2>
-      <div class="flex justify-center items-center w-full my-4">
-        <div
-          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
-        >
-          New Episode
-          <i class="material-icons ml-3">videocam</i>
-        </div>
-        <button
-          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-          class="text-xl p-2 ml-3 text-gray-300"
-        >
-          <i class="material-icons">clear</i>
-        </button>
+    <div
+      class="flex-grow justify-center items-center"
+      v-else-if="$store.state.nav.homeView === 'schedule'"
+    >
+      <div class="mb-4 flex flex-col justify-center items-center">
+        <span class="text-sm font-thin opacity-75">
+          Good {{ timeOfDayText }},
+          {{ $store.state.user.userProfile.firstName }}!
+        </span>
+        <h2 class="text-2xl">Let's schedule it ⚡</h2>
       </div>
 
-      <div class="flex">
+      <div class="flex flex-grow">
         <ScheduleEpisode />
       </div>
     </div>
