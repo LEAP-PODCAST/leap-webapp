@@ -6,7 +6,9 @@
     <h1 class="text-2xl font-bold mb-4">Reset Password</h1>
 
     <div v-if="reset && verified">
-      <p>An Email has been sent if you're an existing leap user!</p>
+      <p class="text-xl">
+        An Email has been sent if you're an existing leap user!
+      </p>
       <p>Please check your inbox to reset your password.</p>
       <p>Make sure to check the spam folder!</p>
     </div>
@@ -17,6 +19,7 @@
           type="text"
           v-model="email"
           placeholder="Email"
+          variant="primary"
           @blur="verifyEmail"
           required
         />

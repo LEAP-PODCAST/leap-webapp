@@ -6,6 +6,7 @@
         v-model="url"
         placeholder="Enter a YouTube, Twitch, or .mp4 video URL"
         class="flex-grow mr-2"
+        variant="none"
       />
       <d-btn variant="primary" type="submit" class="h-full">Add</d-btn>
     </form>
@@ -27,5 +28,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -9,6 +9,7 @@
       <div class="mb-3">
         <d-input
           type="password"
+          variant="primary"
           v-model="password"
           @blur="verifyPassword"
           placeholder="Password"
@@ -21,6 +22,7 @@
       <div class="mb-8">
         <d-input
           type="password"
+          variant="primary"
           v-model="password2"
           @blur="verifyPassword2"
           placeholder="Re-enter Password"

@@ -28,6 +28,7 @@ const variants = [
   "dark",
   "primary-dashed",
   "simple",
+  "simple-black",
   "control"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
@@ -85,6 +86,11 @@ export default {
 
   &:hover {
     transform: translateY(-1px);
+    outline: none;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -92,6 +98,22 @@ export default {
   color: lightgray;
   background: transparent;
   font-weight: 200;
+  outline: none;
+
+  &:hover {
+    outline: none;
+  }
+}
+
+.btn-simple-black {
+  color: #3a3e46;
+  background: transparent;
+  font-weight: 200;
+  outline: none;
+
+  &:hover {
+    outline: none;
+  }
 }
 
 .btn-primary {
