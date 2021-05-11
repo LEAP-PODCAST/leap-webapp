@@ -16,51 +16,6 @@ import PageNotFound from "@/routes/PageNotFound"
 export default new VueRouter({
   mode: "history",
   routes: [
-     {
-       path: "/",
-       name: "Home",
-       component: Home
-     },
-     {
-       path: "/signup",
-       name: "Sign Up",
-       component: SignUp
-     },
-     {
-       path: "/login",
-       name: "Log In",
-       component: LogIn
-     },
-     {
-       path: "/passwordreset",
-       name: "Password Reset",
-       component: PasswordReset
-     },
-     {
-       path: "/newpassword",
-       name: "New Password",
-       component: NewPassword
-     },
-     {
-       path: "/guestlogin",
-       name: "Guest Login",
-       component: GuestLogin
-     },
-     {
-       path: "/room/:roomId",
-       name: "Room",
-       component: Room
-     },
-     {
-       path: "/:podcastUrlName/:episodeUrlName",
-       name: "Podcast episode",
-       component: Episode
-     },
-     {
-       path: "*",
-       name: "Page Not Found",
-       component: PageNotFound
-     }
     {
       path: "/",
       name: "Home",
@@ -100,6 +55,11 @@ export default new VueRouter({
       path: "/:podcastUrlName/:episodeUrlName",
       name: "Podcast episode",
       component: Episode
+    },
+    {
+      path: "*",
+      name: "Page Not Found",
+      component: PageNotFound
     }
   ]
 });
