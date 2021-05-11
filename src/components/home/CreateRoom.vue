@@ -81,6 +81,10 @@
         :isStarting="true"
       />
     </div>
+
+    <div class="flex-grow" v-if="$store.state.nav.homeView === 'edit-podcast'">
+      <EditPodcast />
+    </div>
   </div>
 </template>
 
@@ -89,13 +93,15 @@ import ScheduledEpisodes from "@/components/episode/ScheduledEpisodes";
 import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
 import CreatePodcast from "@/components/home/CreatePodcast";
 import ChooseDevices from "@/components/home/ChooseDevices";
+import EditPodcast from "@/components/home/EditPodcast";
 
 export default {
   components: {
     ScheduledEpisodes,
     ScheduleEpisode,
     CreatePodcast,
-    ChooseDevices
+    ChooseDevices,
+    EditPodcast
   },
 
   data: () => ({

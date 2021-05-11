@@ -25,7 +25,8 @@ export default ({ socket }) => {
       salt: ""
     },
     token: "",
-    deviceId: getDeviceId()
+    deviceId: getDeviceId(),
+    editPodcast: {}
   };
 
   const getters = {
@@ -55,6 +56,10 @@ export default ({ socket }) => {
       state.userProfile.lastName = info.lastName;
       state.userProfile.bio = info.bio;
       state.userProfile.socials = info.socials;
+    },
+
+    EDIT_PODCAST(state, info) {
+      state.editPodcast = info;
     }
   };
 
