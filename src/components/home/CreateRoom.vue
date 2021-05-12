@@ -2,43 +2,46 @@
   <div class="flex justify-center items-center p-8 w-full h-full">
     <div
       v-if="$store.state.nav.homeView === 'home'"
-      class="flex flex-col justify-center w-full h-full"
+      class="flex flex-col w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
-      <div class="text-center">
-        <span class="font-thin opacity-75">
-          Good {{ timeOfDayText }},
-          {{ $store.state.user.userProfile.firstName }}!
-        </span>
-        <h2 class="text-2xl">
-          What would you like to do today?
-        </h2>
-      </div>
-      <div class="flex flex-col items-center mt-8">
-        <d-btn
-          v-if="$store.state.user.userProfile.podcasts.length"
-          @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
-          variant="primary"
-          class="w-1/4"
-        >
-          <i class="material-icons mr-3">videocam</i>
-          New episode
-        </d-btn>
-        <d-btn
-          v-else
-          @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
-          variant="primary"
-          class="w-1/4"
-        >
-          <i class="material-icons mr-2">videocam</i>
-          Create my podcast
-        </d-btn>
 
-        <small class="italic text-sm opacity-50 my-2">or</small>
-        <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
-          <i class="material-icons mr-2">videocam</i>
-          Create room
-        </d-btn>
+      <div class="flex flex-col justify-center mt-18">
+        <div class="text-center">
+          <span class="font-thin opacity-75">
+            Good {{ timeOfDayText }},
+            {{ $store.state.user.userProfile.firstName }}!
+          </span>
+          <h2 class="text-2xl">
+            What would you like to do today?
+          </h2>
+        </div>
+        <div class="flex flex-col items-center mt-8">
+          <d-btn
+            v-if="$store.state.user.userProfile.podcasts.length"
+            @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
+            variant="primary"
+            class="w-1/4"
+          >
+            <i class="material-icons mr-3">videocam</i>
+            New episode
+          </d-btn>
+          <d-btn
+            v-else
+            @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
+            variant="primary"
+            class="w-1/4"
+          >
+            <i class="material-icons mr-2">videocam</i>
+            Create my podcast
+          </d-btn>
+
+          <small class="italic text-sm opacity-50 my-2">or</small>
+          <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+            <i class="material-icons mr-2">videocam</i>
+            Create room
+          </d-btn>
+        </div>
       </div>
     </div>
 
