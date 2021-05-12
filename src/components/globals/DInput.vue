@@ -189,7 +189,7 @@ input:disabled {
   text-indent: 0.5rem !important;
 
   @include placeholder {
-    color: #3a3e46;
+    color: #94a0b0;
     font-size: 14px;
   }
 }

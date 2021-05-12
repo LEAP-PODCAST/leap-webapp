@@ -29,7 +29,7 @@ const variants = [
   "primary-dashed",
   "simple",
   "simple-black",
-  "control"
+  "no-padding"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
 
@@ -110,6 +110,18 @@ export default {
   background: transparent;
   font-weight: 400;
   outline: none;
+
+  &:hover {
+    outline: none;
+  }
+}
+
+.btn-no-padding {
+  color: #3a3e46;
+  background: transparent;
+  font-weight: 400;
+  outline: none;
+  padding: 0;
 
   &:hover {
     outline: none;

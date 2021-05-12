@@ -8,6 +8,12 @@
         class="flex-grow"
         variant="white-underline"
       />
+      <d-btn
+        variant="no-padding"
+        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+      >
+        <i class="material-icons w-8 text-black-900">clear</i>
+      </d-btn>
     </div>
 
     <div class="flex my-2 w-full border-b-2 mb-4 pb-1">
@@ -16,7 +22,7 @@
         <div class="visually-hidden">
           Podcasts
         </div>
-        <select class="w-full" v-model="podcastId">
+        <select class="w-full text-sm text-gray-600" v-model="podcastId">
           <option value="0">
             Choose Podcast
           </option>
@@ -91,7 +97,7 @@
         v-model="description"
         placeholder="Description"
         class="flex-grow"
-        variant="white-underline"
+        variant="white-underline-small-placeholder"
       />
     </div>
 
@@ -101,7 +107,7 @@
         <div class="visually-hidden">
           Visibility
         </div>
-        <select v-model="visibility" class="w-full">
+        <select v-model="visibility" class="w-full text-gray-600 text-sm">
           <option :value="0">Private</option>
           <option :value="1">Public</option>
         </select>
@@ -114,7 +120,7 @@
         <div class="visually-hidden">
           Alert notification
         </div>
-        <select v-model="timeToAlert" class="w-full">
+        <select v-model="timeToAlert" class="w-full text-gray-600 text-sm">
           <option :value="15">15 minutes before</option>
           <option :value="30">30 minutes before</option>
           <option :value="60">1 hour before</option>
@@ -128,18 +134,11 @@
     </small>
 
     <div class="flex justify-center pt-4">
-      <d-btn variant="primary-outline" class="mr-2 px-3 w-1/6">
+      <d-btn variant="primary-outline" class="mr-2 w-1/6">
         Start now
       </d-btn>
-      <d-btn @click="schedulePodcast" variant="primary" class="px-3 w-1/8">
+      <d-btn @click="schedulePodcast" variant="primary" class="w-1/6">
         Next
-      </d-btn>
-      <d-btn
-        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-        variant="simple-black"
-        class="px-3 w-1/8 text-black-900"
-      >
-        Cancel
       </d-btn>
     </div>
   </div>
