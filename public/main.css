@@ -38,50 +38,6 @@ button:disabled {
   width: 100px;
 }
 
-/* Rounded red inputs */
-.rounded-red-inputs {
-  text-indent: 1rem !important;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  border-width: 1px;
-  border-radius: 10px;
-  border-color: darkgray;
-  background: transparent;
-}
-
-.rounded-red-inputs:focus {
-  border-color: rgba(229, 62, 62);
-  outline: none;
-}
-
-input:focus::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  font-size: 10px;
-  vertical-align: top;
-  transform: translateY(-150%) translateX(-1%) !important;
-  color: #ea455a !important;
-}
-
-textarea::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  font-size: 12px;
-  position: relative !important;
-  transform: translateY(2%) !important;
-}
-
-/* Rounded red select */
-.rounded-select {
-  text-indent: 1rem !important;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  border-width: 1px;
-  border-radius: 10px;
-  border-color: darkgray;
-  background-color: rgba(26, 32, 44);
-  --tw-text-opacity: 1;
-  color: rgba(156, 163, 175, var(--tw-text-opacity));
-}
-
 .font-oxygen {
   font-family: "Oxygen", sans-serif;
 }

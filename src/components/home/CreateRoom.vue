@@ -41,12 +41,15 @@
     </div>
 
     <!-- Schedule a Podcast -->
-    <div v-else-if="$store.state.nav.homeView === 'schedule'">
+    <div
+      class="flex flex-col h-full justify-center items-center"
+      v-else-if="$store.state.nav.homeView === 'schedule'"
+    >
       <span class="text-sm font-thin opacity-75">
         Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
       </span>
       <h2 class="text-2xl">Let's schedule it ⚡</h2>
-      <div class="flex justify-center items-center w-full my-4">
+      <!-- <div class="flex justify-center items-center w-full my-4">
         <div
           class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
         >
@@ -59,9 +62,9 @@
         >
           <i class="material-icons">clear</i>
         </button>
-      </div>
+      </div> -->
 
-      <div class="flex">
+      <div class="flex w-full mt-4">
         <ScheduleEpisode />
       </div>
     </div>

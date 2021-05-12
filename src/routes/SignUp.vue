@@ -85,26 +85,9 @@
               class="w-full bg-gray-900 rounded-select"
               required
             >
-              <option
-                value=""
-                disabled
-                selected
-                hidden
-                class="select-placeholder"
-                >Month</option
-              >
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
+              <option v-for="(month, i) in months" :key="i" :value="i">
+                {{ month }}
+              </option>
             </select>
           </label>
           <label class="w-3/12 mr-2">
@@ -207,6 +190,21 @@ const regex = {
   nameWithSpaces: /^([A-Za-z ])+$/
 };
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
 export default {
   data: () => ({
     step: 0,
@@ -232,12 +230,14 @@ export default {
       password: "",
       password2: "",
       passwordsMatch: ""
-    }
+    },
+
+    months: []
   }),
 
   computed: {
     days() {
-      return new Array(31).fill().map((v, i) => i);
+      return new Array(31).fill().map((v, i) => i + 1);
     },
 
     years() {
@@ -247,6 +247,10 @@ export default {
         .map((v, i) => 1900 + i)
         .reverse();
     }
+  },
+
+  created() {
+    this.months = months;
   },
 
   methods: {
@@ -385,6 +389,11 @@ export default {
         return;
       }
 
+      // Format DOB into xxxx-xx-xx
+      let dob = `${this.dob.year}-`;
+      dob += ("0" + (this.dob.month + 1)).slice(-2) + "-";
+      dob += ("0" + this.dob.day).slice(-2);
+
       const res = await this.$store.dispatch("user/signUp", {
         username: this.username,
         email: this.email,
@@ -392,7 +401,7 @@ export default {
         lastName: this.lastName,
         password: this.password,
         receiveNotifications: this.receiveNotifications,
-        dob: ` ${this.dob.month} ${this.dob.day}, ${this.dob.year}`
+        dob
       });
 
       if (res.error) {

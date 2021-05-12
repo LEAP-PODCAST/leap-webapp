@@ -172,6 +172,12 @@ input:disabled {
 
 .input-white-underline {
   @apply .text-black;
+  text-indent: 0.5rem !important;
+
+  &:focus {
+    border-color: #ea455a;
+    outline: none;
+  }
 
   @include placeholder {
     color: #3a3e46;
@@ -180,6 +186,7 @@ input:disabled {
 
 .input-white-underline-small-placeholder {
   @apply .text-black;
+  text-indent: 0.5rem !important;
 
   @include placeholder {
     color: #3a3e46;
