@@ -88,10 +88,6 @@
 import API from "@/api";
 import DPodcastImage from "../globals/DPodcastImage.vue";
 
-const regex = {
-  nameWithSpaces: /^([A-Za-z ])+$/
-};
-
 export default {
   components: {
     DPodcastImage
@@ -111,9 +107,7 @@ export default {
   //I don't understand why editPodcast is what's rendering on the profile side
   computed: {
     podcast() {
-      let podcast = this.$store.state.user.editPodcast;
-      podcast.description = "";
-      return podcast;
+      return this.$store.state.user.editPodcast;
     }
   },
 
@@ -131,13 +125,9 @@ export default {
       if (!this.podcast.name.length) {
         return (this.errors.name = "Podcast name is required.");
       }
-      if (!regex.nameWithSpaces.test(this.podcast.name)) {
+      if (this.podcast.name.length > 40) {
         return (this.errors.name =
-          "Podcast name must only contain alphabetic characters.");
-      }
-      if (this.podcast.name.length > 20) {
-        return (this.errors.name =
-          "Podcast name must be 20 characters or less.");
+          "Podcast name must be 40 characters or less.");
       }
       this.errors.name = "";
     },
@@ -156,6 +146,17 @@ export default {
       this.verifyPodcastName();
       this.verifyDescription();
       if (!!this.errors.name || !!this.errors.description) {
+        return;
+      }
+
+      const { ok, error, data } = await API.podcast.editPodcast({
+        name: this.podcast.name,
+        hosts: this.podcast.hosts,
+        description: this.podcast.description,
+        podcastId: this.podcast.id
+      });
+
+      if (!ok) {
         return;
       }
 
