@@ -46,6 +46,7 @@
           <d-user-search
             @clickUser="addHost"
             placeholder="Add Hosts or Producers"
+            variant="white-underline-small-placeholder"
           />
         </div>
       </div>
