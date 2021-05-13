@@ -103,10 +103,6 @@
 <script>
 import API from "@/api";
 
-const regex = {
-  nameWithSpaces: /^([A-Za-z ])+$/
-};
-
 export default {
   data: () => ({
     name: "",
@@ -133,13 +129,9 @@ export default {
       if (!this.name.length) {
         return (this.errors.name = "Podcast name is required.");
       }
-      if (!regex.nameWithSpaces.test(this.name)) {
+      if (this.name.length > 40) {
         return (this.errors.name =
-          "Podcast name must only contain alphabetic characters.");
-      }
-      if (this.name.length > 20) {
-        return (this.errors.name =
-          "Podcast name must be 20 characters or less.");
+          "Podcast name must be 40 characters or less.");
       }
       this.errors.name = "";
     },
@@ -168,19 +160,21 @@ export default {
     async submitPodcast() {
       const { ok, error, data } = await API.podcast.create({
         name: this.name,
-        hosts: this.hosts
+        hosts: this.hosts,
+        description: this.description
       });
 
       //this should come up as a notification
       //failed to create podcast due to ...
 
-      // if (!ok) {
-      //   this.errors.general = error;
-      //   return;
-      // }
-
-      this.$store.commit("nav/SET_HOME_VIEW", "home");
-      this.$store.commit("user/ADD_PODCAST", data);
+      if (!ok) {
+        this.errors.general = error;
+        this.$store.commit("nav/SET_HOME_VIEW", "home");
+        return;
+      } else {
+        this.$store.commit("user/ADD_PODCAST", data);
+        this.$store.commit("nav/SET_HOME_VIEW", "home");
+      }
     }
   }
 };
