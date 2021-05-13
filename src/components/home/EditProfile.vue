@@ -232,25 +232,18 @@ export default {
         twitter: this.twitter
       };
 
-      const data = {
+      const { ok, error, data } = await API.user.editProfile({
         firstName: this.firstName,
         lastName: this.lastName,
         bio: this.bio,
         socials: socials
-      };
+      });
 
-      // const { ok, error, data } = await API.user.editProfile({
-      //   firstName: this.firstName,
-      //   lastName: this.lastName,
-      //   bio: this.bio,
-      //   socials: socials
-      // });
-
-      // if (error) {
-      //   // TODO better notification system
-      //   alert(error);
-      //   return;
-      // }
+      if (error) {
+        // TODO better notification system
+        console.log(error);
+        return;
+      }
       this.$store.commit("nav/SET_PROFILE_VIEW", "profile");
       this.$store.commit("user/EDIT_PROFILE", data);
     }

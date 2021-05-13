@@ -138,7 +138,7 @@ export default {
     },
 
     editProfile(body) {
-      return http.post("/user/editProfile", { body });
+      return http.put("/profile/update", { body });
     },
 
     verifyUserToken() {
@@ -149,6 +149,10 @@ export default {
   podcast: {
     create(body) {
       return http.post("/podcast/create", { body });
+    },
+
+    editPodcast(body) {
+      return http.put('/podcast/update', { body })
     },
 
     createScheduledEpisode(body) {
@@ -163,6 +167,9 @@ export default {
   profiles: {
     search(username) {
       return http.get(`/profiles/search?username=${username}`);
+    },
+    update(body) {
+
     }
   },
 
