@@ -16,6 +16,9 @@
             required
           />
         </div>
+        <small v-if="errors.username" class="text-red-500">
+          {{ errors.username }}
+        </small>
 
         <div class="">
           <d-input
@@ -27,6 +30,9 @@
             required
           />
         </div>
+        <small v-if="errors.password" class="text-red-500">
+          {{ errors.password }}
+        </small>
 
         <d-btn type="submit" variant="primary" class="w-full mt-6">
           Log In
