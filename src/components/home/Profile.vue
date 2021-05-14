@@ -10,7 +10,7 @@
         <p class="my-3 text-center">{{ profile.bio || "Add bio" }}</p>
         <d-btn
           variant="primary-outline"
-          class="mt-2 w-1/3"
+          class="mt-2"
           @click="$store.commit('nav/SET_PROFILE_VIEW', 'edit-profile')"
         >
           Edit Profile
@@ -53,9 +53,9 @@
             </button>
             <div class="flex justify-center items-center">
               <span
-                class="text-sm underline leading-3 cursor-pointer"
+                class="text-xs underline leading-3 cursor-pointer"
                 @click="editPodcast(podcast)"
-                >edit</span
+                >Edit</span
               >
             </div>
           </li>

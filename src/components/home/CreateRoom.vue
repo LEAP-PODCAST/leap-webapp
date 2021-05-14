@@ -20,7 +20,6 @@
             v-if="$store.state.user.userProfile.podcasts.length"
             @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
             variant="primary"
-            class="w-1/4"
           >
             <i class="material-icons mr-3">videocam</i>
             New episode
@@ -29,17 +28,16 @@
             v-else
             @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
             variant="primary"
-            class="w-1/4"
           >
             <i class="material-icons mr-2">videocam</i>
             Create my podcast
           </d-btn>
 
-          <small class="italic text-sm opacity-50 my-2">or</small>
+          <!-- <small class="italic text-sm opacity-50 my-2">or</small>
           <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
             <i class="material-icons mr-2">videocam</i>
             Create room
-          </d-btn>
+          </d-btn> -->
         </div>
       </div>
     </div>

@@ -129,9 +129,9 @@ export default {
       if (!this.name.length) {
         return (this.errors.name = "Podcast name is required.");
       }
-      if (this.name.length > 40) {
+      if (this.name.length > 64) {
         return (this.errors.name =
-          "Podcast name must be 40 characters or less.");
+          "Podcast name must be 64 characters or less.");
       }
       this.errors.name = "";
     },
@@ -140,9 +140,9 @@ export default {
       if (!this.description.length) {
         return (this.errors.description = "Description is required.");
       }
-      if (this.description.length > 500) {
+      if (this.description.length > 128) {
         return (this.errors.description =
-          "Description must be 500 characters or less.");
+          "Description must be 128 characters or less.");
       }
       this.errors.description = "";
     },
@@ -164,17 +164,14 @@ export default {
         description: this.description
       });
 
-      //this should come up as a notification
-      //failed to create podcast due to ...
-
       if (!ok) {
+        // TODO show error alert to user
         this.errors.general = error;
-        this.$store.commit("nav/SET_HOME_VIEW", "home");
         return;
-      } else {
-        this.$store.commit("user/ADD_PODCAST", data);
-        this.$store.commit("nav/SET_HOME_VIEW", "home");
       }
+
+      this.$store.commit("user/ADD_PODCAST", data);
+      this.$store.commit("nav/SET_HOME_VIEW", "home");
     }
   }
 };

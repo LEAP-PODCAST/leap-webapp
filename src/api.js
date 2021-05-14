@@ -160,7 +160,7 @@ export default {
     },
 
     editPodcast(body) {
-      return http.put('/podcast/update', { body })
+      return http.put("/podcast/update", { body });
     },
 
     createScheduledEpisode(body) {
@@ -175,9 +175,6 @@ export default {
   profiles: {
     search(username) {
       return http.get(`/profiles/search?username=${username}`);
-    },
-    update(body) {
-
     }
   },
 

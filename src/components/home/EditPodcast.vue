@@ -13,33 +13,29 @@
       <input class="hidden" type="file" id="myfile" name="myfile" />
     </div>
 
-    <div class="flex items-center mb-4">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          placeholder="Podcast Name"
-          variant="secondary"
-          v-model="podcast.name"
-        />
-      </div>
+    <div class="mb-4">
+      <d-input
+        type="text"
+        placeholder="Podcast Name"
+        variant="secondary"
+        v-model="podcast.name"
+      />
+      <small v-if="errors.name" class="text-red-500">
+        {{ errors.name }}
+      </small>
     </div>
-    <small v-if="errors.name" class="text-red-500">
-      {{ errors.name }}
-    </small>
 
-    <div class="flex items-center mb-4">
-      <div class="flex-grow">
-        <d-input
-          type="text"
-          placeholder="Description"
-          variant="secondary"
-          v-model="podcast.description"
-        />
-      </div>
+    <div class="mb-4">
+      <d-input
+        type="text"
+        placeholder="Description"
+        variant="secondary"
+        v-model="podcast.description"
+      />
+      <small v-if="errors.description" class="text-red-500">
+        {{ errors.description }}
+      </small>
     </div>
-    <small v-if="errors.description" class="text-red-500">
-      {{ errors.description }}
-    </small>
 
     <div class="flex flex-col flex-grow">
       <ul v-if="podcast.hosts.length" class="flex flex-wrap pb-1">
@@ -70,7 +66,7 @@
     </div>
 
     <div class="flex flex-col justify-center items-center">
-      <d-btn variant="primary" class="mt-2 w-1/3">
+      <d-btn variant="primary" class="mt-4">
         Save
       </d-btn>
       <d-btn
