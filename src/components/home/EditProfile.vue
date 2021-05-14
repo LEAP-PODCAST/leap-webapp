@@ -189,7 +189,7 @@ export default {
     },
 
     verifyTwitter() {
-      if (!regex.twitter.test(this.twitter)) {
+      if (this.twitter != 0 && !regex.twitter.test(this.twitter)) {
         return (this.errors.socials.twitter =
           "The Twitter handle contains errors. Please try again.");
       }
@@ -197,7 +197,7 @@ export default {
     },
 
     verifyInstagram() {
-      if (!regex.instagram.test(this.instagram)) {
+      if (this.twitter != 0 && !regex.instagram.test(this.instagram)) {
         return (this.errors.socials.instagram =
           "The instagram handle contains errors. Please try again.");
       }
