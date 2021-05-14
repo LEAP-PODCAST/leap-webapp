@@ -5,7 +5,7 @@
       class="flex flex-col w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
-      <div class="flex flex-col justify-center mt-18">
+      <div class="flex flex-col flex-grow justify-center mt-18">
         <div class="text-center">
           <span class="font-thin opacity-75">
             Good {{ timeOfDayText }},
@@ -55,7 +55,7 @@
         <h2 class="text-2xl">Let's schedule it ⚡</h2>
       </div>
 
-      <div class="flex flex-grow">
+      <div class="flex-grow">
         <ScheduleEpisode />
       </div>
     </div>
