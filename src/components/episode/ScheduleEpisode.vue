@@ -41,7 +41,7 @@
       <i class="material-icons">access_time</i>
 
       <div class="flex text-left ml-3 w-full">
-        <div class="mr-2 w-full">
+        <div class="mr-2 flex-grow">
           <d-datetime
             v-model="startTime"
             :min-date="today"
@@ -52,7 +52,7 @@
             class="border-0"
           />
         </div>
-        <div class="w-full">
+        <div class="flex-grow">
           <d-datetime
             v-model="endTime"
             :min-date="startTime"
@@ -134,14 +134,10 @@
     </small>
 
     <div class="flex justify-center pt-4">
-      <d-btn
-        variant="primary-outline"
-        class="mr-2 w-1/6"
-        @click="startEpisode()"
-      >
+      <d-btn variant="primary-outline" class="mr-2 " @click="startEpisode()">
         Start now
       </d-btn>
-      <d-btn @click="schedulePodcast" variant="primary" class="w-1/6">
+      <d-btn @click="schedulePodcast" variant="primary" class="">
         Next
       </d-btn>
     </div>

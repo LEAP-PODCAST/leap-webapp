@@ -172,8 +172,7 @@ input:disabled {
 
 .input-white-underline {
   @apply .text-black;
-  text-indent: 0.5rem !important;
-
+  text-indent: 0.5rem;
   &:focus {
     border-color: #ea455a;
     outline: none;

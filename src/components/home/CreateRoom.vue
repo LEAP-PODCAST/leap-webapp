@@ -19,7 +19,6 @@
           v-if="$store.state.user.userProfile.podcasts.length"
           @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
           variant="primary"
-          class="w-full"
         >
           New episode
         </d-btn>
