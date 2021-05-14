@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent="editProfile"
+    @submit.prevent=""
     class="flex flex-col justify-center rounded-xl p-4 w-full text-left"
   >
     <div class="flex flex-col items-center mb-8">
@@ -90,8 +90,8 @@
     </div>
 
     <div class="flex flex-col justify-center items-center">
-      <d-btn variant="primary" class="mt-2 w-full">
-        Create
+      <d-btn variant="primary" class="mt-2 w-full" @click="editProfile()">
+        Save
       </d-btn>
       <d-btn
         variant="simple"
@@ -220,12 +220,6 @@ export default {
       ) {
         return;
       }
-
-      console.log(this.firstName);
-      console.log(this.lastName);
-      console.log(this.bio);
-      console.log(this.twitter);
-      console.log(this.instagram);
 
       const socials = {
         instagram: this.instagram,

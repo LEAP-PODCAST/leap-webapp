@@ -18,13 +18,19 @@
       </div>
       <!-- <p> following</p> -->
       <!-- <p>{{ user.followers }} followers</p> -->
-      <div class="flex items-center justify-around ">
+      <div
+        v-if="profile.socials.twitter"
+        class="flex items-center justify-around "
+      >
         <div class="flex items-center justify-center">
           <i class="fab fa-twitter text-xl text-blue-500 mr-1"></i>
           <p class="text-gray-600">{{ profile.socials.twitter }}</p>
         </div>
 
-        <div class="flex items-center justify-center">
+        <div
+          v-if="profile.socials.instagram"
+          class="flex items-center justify-center"
+        >
           <i class="fab fa-instagram text-xl text-blue-500 ml-2 mr-1"></i>
           <p class="text-gray-600">{{ profile.socials.instagram }}</p>
         </div>
