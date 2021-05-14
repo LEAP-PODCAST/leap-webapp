@@ -134,7 +134,11 @@
     </small>
 
     <div class="flex justify-center pt-4">
-      <d-btn variant="primary-outline" class="mr-2 w-1/6">
+      <d-btn
+        variant="primary-outline"
+        class="mr-2 w-1/6"
+        @click="startEpisode()"
+      >
         Start now
       </d-btn>
       <d-btn @click="schedulePodcast" variant="primary" class="w-1/6">
@@ -185,6 +189,36 @@ export default {
 
     removeGuest(index) {
       this.guests.splice(index, 1);
+    },
+
+    async startEpisode() {
+      const res = await API.podcast.createScheduledEpisode({
+        name: this.name,
+        podcastId: this.podcastId,
+        startTime: new Date(this.startTime).toString(),
+        endTime: new Date(this.endTime).toString(),
+        guests: [],
+        description: this.description,
+        visibility: this.visibility,
+        timeToAlert: this.timeToAlert
+      });
+
+      if (!res.ok) {
+        this.errors.general = res.error;
+        return;
+      }
+
+      const { ok, error, data } = await API.episode.start({
+        podcastId: res.data.podcastId,
+        episodeId: res.data.id
+      });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
+
+      this.$router.push(`/${data.podcast.urlName}/${data.episode.urlName}`);
     },
 
     async schedulePodcast() {
