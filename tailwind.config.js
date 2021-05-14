@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
+        primary: "#ea455a",
         "black-100": "#999",
         "black-200": "#888",
         "black-300": "#777",
@@ -21,7 +22,7 @@ module.exports = {
         "dark-1": "#202020"
       },
       borderColor: {
-        primary: "#009dee",
+        primary: "#ea455a",
         white: "#fff"
       },
       borderRadius: {
@@ -95,7 +96,7 @@ module.exports = {
         screen: "100vh"
       },
       textColor: {
-        primary: "#009dee",
+        primary: "#ea455a",
         "dark-5": "#4F4F4F",
         "dark-4": "#404040",
         "dark-3": "#383838",

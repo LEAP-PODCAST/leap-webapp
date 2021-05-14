@@ -53,7 +53,6 @@
               >
             </div>
           </li>
-
           <li>
             <button
               @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"

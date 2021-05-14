@@ -9,20 +9,32 @@
       class="bg-black object-cover w-full h-full rounded-lg"
     />
     <div class="relative">
-      <div
-        class="absolute bg-gray-900 px-6 py-4 rounded-xl text-white"
-        style="bottom:2rem;left:2rem"
-      >
-        <h2 class="text-lg leading-none">
-          {{ user.firstName }} {{ user.lastName }}
-        </h2>
-        <p class="opacity-50 italic text-sm">@{{ user.fullUsername }}</p>
+      <div class="absolute flex items-end p-2 w-full" style="bottom:0;left:0">
+        <div class="bg-gray-900 px-6 py-4 rounded-xl text-white">
+          <h2 class="text-lg leading-none">
+            {{ user.userProfile.firstName }}
+            {{ user.userProfile.lastName }}
+          </h2>
+          <p class="opacity-50 italic text-xs">
+            {{ subtitle }}
+          </p>
+        </div>
+        <div class="flex-grow"></div>
+        <d-btn
+          v-if="isHost && user.role === 'guest'"
+          @click="kickOff"
+          variant="primary"
+        >
+          Kick off
+        </d-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import API from "@/api";
+
 export default {
   props: {
     stream: {
@@ -41,7 +53,19 @@ export default {
     },
 
     user() {
-      return this.$store.state.chat.users[this.stream.socketId].userProfile;
+      return this.$store.state.chat.users[this.stream.socketId];
+    },
+
+    subtitle() {
+      const podcastName = this.$store.state.room.podcast.name;
+      if (this.user.role === "host") return `Host of ${podcastName}`;
+      if (this.user.role === "guest") return `Guest on ${podcastName}`;
+    },
+
+    isHost() {
+      const user = this.$store.state.chat.users[window.socket.id];
+      if (!user) return false;
+      return user.role === "host";
     }
   },
 
@@ -55,6 +79,18 @@ export default {
         id: "remote-webcam",
         data: { $event, stream: this.stream }
       });
+    },
+
+    async kickOff() {
+      const { ok, error } = await API.room.changeUserRole({
+        socketId: this.stream.socketId,
+        role: ""
+      });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
     }
   }
 };

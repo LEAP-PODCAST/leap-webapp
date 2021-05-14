@@ -34,6 +34,10 @@
           {{ errors.password }}
         </small>
 
+        <small v-if="errors.general" class="text-red-500">
+          {{ errors.general }}
+        </small>
+
         <d-btn type="submit" variant="primary" class="w-full mt-6">
           Log In
         </d-btn>
@@ -41,7 +45,8 @@
         <span
           class="self-center mt-3 text-sm text-red-500 cursor-pointer"
           @click="$router.push('/PasswordReset')"
-          >Forgot your password?
+        >
+          Forgot your password?
         </span>
       </form>
     </div>
@@ -49,19 +54,17 @@
 </template>
 
 <script>
-const regex = {
-  username: /^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
-};
-
 export default {
   data: () => ({
     username: "",
     password: "",
     errors: {
       username: "",
-      password: ""
+      password: "",
+      general: ""
     }
   }),
+
   methods: {
     async logIn() {
       this.verifyUsername();
@@ -76,6 +79,11 @@ export default {
         password: this.password
       });
 
+      if (!res.ok) {
+        this.errors.general = res.error;
+        return;
+      }
+
       this.$router.push("/");
     },
 
@@ -83,25 +91,12 @@ export default {
       if (!this.username.length) {
         return (this.errors.username = "Username is required.");
       }
-      if (!regex.username.test(this.username)) {
-        return (this.errors.username =
-          "Usernames can only contain a-z, A-Z, 0-9, _, - characters. Cannot start or begin with _ or -.");
-      }
-      if (this.username.length > 20) {
-        return (this.errors.username =
-          "Usernames must be 20 characters or less.");
-      }
-      // TODO check if username is available
       this.errors.username = "";
     },
 
     verifyPassword() {
       if (!this.password.length) {
         return (this.errors.password = "Password is required.");
-      }
-      if (this.password.length > 64) {
-        return (this.errors.password =
-          "Password must be 64 characters or less.");
       }
       this.errors.password = "";
     }
