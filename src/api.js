@@ -175,9 +175,6 @@ export default {
   profiles: {
     search(username) {
       return http.get(`/profiles/search?username=${username}`);
-    },
-    update(body) {
-
     }
   },
 
