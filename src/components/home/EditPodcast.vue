@@ -13,7 +13,7 @@
       <input class="hidden" type="file" id="myfile" name="myfile" />
     </div>
 
-    <div class="flex items-center mb-4">
+    <div class="flex flex-col flex-grow mb-4">
       <div class="flex-grow">
         <d-input
           type="text"
@@ -22,12 +22,12 @@
           v-model="podcast.name"
         />
       </div>
+      <small v-if="errors.name" class="text-red-500">
+        {{ errors.name }}
+      </small>
     </div>
-    <small v-if="errors.name" class="text-red-500">
-      {{ errors.name }}
-    </small>
 
-    <div class="flex items-center mb-4">
+    <div class="flex flex-col flex-grow mb-4">
       <div class="flex-grow">
         <d-input
           type="text"
@@ -36,10 +36,10 @@
           v-model="podcast.description"
         />
       </div>
+      <small v-if="errors.description" class="text-red-500">
+        {{ errors.description }}
+      </small>
     </div>
-    <small v-if="errors.description" class="text-red-500">
-      {{ errors.description }}
-    </small>
 
     <div class="flex flex-col flex-grow">
       <ul v-if="podcast.hosts.length" class="flex flex-wrap pb-1">
