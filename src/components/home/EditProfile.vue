@@ -111,8 +111,8 @@ import DProfileImage from "../globals/DProfileImage.vue";
 const regex = {
   nameWithSpaces: /^([A-Za-z ])+$/,
   name: /^[A-Za-z]+$/,
-  twitter: /^@?(\w){1,15}$/,
-  instagram: /(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/
+  twitter: /^(\w){1,15}$/,
+  instagram: /^(\w){1,32}$/
 };
 
 export default {
@@ -139,12 +139,17 @@ export default {
   }),
 
   created() {
-    this.firstName = this.$store.state.user.userProfile.firstName;
-    this.lastName = this.$store.state.user.userProfile.lastName;
-    this.bio = this.$store.state.user.userProfile.bio;
-    this.twitter = this.$store.state.user.userProfile.socials.twitter;
-    this.instagram = this.$store.state.user.userProfile.socials.instagram;
-    this.avatarUrl = this.$store.state.user.userProfile.avatarUrl;
+    const { userProfile } = this.$store.state.user;
+    this.firstName = userProfile.firstName;
+    this.lastName = userProfile.lastName;
+    this.bio = userProfile.bio;
+    this.avatarUrl = userProfile.avatarUrl;
+    if (userProfile.socials.twitter) {
+      this.twitter = userProfile.socials.twitter;
+    }
+    if (userProfile.socials.instagram) {
+      this.instagram = userProfile.socials.instagram;
+    }
   },
 
   methods: {
@@ -189,7 +194,7 @@ export default {
     },
 
     verifyTwitter() {
-      if (this.twitter != 0 && !regex.twitter.test(this.twitter)) {
+      if (this.twitter.length > 0 && !regex.twitter.test(this.twitter)) {
         return (this.errors.socials.twitter =
           "The Twitter handle contains errors. Please try again.");
       }
@@ -197,7 +202,7 @@ export default {
     },
 
     verifyInstagram() {
-      if (this.twitter != 0 && !regex.instagram.test(this.instagram)) {
+      if (this.instagram.length > 0 && !regex.instagram.test(this.instagram)) {
         return (this.errors.socials.instagram =
           "The instagram handle contains errors. Please try again.");
       }
