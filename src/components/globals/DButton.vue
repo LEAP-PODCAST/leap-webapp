@@ -2,10 +2,18 @@
   <button
     v-bind="$attrs"
     v-on="$listeners"
+    @click="onClick"
+    ref="button"
     class="p-btn flex justify-center inline-block font-bold px-5"
     :class="`btn-${variant} ${computedSize} ${norounded ? '' : 'rounded-full'}`"
   >
-    <slot></slot>
+    <div
+      v-if="variant === 'control'"
+      class="flex flex-col items-center justify-center"
+    >
+      <slot></slot>
+    </div>
+    <slot v-else></slot>
   </button>
 </template>
 
@@ -20,7 +28,8 @@ const variants = [
   "dark",
   "primary-dashed",
   "simple",
-  "simple-black"
+  "simple-black",
+  "control"
 ];
 const sizes = ["xs", "sm", "md", "lg"];
 
@@ -57,6 +66,13 @@ export default {
         case "lg":
           return "py-3 px-4";
       }
+    }
+  },
+
+  methods: {
+    async onClick(e) {
+      this.$refs.button.blur();
+      this.$emit("onclick", e);
     }
   }
 };

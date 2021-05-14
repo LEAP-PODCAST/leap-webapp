@@ -5,7 +5,6 @@
       class="flex flex-col w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
-
       <div class="flex flex-col justify-center mt-18">
         <div class="text-center">
           <span class="font-thin opacity-75">

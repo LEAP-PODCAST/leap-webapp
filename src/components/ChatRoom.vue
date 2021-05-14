@@ -10,14 +10,47 @@
       <li
         v-for="socketId in Object.keys($store.state.chat.users)"
         :key="socketId"
-        class="flex flex-col items-center w-12"
+        class="flex flex-col items-center w-12 mr-2"
       >
-        <div class="h-12 w-12">
-          <d-profile-image class="w-full h-full" />
+        <div
+          v-if="
+            isHost &&
+              $store.state.chat.users[socketId].role !== 'host' &&
+              $store.state.chat.users[socketId].role !== 'guest'
+          "
+        >
+          <tippy
+            :name="`bring-${socketId}-in-as-guest`"
+            arrow
+            trigger="click"
+            :interactive="true"
+            class="bg-gray-300"
+          >
+            <div>
+              <p class="p-4">
+                Bring
+                {{ $store.state.chat.users[socketId].userProfile.firstName }}
+                into the call?
+              </p>
+              <div class="flex w-full justify-center">
+                <d-btn
+                  @click="() => addUserAsGuest(socketId)"
+                  variant="primary"
+                  class="w-6/12"
+                >
+                  Yup!
+                </d-btn>
+                <!-- <button :name="`bring-${socketId}-in-as-guest`" variant="none" class="w-6/12 pointer">
+                No
+              </button> -->
+              </div>
+            </div>
+          </tippy>
+          <button :name="`bring-${socketId}-in-as-guest`">
+            <AudienceMember :socketId="socketId" />
+          </button>
         </div>
-        <p class="text-xs">
-          {{ $store.state.chat.users[socketId].userProfile.firstName }}
-        </p>
+        <AudienceMember v-else :socketId="socketId" />
       </li>
     </ul>
 
@@ -61,18 +94,28 @@
 </template>
 
 <script>
+import API from "@/api";
+
 import ChatMessage from "./chat/ChatMessage";
-import ChatParticipant from "./chat/ChatParticipant";
+import AudienceMember from "./chat/AudienceMember";
 
 export default {
   components: {
-    ChatParticipant,
-    ChatMessage
+    ChatMessage,
+    AudienceMember
   },
 
   data: () => ({
     text: ""
   }),
+
+  computed: {
+    isHost() {
+      const user = this.$store.state.chat.users[window.socket.id];
+      if (!user) return false;
+      return user.role === "host";
+    }
+  },
 
   methods: {
     async doScroll() {
@@ -86,6 +129,18 @@ export default {
           left: 0,
           behavior: "smooth"
         });
+      }
+    },
+
+    async addUserAsGuest(socketId) {
+      const { ok, error } = await API.room.changeUserRole({
+        socketId,
+        role: "guest"
+      });
+
+      if (!ok) {
+        alert(error);
+        return;
       }
     },
 

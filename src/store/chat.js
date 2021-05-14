@@ -6,7 +6,14 @@ export default ({ socket }) => ({
     users: {}
   },
 
-  getters: {},
+  getters: {
+    isAbleToProduce(state) {
+      const user = state.users[window.socket.id];
+      if (!user) return false;
+      const { role } = user;
+      return role === "host" || role === "guest";
+    }
+  },
 
   mutations: {
     ADD_MESSAGE(state, message) {
