@@ -63,6 +63,9 @@
         placeholder="Add Hosts or Producers"
         variant="primary"
       />
+      <small v-if="errors.hosts" class="text-red-500">
+        {{ errors.hosts }}
+      </small>
     </div>
 
     <div class="flex flex-col justify-center items-center">
@@ -92,7 +95,8 @@ export default {
   data: () => ({
     errors: {
       name: "",
-      description: ""
+      description: "",
+      hosts: ""
     }
   }),
 
@@ -109,8 +113,11 @@ export default {
 
   methods: {
     addHost(e) {
-      //check to see if the host is already within the array before adding
-      this.podcast.hosts.push(e);
+      if (!this.podcast.hosts.some(elem => e.username === elem.username)) {
+        this.podcast.hosts.push(e);
+      } else {
+        this.errors.hosts = "Cannot add duplicate hosts";
+      }
     },
 
     removeHost(index) {

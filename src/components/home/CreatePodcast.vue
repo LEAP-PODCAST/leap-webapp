@@ -49,6 +49,9 @@
             variant="white-underline-small-placeholder"
           />
         </div>
+        <small v-if="errors.hosts" class="text-red-500">
+          {{ errors.hosts }}
+        </small>
       </div>
 
       <div class="flex items-center border-b-2 mb-4 pb-1">
@@ -111,14 +114,18 @@ export default {
     hosts: [],
     errors: {
       name: "",
-      description: ""
+      description: "",
+      hosts: ""
     }
   }),
 
   methods: {
     addHost(e) {
-      //check to see if the host is already within the array before adding
-      this.hosts.push(e);
+      if (!this.podcast.hosts.some(elem => e.username === elem.username)) {
+        this.podcast.hosts.push(e);
+      } else {
+        this.errors.hosts = "Cannot add duplicate hosts";
+      }
     },
 
     removeHost(index) {
