@@ -1,24 +1,30 @@
 <template>
-  <div class="bg-white rounded-xl text-gray-700 p-4 w-full text-left">
-    <div class="flex items-center">
-      <i class="material-icons w-8">add_circle</i>
+  <div class="flex-grow bg-white rounded-xl text-gray-700 p-4 w-full text-left">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <d-input
         type="text"
         v-model="name"
         placeholder="Episode name"
         class="flex-grow"
+        variant="white-underline"
       />
+      <d-btn
+        variant="no-padding"
+        @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
+      >
+        <i class="material-icons w-8 text-black-900">clear</i>
+      </d-btn>
     </div>
 
-    <div class="flex my-2 w-full">
+    <div class="flex my-2 w-full border-b-2 mb-4 pb-1">
       <i class="material-icons w-8">mic</i>
       <label class="w-full">
         <div class="visually-hidden">
           Podcasts
         </div>
-        <select class="w-full" v-model="podcastId">
+        <select class="w-full text-sm text-gray-600" v-model="podcastId">
           <option value="0">
-            Select a Podcast
+            Choose Podcast
           </option>
           <option
             v-for="podcast in $store.state.user.userProfile.podcasts"
@@ -31,37 +37,35 @@
       </label>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <i class="material-icons">access_time</i>
-      <div class="text-left ml-3 w-full">
-        <!-- <div>
-          <span class="mr-8">Tue, Feb 16</span>
-          <span>9:30am - 10:30am</span>
-        </div> -->
-        <div class="mt-1">
+
+      <div class="flex text-left ml-3 w-full">
+        <div class="mr-2 flex-grow">
           <d-datetime
             v-model="startTime"
             :min-date="today"
             :max-date="oneMonthFromToday"
             format="YYYY-MM-DD hh:mm a"
-            label="Select an start time"
+            label="Select a start time"
             :no-button-now="true"
+            class="border-0"
           />
         </div>
-        <div class="my-2">
+        <div class="flex-grow">
           <d-datetime
             v-model="endTime"
             :min-date="startTime"
             :max-date="oneMonthFromToday"
             format="YYYY-MM-DD hh:mm a"
-            label="Select an end time"
+            label="Select a end time"
             :no-button-now="true"
           />
         </div>
       </div>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center border-b-2 mb-4 pb-1">
       <i class="material-icons w-8">group_add</i>
       <div class="flex-grow">
         <ul v-if="guests.length" class="flex flex-wrap p-2">
@@ -86,36 +90,37 @@
       </div>
     </div>
 
-    <div class="flex items-center">
-      <i class="material-icons w-8">article</i>
-      <textarea
-        rows="3"
+    <div class="flex items-center border-b-2 mb-4 pb-1">
+      <i class="material-icons w-8">menu</i>
+      <d-input
+        type="text"
         v-model="description"
         placeholder="Description"
-        class="w-full p-2"
+        class="flex-grow"
+        variant="white-underline-small-placeholder"
       />
     </div>
 
-    <div class="flex my-2">
+    <div class="flex mb-4">
       <i class="material-icons w-8">public</i>
       <label class="block w-full">
         <div class="visually-hidden">
           Visibility
         </div>
-        <select v-model="visibility" class="w-full">
+        <select v-model="visibility" class="w-full text-gray-600 text-sm">
           <option :value="0">Private</option>
           <option :value="1">Public</option>
         </select>
       </label>
     </div>
 
-    <div class="flex my-2">
+    <div class="flex border-b-2 mb-4 pb-4">
       <i class="material-icons w-8">notifications_none</i>
       <label class="block w-full">
         <div class="visually-hidden">
           Alert notification
         </div>
-        <select v-model="timeToAlert" class="w-full">
+        <select v-model="timeToAlert" class="w-full text-gray-600 text-sm">
           <option :value="15">15 minutes before</option>
           <option :value="30">30 minutes before</option>
           <option :value="60">1 hour before</option>
@@ -129,10 +134,10 @@
     </small>
 
     <div class="flex justify-center pt-4">
-      <d-btn variant="primary-outline" class="mr-2 px-3">
+      <d-btn variant="primary-outline" class="mr-2 " @click="startEpisode">
         Start now
       </d-btn>
-      <d-btn @click="schedulePodcast" variant="primary" class="px-3">
+      <d-btn @click="schedulePodcast" variant="primary" class="">
         Next
       </d-btn>
     </div>
@@ -182,6 +187,23 @@ export default {
       this.guests.splice(index, 1);
     },
 
+    async startEpisode() {
+      const res = await this.schedulePodcast();
+      if (!res.ok) return;
+
+      const { ok, error, data } = await API.episode.start({
+        podcastId: res.data.podcastId,
+        episodeId: res.data.id
+      });
+
+      if (!ok) {
+        alert(error);
+        return;
+      }
+
+      this.$router.push(`/${data.podcast.urlName}/${data.episode.urlName}`);
+    },
+
     async schedulePodcast() {
       const res = await API.podcast.createScheduledEpisode({
         name: this.name,
@@ -196,10 +218,11 @@ export default {
 
       if (!res.ok) {
         this.errors.general = res.error;
-        return;
+        return res;
       }
 
       this.$store.commit("nav/SET_HOME_VIEW", "home");
+      return res;
     }
   }
 };
