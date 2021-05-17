@@ -1,17 +1,17 @@
 <template>
   <img
-    :src="
-      imageUrl.length
-        ? imageUrl
-        : 'https://s3-alpha-sig.figma.com/img/fcac/0d84/6217b29f9de77416577177f67b7bd5a0?Expires=1621209600&Signature=UQOFfnDXG2lZazxJSv7VXiSb64ChCRZVhpbygTs5uSU5sVzFyHsUkNsAhI914YzOxEfNBp8Rd39Abg22K9mfuEs7itNkfpCxQKclNRb2~OLqptamelcM3h4wLaHlzWdh0UEiyCfLvNifqZxNk9JV5GCr3TMEEYFq0YR1Wk-DBENrmu3vZdGktKVRPzUlx-vRUoUDaEsKd1goBIuw5PeSVpXFF1ckIS7fgNUnBHO2Wjj2frcgOHkUelxX64d3z4IaluqqBL4ckHtsZgCiwXzjrnwbjqhWC1pSVxeTdgfgK7w-kPaf4lLgtNx9mEaE-qN--1PHIigkI~eeVR3~WMOOJg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
-    "
-    alt=""
-    class="image-border"
+    class="rounded-full image-border"
+    alt="Podcast Image"
+    :src="imageUrl.length ? imageUrl : placeHolder"
   />
 </template>
 
 <script>
 export default {
+  data: () => ({
+    placeHolder:
+      "https://s3-alpha-sig.figma.com/img/fcac/0d84/6217b29f9de77416577177f67b7bd5a0?Expires=1622419200&Signature=Z6Yevi-rmq8GXGMlIO-pos132cQYyyy0itmYlxzXKoiRXM9CVnN8MHb3FXqe7cVnifbRG8mBdj6DzSJJvo-V9N36EEEp8ybQ5E7zYRq4~ibxS6hxBhcDKNO5cYN6ZaU5Ozbm2Bl~Wn208QsqGVMQr~g~W6q-FrvFWjB3eTttGnf8z6H2un2PBrmXJbAXb3BWES7Q2XGbEGIAmMhN16GQr~tRAo5LOr~PyaM~Me6ut6IV7QtEAf0K7igLQh3dR4hcePJ8C8jDX61krp7qdbb78mtJQKps0ATjh84jgvjzNp13vHKaHQxis30VZpXTMO0TjeXdu6OhBhGSBL-zA8GgBA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+  }),
   props: {
     imageUrl: {
       type: String,
