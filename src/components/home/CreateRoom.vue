@@ -1,69 +1,61 @@
 <template>
-  <div class="p-8 w-full h-full">
+  <div class="flex justify-center items-center p-8 w-full h-full">
     <div
       v-if="$store.state.nav.homeView === 'home'"
       class="flex flex-col w-full h-full"
     >
       <ScheduledEpisodes class="mb-12" />
-      <div class="text-center">
-        <span class="text-sm font-thin opacity-75">
-          Good {{ timeOfDayText }},
-          {{ $store.state.user.userProfile.firstName }}!
-        </span>
-        <h2 class="text-2xl">
-          What would you like to do today?
-        </h2>
-      </div>
-      <div class="flex flex-col items-center mt-8">
-        <d-btn
-          v-if="$store.state.user.userProfile.podcasts.length"
-          @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
-          variant="primary"
-        >
-          New episode
-        </d-btn>
-        <d-btn
-          v-else
-          @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
-          variant="primary"
-          class="w-1/4"
-        >
-          <i class="material-icons mr-2">videocam</i>
-          Create my podcast
-        </d-btn>
-        <!-- <small class="italic text-xs opacity-50 my-2">or</small> -->
-        <!-- <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
-          <i class="material-icons mr-2">videocam</i>
-          Create room
-        </d-btn> -->
+      <div class="flex flex-col flex-grow justify-center mt-18">
+        <div class="text-center">
+          <span class="font-thin opacity-75">
+            Good {{ timeOfDayText }},
+            {{ $store.state.user.userProfile.firstName }}!
+          </span>
+          <h2 class="text-2xl">
+            What would you like to do today?
+          </h2>
+        </div>
+        <div class="flex flex-col items-center mt-8">
+          <d-btn
+            v-if="$store.state.user.userProfile.podcasts.length"
+            @click="$store.commit('nav/SET_HOME_VIEW', 'schedule')"
+            variant="primary"
+          >
+            <i class="material-icons mr-3">videocam</i>
+            New episode
+          </d-btn>
+          <d-btn
+            v-else
+            @click="$store.commit('nav/SET_HOME_VIEW', 'create-podcast')"
+            variant="primary"
+          >
+            <i class="material-icons mr-2">videocam</i>
+            Create my podcast
+          </d-btn>
+
+          <!-- <small class="italic text-sm opacity-50 my-2">or</small>
+          <d-btn @click="createRoom" variant="primary-outline" class="w-1/4">
+            <i class="material-icons mr-2">videocam</i>
+            Create room
+          </d-btn> -->
+        </div>
       </div>
     </div>
 
     <!-- Schedule a Podcast -->
     <div
-      class="flex flex-col h-full justify-center items-center"
+      class="flex-grow justify-center items-center"
       v-else-if="$store.state.nav.homeView === 'schedule'"
     >
-      <span class="text-sm font-thin opacity-75">
-        Good {{ timeOfDayText }}, {{ $store.state.user.userProfile.firstName }}!
-      </span>
-      <h2 class="text-2xl">Let's schedule it ⚡</h2>
-      <!-- <div class="flex justify-center items-center w-full my-4">
-        <div
-          class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
-        >
-          New Episode
-          <i class="material-icons ml-3">videocam</i>
-        </div>
-        <button
-          @click="$store.commit('nav/SET_HOME_VIEW', 'home')"
-          class="text-xl p-2 ml-3 text-gray-300"
-        >
-          <i class="material-icons">clear</i>
-        </button>
-      </div> -->
+      <div class="mb-4 flex flex-col justify-center items-center">
+        <span class="text-sm font-thin opacity-75">
+          Good {{ timeOfDayText }},
+          {{ $store.state.user.userProfile.firstName }}!
+        </span>
+        <h2 class="text-2xl">Let's schedule it ⚡</h2>
+      </div>
 
-      <div class="flex w-full mt-4">
+      <div class="flex-grow">
         <ScheduleEpisode />
       </div>
     </div>
@@ -89,6 +81,10 @@
         :isStarting="true"
       />
     </div>
+
+    <div class="flex-grow" v-if="$store.state.nav.homeView === 'edit-podcast'">
+      <EditPodcast />
+    </div>
   </div>
 </template>
 
@@ -97,13 +93,15 @@ import ScheduledEpisodes from "@/components/episode/ScheduledEpisodes";
 import ScheduleEpisode from "@/components/episode/ScheduleEpisode";
 import CreatePodcast from "@/components/home/CreatePodcast";
 import ChooseDevices from "@/components/home/ChooseDevices";
+import EditPodcast from "@/components/home/EditPodcast";
 
 export default {
   components: {
     ScheduledEpisodes,
     ScheduleEpisode,
     CreatePodcast,
-    ChooseDevices
+    ChooseDevices,
+    EditPodcast
   },
 
   data: () => ({

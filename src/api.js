@@ -145,6 +145,10 @@ export default {
       return http.post("/user/logIn", { body });
     },
 
+    editProfile(body) {
+      return http.put("/profile/update", { body });
+    },
+
     verifyUserToken() {
       return http.post("/user/verifyUserToken");
     }
@@ -153,6 +157,10 @@ export default {
   podcast: {
     create(body) {
       return http.post("/podcast/create", { body });
+    },
+
+    editPodcast(body) {
+      return http.put("/podcast/update", { body });
     },
 
     createScheduledEpisode(body) {

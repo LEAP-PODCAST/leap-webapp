@@ -134,7 +134,7 @@
     </small>
 
     <div class="flex justify-center pt-4">
-      <d-btn variant="primary-outline" class="mr-2 " @click="startEpisode()">
+      <d-btn variant="primary-outline" class="mr-2 " @click="startEpisode">
         Start now
       </d-btn>
       <d-btn @click="schedulePodcast" variant="primary" class="">
@@ -188,21 +188,8 @@ export default {
     },
 
     async startEpisode() {
-      const res = await API.podcast.createScheduledEpisode({
-        name: this.name,
-        podcastId: this.podcastId,
-        startTime: new Date(this.startTime).toString(),
-        endTime: new Date(this.endTime).toString(),
-        guests: [],
-        description: this.description,
-        visibility: this.visibility,
-        timeToAlert: this.timeToAlert
-      });
-
-      if (!res.ok) {
-        this.errors.general = res.error;
-        return;
-      }
+      const res = await this.schedulePodcast();
+      if (!res.ok) return;
 
       const { ok, error, data } = await API.episode.start({
         podcastId: res.data.podcastId,
@@ -231,10 +218,11 @@ export default {
 
       if (!res.ok) {
         this.errors.general = res.error;
-        return;
+        return res;
       }
 
       this.$store.commit("nav/SET_HOME_VIEW", "home");
+      return res;
     }
   }
 };

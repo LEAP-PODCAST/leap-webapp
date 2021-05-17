@@ -85,6 +85,15 @@
               class="w-full bg-gray-900 rounded-select"
               required
             >
+              <option
+                value=""
+                disabled
+                selected
+                hidden
+                class="select-placeholder"
+              >
+                Month
+              </option>
               <option v-for="(month, i) in months" :key="i" :value="i">
                 {{ month }}
               </option>
