@@ -66,7 +66,7 @@
         <d-input
           type="checkbox"
           variant="none"
-          v-model="receiveNotifications"
+          v-model="receiveEmails"
           label="Recieve emails about upcoming your upcoming podcasts."
           required
         />
@@ -220,7 +220,7 @@ export default {
     firstName: "",
     lastName: "",
     email: "",
-    receiveNotifications: true,
+    receiveEmails: true,
     dob: {
       month: 0,
       day: 0,
@@ -409,7 +409,7 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         password: this.password,
-        receiveNotifications: this.receiveNotifications,
+        receiveEmails: this.receiveEmails,
         dob
       });
 
