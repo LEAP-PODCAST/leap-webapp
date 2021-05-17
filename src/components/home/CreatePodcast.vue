@@ -47,7 +47,7 @@
           </ul>
           <d-user-search
             @clickUser="addHost"
-            placeholder="Add Hosts or Producers"
+            placeholder="Add co-hosts (type @username to add a user or type their email)"
             variant="white-underline-small-placeholder"
           />
         </div>
@@ -126,8 +126,8 @@ export default {
 
   methods: {
     addHost(e) {
-      if (!this.podcast.hosts.some(elem => e.username === elem.username)) {
-        this.podcast.hosts.push(e);
+      if (!this.hosts.some(elem => e.username === elem.username)) {
+        this.hosts.push(e);
       } else {
         this.errors.hosts = "Cannot add duplicate hosts";
       }

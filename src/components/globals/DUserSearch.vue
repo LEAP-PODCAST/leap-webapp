@@ -52,6 +52,11 @@ export default {
       }
 
       if (/^@/.test(this.search)) {
+        if (this.search.length < 2) {
+          this.results = [];
+          return;
+        }
+
         const res = await API.profiles.search(
           this.search.substr(1, this.search.length)
         );
