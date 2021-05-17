@@ -5,20 +5,22 @@
     style="max-width:450px"
   >
     <div v-if="step === 0">
-      <div class="flex items-center border-b-2 mb-4 pb-1">
-        <div class="flex-grow">
-          <d-input
-            type="text"
-            variant="white-underline"
-            v-model="name"
-            placeholder="Podcast Name"
-          />
+      <div class="mb-1">
+        <div class="flex items-center border-b-2 pb-1">
+          <div class="flex-grow">
+            <d-input
+              type="text"
+              variant="white-underline"
+              v-model="name"
+              placeholder="Podcast Name"
+            />
+          </div>
         </div>
-      </div>
 
-      <small v-if="errors.name" class="text-red-500">
-        {{ errors.name }}
-      </small>
+        <small v-if="errors.name" class="text-red-500">
+          {{ errors.name }}
+        </small>
+      </div>
 
       <div class="flex items-center border-b-2 mb-4 pb-1">
         <i class="material-icons w-8 text-gray-700">group_add</i>
@@ -54,20 +56,22 @@
         </small>
       </div>
 
-      <div class="flex items-center border-b-2 mb-4 pb-1">
-        <i class="material-icons w-8 text-gray-700">description</i>
-        <d-input
-          type="text"
-          variant="white-underline-small-placeholder"
-          v-model="description"
-          placeholder="Add Description"
-          class="w-full"
-        />
+      <div class="mb-4">
+        <div class="flex items-center border-b-2 pb-1">
+          <i class="material-icons w-8 text-gray-700">description</i>
+          <d-input
+            type="text"
+            variant="white-underline-small-placeholder"
+            v-model="description"
+            placeholder="Add Description"
+            class="w-full"
+          />
+        </div>
+        <small v-if="errors.description" class="text-red-500">
+          {{ errors.description }}
+        </small>
       </div>
 
-      <small v-if="errors.description" class="text-red-500">
-        {{ errors.description }}
-      </small>
       <div class="flex justify-center items-center">
         <d-btn variant="primary" class="mt-2 w-1/4">
           Next
@@ -115,7 +119,8 @@ export default {
     errors: {
       name: "",
       description: "",
-      hosts: ""
+      hosts: "",
+      general: ""
     }
   }),
 

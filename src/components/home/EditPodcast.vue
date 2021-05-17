@@ -18,7 +18,7 @@
         type="text"
         placeholder="Podcast Name"
         variant="secondary"
-        v-model="podcast.name"
+        v-model="name"
       />
       <small v-if="errors.name" class="text-red-500">
         {{ errors.name }}
@@ -30,7 +30,7 @@
         type="text"
         placeholder="Description"
         variant="secondary"
-        v-model="podcast.description"
+        v-model="description"
       />
       <small v-if="errors.description" class="text-red-500">
         {{ errors.description }}
@@ -38,12 +38,8 @@
     </div>
 
     <div class="flex flex-col flex-grow">
-      <ul v-if="podcast.hosts.length" class="flex flex-wrap pb-1">
-        <li
-          v-for="(host, i) in podcast.hosts"
-          :key="i"
-          class="py-1 rounded-full m-1"
-        >
+      <ul v-if="hosts.length" class="flex flex-wrap pb-1">
+        <li v-for="(host, i) in hosts" :key="i" class="py-1 rounded-full m-1">
           <div class="text-black btn-primary rounded-full p-1">
             <span class="p-1">
               {{ host.fullUsername || host.email }}
@@ -60,13 +56,17 @@
       </ul>
       <d-user-search
         @clickUser="addHost"
-        placeholder="Add Hosts or Producers"
+        placeholder="Add or remove hosts"
         variant="primary"
       />
       <small v-if="errors.hosts" class="text-red-500">
         {{ errors.hosts }}
       </small>
     </div>
+
+    <small v-if="errors.general" class="text-red-500">
+      {{ errors.general }}
+    </small>
 
     <div class="flex flex-col justify-center items-center">
       <d-btn variant="primary" class="mt-4">
@@ -93,42 +93,50 @@ export default {
   },
 
   data: () => ({
+    name: "",
+    description: "",
+    hosts: [],
+
     errors: {
       name: "",
       description: "",
-      hosts: ""
+      hosts: "",
+      general: ""
     }
   }),
 
-  //The problem is that the value of the podcast is being changed by the inputs
-  //I need a way to set the podcast value in EditPodcast, manipulate it and thenify
-  //send it off to the store
-  //but I also need a way to listen for the editPodcast value to change...
-  //I don't understand why editPodcast is what's rendering on the profile side
+  mounted() {
+    this.name = this.podcast.name;
+    this.description = this.podcast.description;
+    this.hosts = this.podcast.hosts;
+  },
+
   computed: {
     podcast() {
-      return this.$store.state.user.editPodcast;
+      const { podcasts } = this.$store.state.user.userProfile;
+      const { podcastId } = this.$store.state.nav.homeViewData;
+      return podcasts.find(({ id }) => id === podcastId);
     }
   },
 
   methods: {
     addHost(e) {
-      if (!this.podcast.hosts.some(elem => e.username === elem.username)) {
-        this.podcast.hosts.push(e);
+      if (!this.hosts.some(elem => e.username === elem.username)) {
+        this.hosts.push(e);
       } else {
         this.errors.hosts = "Cannot add duplicate hosts";
       }
     },
 
     removeHost(index) {
-      this.podcast.hosts.splice(index, 1);
+      this.hosts.splice(index, 1);
     },
 
     verifyPodcastName() {
-      if (!this.podcast.name.length) {
+      if (!this.name.length) {
         return (this.errors.name = "Podcast name is required.");
       }
-      if (this.podcast.name.length > 40) {
+      if (this.name.length > 40) {
         return (this.errors.name =
           "Podcast name must be 40 characters or less.");
       }
@@ -136,15 +144,16 @@ export default {
     },
 
     verifyDescription() {
-      if (!this.podcast.description.length) {
+      if (!this.description.length) {
         return (this.errors.description = "Description is required.");
       }
-      if (this.podcast.description.length > 500) {
+      if (this.description.length > 500) {
         return (this.errors.description =
           "Description must be 500 characters or less.");
       }
       this.errors.description = "";
     },
+
     async submitPodcast() {
       this.verifyPodcastName();
       this.verifyDescription();
@@ -153,13 +162,14 @@ export default {
       }
 
       const { ok, error, data } = await API.podcast.editPodcast({
-        name: this.podcast.name,
-        hosts: this.podcast.hosts,
-        description: this.podcast.description,
+        name: this.name,
+        hosts: this.hosts,
+        description: this.description,
         podcastId: this.podcast.id
       });
 
       if (!ok) {
+        this.errors.general = error;
         return;
       }
 

@@ -114,8 +114,12 @@ export default {
 
   methods: {
     editPodcast(podcast) {
-      this.$store.commit("user/EDIT_PODCAST", podcast);
-      this.$store.commit("nav/SET_HOME_VIEW", "edit-podcast");
+      this.$store.commit("nav/SET_HOME_VIEW", {
+        id: "edit-podcast",
+        data: {
+          podcastId: podcast.id
+        }
+      });
     }
   }
 };
