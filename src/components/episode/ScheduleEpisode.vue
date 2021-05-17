@@ -40,28 +40,42 @@
     <div class="flex items-center border-b-2 mb-4 pb-1">
       <i class="material-icons">access_time</i>
 
-      <div class="flex text-left ml-3 w-full">
-        <div class="mr-2 flex-grow">
-          <d-datetime
-            v-model="startTime"
-            :min-date="today"
-            :max-date="oneMonthFromToday"
-            format="YYYY-MM-DD hh:mm a"
-            label="Select a start time"
-            :no-button-now="true"
-            class="border-0"
-          />
-        </div>
-        <div class="flex-grow">
-          <d-datetime
-            v-model="endTime"
-            :min-date="startTime"
-            :max-date="oneMonthFromToday"
-            format="YYYY-MM-DD hh:mm a"
-            label="Select a end time"
-            :no-button-now="true"
-          />
-        </div>
+      <div class="flex flex-grow text-left ml-3 ">
+        <v-date-picker
+          mode="dateTime"
+          v-model="range"
+          is-range
+          class="flex-grow"
+          color="red"
+        >
+          <template v-slot="{ inputValue, inputEvents }">
+            <div class="flex flex-grow justify-center items-center">
+              <input
+                :value="inputValue.start"
+                v-on="inputEvents.start"
+                class="w-1/2 border px-2 py-1 rounded focus:outline-none focus:border-indigo-300"
+              />
+              <svg
+                class="w-4 h-4 mx-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+              <input
+                :value="inputValue.end"
+                v-on="inputEvents.end"
+                class="w-1/2 border px-2 py-1 rounded focus:outline-none focus:border-indigo-300"
+              />
+            </div>
+          </template>
+        </v-date-picker>
       </div>
     </div>
 
@@ -156,6 +170,10 @@ export default {
     podcastId: 0,
     startTime: "",
     endTime: "",
+    range: {
+      start: new Date(),
+      end: new Date()
+    },
     guests: [],
     description: "",
     visibility: 0,
@@ -208,8 +226,8 @@ export default {
       const res = await API.podcast.createScheduledEpisode({
         name: this.name,
         podcastId: this.podcastId,
-        startTime: new Date(this.startTime).toString(),
-        endTime: new Date(this.endTime).toString(),
+        startTime: new Date(this.range.start).toString(),
+        endTime: new Date(this.range.end).toString(),
         guests: [],
         description: this.description,
         visibility: this.visibility,
