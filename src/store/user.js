@@ -48,6 +48,13 @@ export default ({ socket }) => {
 
     ADD_PODCAST(state, podcast) {
       state.userProfile.podcasts.push(podcast);
+    },
+
+    EDIT_PROFILE(state, info) {
+      state.userProfile.firstName = info.firstName;
+      state.userProfile.lastName = info.lastName;
+      state.userProfile.bio = info.bio;
+      state.userProfile.socials = info.socials;
     }
   };
 

@@ -8,8 +8,8 @@ export default () => ({
     contextMenuData: {},
     chat: false,
     homeView: "home",
-    profileView: 'profile',
-    homeViewData: {},
+    profileView: "profile",
+    homeViewData: {}
   },
 
   getters: {},
@@ -34,8 +34,8 @@ export default () => ({
         state.homeView = payload;
         state.homeViewData = {};
       } else {
-        state.homeView = payload.id;
         state.homeViewData = payload.data;
+        state.homeView = payload.id;
       }
     },
 

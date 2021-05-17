@@ -2,7 +2,7 @@
   <div class="w-full">
     <d-input
       type="text"
-      variant="white-underline-small-placeholder"
+      :variant="variant"
       v-model="search"
       :placeholder="placeholder"
     />
@@ -40,7 +40,8 @@ export default {
   }),
 
   props: {
-    placeholder: String
+    placeholder: String,
+    variant: String
   },
 
   methods: {

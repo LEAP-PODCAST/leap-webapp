@@ -5,20 +5,22 @@
     style="max-width:450px"
   >
     <div v-if="step === 0">
-      <div class="flex items-center border-b-2 mb-4 pb-1">
-        <div class="flex-grow">
-          <d-input
-            type="text"
-            variant="white-underline"
-            v-model="name"
-            placeholder="Podcast Name"
-          />
+      <div class="mb-1">
+        <div class="flex items-center border-b-2 pb-1">
+          <div class="flex-grow">
+            <d-input
+              type="text"
+              variant="white-underline"
+              v-model="name"
+              placeholder="Podcast Name"
+            />
+          </div>
         </div>
-      </div>
 
-      <small v-if="errors.name" class="text-red-500">
-        {{ errors.name }}
-      </small>
+        <small v-if="errors.name" class="text-red-500">
+          {{ errors.name }}
+        </small>
+      </div>
 
       <div class="flex items-center border-b-2 mb-4 pb-1">
         <i class="material-icons w-8 text-gray-700">group_add</i>
@@ -46,24 +48,30 @@
           <d-user-search
             @clickUser="addHost"
             placeholder="Add Hosts or Producers"
+            variant="white-underline-small-placeholder"
           />
         </div>
+        <small v-if="errors.hosts" class="text-red-500">
+          {{ errors.hosts }}
+        </small>
       </div>
 
-      <div class="flex items-center border-b-2 mb-4 pb-1">
-        <i class="material-icons w-8 text-gray-700">description</i>
-        <d-input
-          type="text"
-          variant="white-underline-small-placeholder"
-          v-model="description"
-          placeholder="Add Description"
-          class="w-full"
-        />
+      <div class="mb-4">
+        <div class="flex items-center border-b-2 pb-1">
+          <i class="material-icons w-8 text-gray-700">description</i>
+          <d-input
+            type="text"
+            variant="white-underline-small-placeholder"
+            v-model="description"
+            placeholder="Add Description"
+            class="w-full"
+          />
+        </div>
+        <small v-if="errors.description" class="text-red-500">
+          {{ errors.description }}
+        </small>
       </div>
 
-      <small v-if="errors.description" class="text-red-500">
-        {{ errors.description }}
-      </small>
       <div class="flex justify-center items-center">
         <d-btn variant="primary" class="mt-2 w-1/4">
           Next
@@ -102,10 +110,6 @@
 <script>
 import API from "@/api";
 
-const regex = {
-  nameWithSpaces: /^([A-Za-z ])+$/
-};
-
 export default {
   data: () => ({
     name: "",
@@ -114,14 +118,19 @@ export default {
     hosts: [],
     errors: {
       name: "",
-      description: ""
+      description: "",
+      hosts: "",
+      general: ""
     }
   }),
 
   methods: {
     addHost(e) {
-      //check to see if the host is already within the array before adding
-      this.hosts.push(e);
+      if (!this.podcast.hosts.some(elem => e.username === elem.username)) {
+        this.podcast.hosts.push(e);
+      } else {
+        this.errors.hosts = "Cannot add duplicate hosts";
+      }
     },
 
     removeHost(index) {
@@ -132,13 +141,9 @@ export default {
       if (!this.name.length) {
         return (this.errors.name = "Podcast name is required.");
       }
-      if (!regex.nameWithSpaces.test(this.name)) {
+      if (this.name.length > 64) {
         return (this.errors.name =
-          "Podcast name must only contain alphabetic characters.");
-      }
-      if (this.name.length > 20) {
-        return (this.errors.name =
-          "Podcast name must be 20 characters or less.");
+          "Podcast name must be 64 characters or less.");
       }
       this.errors.name = "";
     },
@@ -147,9 +152,9 @@ export default {
       if (!this.description.length) {
         return (this.errors.description = "Description is required.");
       }
-      if (this.description.length > 500) {
+      if (this.description.length > 128) {
         return (this.errors.description =
-          "Description must be 500 characters or less.");
+          "Description must be 128 characters or less.");
       }
       this.errors.description = "";
     },
@@ -165,25 +170,20 @@ export default {
     },
 
     async submitPodcast() {
-      console.log("SUBMITTING");
-
       const { ok, error, data } = await API.podcast.create({
         name: this.name,
-        hosts: this.hosts
+        hosts: this.hosts,
+        description: this.description
       });
 
-      console.log("DONE");
+      if (!ok) {
+        // TODO show error alert to user
+        this.errors.general = error;
+        return;
+      }
 
-      //this should come up as a notification
-      //failed to create podcast due to ...
-
-      // if (!ok) {
-      //   this.errors.general = error;
-      //   return;
-      // }
-
-      this.$store.commit("nav/SET_HOME_VIEW", "home");
       this.$store.commit("user/ADD_PODCAST", data);
+      this.$store.commit("nav/SET_HOME_VIEW", "home");
     }
   }
 };
