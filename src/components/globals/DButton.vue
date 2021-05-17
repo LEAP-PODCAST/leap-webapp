@@ -29,9 +29,10 @@ const variants = [
   "primary-dashed",
   "simple",
   "simple-black",
-  "no-padding"
+  "no-padding",
+  "control"
 ];
-const sizes = ["xs", "sm", "md", "lg"];
+const sizes = ["xs", "sm", "md", "lg", "xl"];
 
 export default {
   props: {
@@ -65,6 +66,8 @@ export default {
           return "py-2 px-3";
         case "lg":
           return "py-3 px-4";
+        case "xl":
+          return "py-4 px-5";
       }
     }
   },
@@ -182,5 +185,11 @@ export default {
     color: #e2e8f0;
     background: #009dee;
   }
+}
+
+.btn-control {
+  @apply .rounded-none;
+  @apply .border-r;
+  @apply .border-gray-600;
 }
 </style>
