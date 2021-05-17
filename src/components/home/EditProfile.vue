@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent=""
+    @submit.prevent="editProfile"
     class="flex flex-col justify-center rounded-xl p-4 w-full text-left"
   >
     <div class="flex flex-col items-center mb-8">
@@ -90,7 +90,7 @@
     </div>
 
     <div class="flex flex-col justify-center items-center">
-      <d-btn variant="primary" class="mt-2 w-full" @click="editProfile()">
+      <d-btn variant="primary" class="mt-2 w-full">
         Save
       </d-btn>
       <d-btn
@@ -238,9 +238,9 @@ export default {
         socials: socials
       });
 
-      if (error) {
+      if (!ok) {
         // TODO better notification system
-        console.log(error);
+        alert(error);
         return;
       }
       this.$store.commit("nav/SET_PROFILE_VIEW", "profile");

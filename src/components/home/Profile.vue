@@ -7,7 +7,9 @@
           {{ `${profile.firstName} ${profile.lastName}` }}
         </h2>
         <p class="opacity-50 font-thin">{{ "@" + profile.fullUsername }}</p>
-        <p class="my-3 text-center">{{ profile.bio || "Add bio" }}</p>
+        <p v-if="profile.bio.length" class="my-3 text-center">
+          {{ profile.bio }}
+        </p>
         <d-btn
           variant="primary-outline"
           class="mt-2"
