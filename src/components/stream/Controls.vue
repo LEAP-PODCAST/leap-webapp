@@ -13,17 +13,27 @@
         >
           Join with Webcam and Microphone
         </button>
-        <div class="controls flex bg-gray-700 rounded-lg">
+        <div class="controls flex bg-gray-800 rounded-lg py-2">
           <!-- Start Recording -->
           <d-btn
             variant="control"
-            class="control-button text-red-700"
-            disabled
             content="Start Recording"
+            disabled
             v-tippy="{ placement: 'top' }"
           >
-            <div class="material-icons">fiber_manual_record</div>
+            <div class="material-icons text-red-600">fiber_manual_record</div>
             <div class="text-xs">Record</div>
+          </d-btn>
+
+          <!-- Pause -->
+          <d-btn
+            variant="control"
+            content="Start Recording"
+            disabled
+            v-tippy="{ placement: 'top' }"
+          >
+            <div class="material-icons">pause_circle_outline</div>
+            <div class="text-xs">Pause</div>
           </d-btn>
 
           <!-- Mute Microphone
@@ -66,7 +76,6 @@
           <!-- Mark Timestamp -->
           <d-btn
             variant="control"
-            class="control-button"
             disabled
             content="Mark this timestamp for later as a highlight"
             v-tippy="{ placement: 'top' }"
@@ -80,7 +89,6 @@
             variant="control"
             @click="$store.dispatch('nav/toggleChat')"
             :class="$store.state.nav.chat ? '' : ''"
-            class="control-button"
             content="Toggle the audience view"
             v-tippy="{ placement: 'top' }"
           >
@@ -88,18 +96,29 @@
             <div class="text-xs">Audience</div>
           </d-btn>
 
+          <!-- Guest link -->
+          <d-btn
+            variant="control"
+            content="Copy Guest Link"
+            v-tippy="{ placement: 'top' }"
+            @click="copyLink"
+          >
+            <div class="material-icons">content_copy</div>
+            <div class="text-xs">Guest Link</div>
+          </d-btn>
+
           <!-- End call -->
           <d-btn
             variant="control"
+            class="border-none"
             v-if="isHost"
             @click="endEpisode"
             norounded
-            class="control-button bg-red-600 rounded-tr-lg rounded-br-lg"
             content="End the call for everyone"
             v-tippy="{ placement: 'top' }"
           >
-            <span class="material-icons">call_end</span>
-            <div class="text-xs">End Call</div>
+            <span class="material-icons text-red-700">call_end</span>
+            <div class="text-xs text-red-700">End Call</div>
           </d-btn>
         </div>
       </div>
@@ -114,7 +133,6 @@
         <d-btn
           variant="control"
           disabled
-          class="control-button"
           content="Share on social media or copy the link"
           v-tippy="{ placement: 'top' }"
         >
@@ -126,12 +144,11 @@
         <d-btn
           variant="control"
           @click="requestToJoinAsGuest"
-          class="control-button"
           content="Request to join the conversation"
           v-tippy="{ placement: 'top' }"
         >
           <span class="material-icons">waving_hand</span>
-          <div>Raise Hand</div>
+          <div class="text-xs">Raise Hand</div>
         </d-btn>
 
         <!-- Show Audience -->
@@ -141,7 +158,6 @@
           :class="$store.state.nav.chat ? '' : ''"
           content="Toggle the audience view"
           v-tippy="{ placement: 'top' }"
-          class="control-button"
         >
           <span class="material-icons">people_alt</span>
           <div class="text-xs">Audience</div>
@@ -153,7 +169,6 @@
           @click="$router.push('/')"
           content="Leave the room"
           v-tippy="{ placement: 'top' }"
-          class="control-button"
         >
           <span class="material-icons">meeting_room</span>
           <div class="text-xs">Leave</div>
@@ -199,6 +214,21 @@ export default {
   },
 
   methods: {
+    copyLink() {
+      const el = document.createElement("textarea");
+      el.value = window.location.href;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+
+      this.$notify.success({
+        message: "Guest link copied to clipboard",
+        bottom: true,
+        right: true
+      });
+    },
+
     async requestToJoinAsGuest() {
       const { ok, error } = await API.room.requestToJoinAsGuest();
 
@@ -218,12 +248,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.control-button {
-  font-size: 0.66rem;
-  @apply .text-white;
-  @apply .p-3;
-  @apply .w-20;
-}
-</style>

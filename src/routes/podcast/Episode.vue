@@ -1,46 +1,44 @@
 <template>
-  <div
-    v-if="$store.state.room.episode"
-    class="flex w-full h-full bg-black-800 rounded-lg p-5"
-  >
-    <div class="flex flex-col overflow-hidden w-full">
-      <h2 class="text-2xl text-white">
-        {{ $store.state.room.episode.name }}
-      </h2>
-      <h2 class="text-white opacity-50">
-        {{ $store.state.room.podcast.name }}
-      </h2>
-      <div class="flex-grow p-2" id="room-container">
-        <div
-          class="flex flex-wrap md:flex-row items-center justify-center w-full h-full"
-        >
-          <VideoContainer class="w-full h-full">
-            <div
-              v-for="stream in webcams"
-              :key="stream.producerId"
-              class="video"
-            >
-              <RemoteWebcam :stream="stream" />
-            </div>
-          </VideoContainer>
+  <div v-if="$store.state.room.episode" class="flex w-full h-full p-5">
+    <div class="flex w-full p-2 bg-gray-900 rounded-lg">
+      <div class="flex flex-col w-full overflow-hidden">
+        <h2 class="text-2xl text-white ml-3">
+          {{ $store.state.room.episode.name }}
+        </h2>
+        <h2 class="text-white opacity-50 ml-3">
+          {{ $store.state.room.podcast.name }}
+        </h2>
+        <div class="flex-grow p-2" id="room-container">
+          <div
+            class="flex flex-wrap md:flex-row items-center justify-center w-full h-full"
+          >
+            <VideoContainer class="w-full h-full">
+              <div
+                v-for="stream in webcams"
+                :key="stream.producerId"
+                class="video"
+              >
+                <RemoteWebcam :stream="stream" />
+              </div>
+            </VideoContainer>
+          </div>
+        </div>
+
+        <!-- Hidden Audio Players (eg: Voice Chat) -->
+        <div class="absolute visually-hidden">
+          <VoiceChatter
+            v-for="stream in mics"
+            :key="stream.producerId"
+            :stream="stream"
+          />
+        </div>
+
+        <div class="flex justify-center w-full">
+          <Controls />
         </div>
       </div>
-
-      <!-- Hidden Audio Players (eg: Voice Chat) -->
-      <div class="absolute visually-hidden">
-        <VoiceChatter
-          v-for="stream in mics"
-          :key="stream.producerId"
-          :stream="stream"
-        />
-      </div>
-
-      <div class="flex justify-center w-full">
-        <Controls />
-      </div>
+      <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" />
     </div>
-
-    <ChatRoom v-if="$store.state.nav.chat" class="flex-shrink-0" />
   </div>
 </template>
 
