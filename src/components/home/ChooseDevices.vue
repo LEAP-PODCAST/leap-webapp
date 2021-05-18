@@ -84,7 +84,11 @@
       >
         {{ isStarting ? "Start episode" : "Join episode" }}
       </d-btn>
-      <d-btn @click="$router.push('/')" type="button" variant="simple"
+      <d-btn
+        @click="$router.push('/')"
+        type="button"
+        variant="simple"
+        class="my-3"
         >Cancel</d-btn
       >
     </div>
