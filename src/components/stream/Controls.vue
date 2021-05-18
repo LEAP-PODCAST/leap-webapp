@@ -18,6 +18,7 @@
           <d-btn
             variant="control"
             content="Start Recording"
+            disabled
             v-tippy="{ placement: 'top' }"
           >
             <div class="material-icons text-red-600">fiber_manual_record</div>
@@ -28,6 +29,7 @@
           <d-btn
             variant="control"
             content="Start Recording"
+            disabled
             v-tippy="{ placement: 'top' }"
           >
             <div class="material-icons">pause_circle_outline</div>
@@ -146,7 +148,7 @@
           v-tippy="{ placement: 'top' }"
         >
           <span class="material-icons">waving_hand</span>
-          <div>Raise Hand</div>
+          <div class="text-xs">Raise Hand</div>
         </d-btn>
 
         <!-- Show Audience -->

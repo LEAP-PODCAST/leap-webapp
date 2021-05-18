@@ -1,14 +1,14 @@
 <template>
-  <div v-if="$store.state.room.episode" class="flex w-full h-full">
-    <div class="flex overflow-hidden w-full p-2 m-5 bg-gray-900 rounded-lg">
-      <div class="flex flex-col w-full">
-        <h2 class="text-2xl text-white ml-5">
+  <div v-if="$store.state.room.episode" class="flex w-full h-full p-5">
+    <div class="flex w-full p-2 bg-gray-900 rounded-lg">
+      <div class="flex flex-col w-full overflow-hidden">
+        <h2 class="text-2xl text-white ml-3">
           {{ $store.state.room.episode.name }}
         </h2>
-        <h2 class="text-white opacity-50 ml-5">
+        <h2 class="text-white opacity-50 ml-3">
           {{ $store.state.room.podcast.name }}
         </h2>
-        <div class="flex-grow p-2 pb-2" id="room-container">
+        <div class="flex-grow p-2" id="room-container">
           <div
             class="flex flex-wrap md:flex-row items-center justify-center w-full h-full"
           >
@@ -130,10 +130,4 @@ export default {
 };
 </script>
 
-<style>
-div {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box; /* Firefox */
-  -webkit-box-sizing: border-box; /* Safari */
-}
-</style>
+<style></style>
