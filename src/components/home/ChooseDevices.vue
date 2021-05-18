@@ -8,19 +8,8 @@
         Ready? 🔥
       </h2>
     </div>
-    <div class="flex justify-center items-center w-full my-4">
-      <div
-        class="p-btn flex justify-center inline-block font-bold px-6 rounded-full btn-primary py-2"
-      >
-        <i class="material-icons mr-3">videocam</i>
-        Go live
-      </div>
-      <button @click="$router.push('/')" class="text-xl p-2 ml-3 text-gray-300">
-        <i class="material-icons">clear</i>
-      </button>
-    </div>
 
-    <div class="flex items-center relative mb-3">
+    <div class="flex items-center relative my-6">
       <video
         autoplay
         muted
@@ -95,6 +84,13 @@
       >
         {{ isStarting ? "Start episode" : "Join episode" }}
       </d-btn>
+      <d-btn
+        @click="$router.push('/')"
+        type="button"
+        variant="simple"
+        class="my-3"
+        >Cancel</d-btn
+      >
     </div>
   </div>
 </template>
