@@ -85,20 +85,12 @@
               class="w-full bg-gray-900 rounded-select"
               required
             >
-              <option
-                value=""
-                disabled
-                selected
-                hidden
-                class="select-placeholder"
-              >
-                Month
-              </option>
               <option v-for="(month, i) in months" :key="i" :value="i">
                 {{ month }}
               </option>
             </select>
           </label>
+
           <label class="w-3/12 mr-2">
             <select
               v-model="dob.day"
@@ -110,6 +102,7 @@
               </option>
             </select>
           </label>
+
           <label class="w-3/12">
             <select
               v-model="dob.year"
@@ -428,5 +421,16 @@ export default {
 <style lang="scss" scoped>
 a {
   color: #3e5daa;
+}
+.rounded-select {
+  text-indent: 1rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: darkgray;
+  background-color: rgb(26, 32, 44);
+  --tw-text-opacity: 1;
+  color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 </style>
